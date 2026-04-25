@@ -1,13 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-
-export const signInSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-});
+import { signInSchema } from "./schema";
 
 export async function signInAction(formData: FormData) {
   const parsed = signInSchema.safeParse({

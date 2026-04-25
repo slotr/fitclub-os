@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { signInSchema } from "../actions";
+import { signInSchema } from "../schema";
 
 describe("signInSchema", () => {
   it("requires email + password", () => {
