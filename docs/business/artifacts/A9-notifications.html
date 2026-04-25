@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>A9 — Notifications</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .content { flex:1; overflow: hidden; padding: 8px 20px 0; }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0 14px;
+  }
+  h1 {
+    font-size: 22px; font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .clear {
+    font-size: 12px;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .seg-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .chip {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--fg-muted);
+  }
+  .chip.active { background: var(--fg); color: var(--surface); border-color: var(--fg); }
+
+  .notif-list {
+    background: var(--surface);
+    border-radius: 14px;
+    box-shadow: var(--sh-1);
+    overflow: hidden;
+  }
+  .notif {
+    display: grid;
+    grid-template-columns: 8px 1fr auto;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-faint);
+    align-items: flex-start;
+  }
+  .notif:last-child { border-bottom: 0; }
+  .notif .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+  }
+  .dot.good { background: var(--good); }
+  .dot.info { background: var(--info); }
+  .dot.warn { background: var(--warn); }
+
+  .notif .title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .notif .body {
+    font-size: 12px;
+    color: var(--fg-muted);
+    line-height: 1.35;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .notif .when {
+    font-size: 11px;
+    color: var(--fg-faint);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+    </div>
+
+    <div class="content">
+      <div class="top">
+        <h1>Notifications</h1>
+        <span class="clear">Mark all read</span>
+      </div>
+
+      <div class="seg-row">
+        <div class="chip active">All</div>
+        <div class="chip">Bookings</div>
+        <div class="chip">Payments</div>
+        <div class="chip">Gym</div>
+      </div>
+
+      <div class="notif-list">
+        <div class="notif">
+          <div class="dot good"></div>
+          <div>
+            <div class="title">Booking confirmed</div>
+            <div class="body">Yoga Flow at 18:00 with Ayşe — Studio A</div>
+          </div>
+          <div class="when">12m ago</div>
+        </div>
+        <div class="notif">
+          <div class="dot good"></div>
+          <div>
+            <div class="title">Payment received</div>
+            <div class="body">₺899 from Premium plan — receipt sent</div>
+          </div>
+          <div class="when">2h ago</div>
+        </div>
+        <div class="notif">
+          <div class="dot info"></div>
+          <div>
+            <div class="title">Class reminder</div>
+            <div class="body">CrossFit WOD starts in 1h — Open floor</div>
+          </div>
+          <div class="when">14m ago</div>
+        </div>
+        <div class="notif">
+          <div class="dot warn"></div>
+          <div>
+            <div class="title">Waitlist update</div>
+            <div class="body">A spot opened in Spin — tap to confirm</div>
+          </div>
+          <div class="when">3h ago</div>
+        </div>
+        <div class="notif">
+          <div class="dot info"></div>
+          <div>
+            <div class="title">Class cancelled</div>
+            <div class="body">Pilates Reformer 19:30 — instructor sick</div>
+          </div>
+          <div class="when">5h ago</div>
+        </div>
+        <div class="notif">
+          <div class="dot good"></div>
+          <div>
+            <div class="title">Welcome to FitClub</div>
+            <div class="body">Your membership is active — enjoy!</div>
+          </div>
+          <div class="when">Yesterday</div>
+        </div>
+        <div class="notif">
+          <div class="dot warn"></div>
+          <div>
+            <div class="title">Membership renewing soon</div>
+            <div class="body">₺899 will be charged on 15 May</div>
+          </div>
+          <div class="when">2d ago</div>
+        </div>
+        <div class="notif">
+          <div class="dot info"></div>
+          <div>
+            <div class="title">New class added</div>
+            <div class="body">Strength 101 with Mehmet — Tuesdays 20:30</div>
+          </div>
+          <div class="when">3d ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabbar">
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-7h6v7h3a1 1 0 001-1V10"/></svg><span>Home</span></div>
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg><span>Classes</span></div>
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg><span>Pay</span></div>
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0M12 13a4 4 0 100-8 4 4 0 000 8z"/></svg><span>Profile</span></div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>A9 — Notifications inbox.</b> Most members read on WhatsApp; this is fallback.</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>B2 — Classes List</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .content { flex:1; overflow:hidden; padding: 8px 20px 0; }
+  .h1 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin: 4px 0 14px; }
+  .day-tabs { display:flex; gap:6px; margin-bottom:14px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .day-tabs::-webkit-scrollbar { display:none; }
+  .day-tab { flex-shrink:0; padding:6px 12px; border-radius:999px; font-size:12px; font-weight:600;
+    background:var(--surface); color:var(--fg-muted); border:1px solid var(--border); }
+  .day-tab.active { background:var(--fg); color:var(--surface); border-color:var(--fg); }
+
+  .class-card {
+    display:grid; grid-template-columns: 40px 1fr auto; gap:12px;
+    background:var(--surface); border-radius:14px; padding:12px;
+    box-shadow:var(--sh-1); margin-bottom:8px; align-items:center;
+  }
+  .icon { width:40px; height:40px; border-radius:10px; display:flex;
+    align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+  .ic-yoga { background:var(--cat-yoga); color:#92400e; }
+  .ic-cross { background:var(--cat-cross); color:#991b1b; }
+  .ic-pilates { background:var(--cat-pilates); color:#1e40af; }
+  .ic-strength { background:var(--cat-strength); color:#5b21b6; }
+  .ic-spin { background:var(--cat-cardio); color:#065f46; }
+  .ic-pt { background:var(--cat-pt); color:#9f1239; }
+
+  .class-card .name { font-weight:600; font-size:14px; line-height:1.2; }
+  .class-card .meta { font-size:11px; color:var(--fg-muted); margin-top:3px; }
+  .class-card .meta b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
+
+  .filter-row { display:flex; gap:6px; padding-top:6px; overflow-x:auto; }
+  .filter-row::-webkit-scrollbar { display:none; }
+  .chip { flex-shrink:0; padding:6px 12px; border-radius:999px; font-size:11px; font-weight:500;
+    background:var(--surface); border:1px solid var(--border); color:var(--fg-muted); }
+  .chip.on { background:var(--accent-soft); border-color:var(--accent); color:#92400e; font-weight:600; }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+    </div>
+    <div class="content">
+      <h1 class="h1">Classes</h1>
+
+      <div class="day-tabs">
+        <span class="day-tab active">Today</span>
+        <span class="day-tab">Sat 26</span>
+        <span class="day-tab">Sun 27</span>
+        <span class="day-tab">Mon 28</span>
+        <span class="day-tab">Tue 29</span>
+        <span class="day-tab">Wed 30</span>
+      </div>
+
+      <div class="class-card">
+        <div class="icon ic-pilates">P</div>
+        <div>
+          <div class="name">Pilates Reformer</div>
+          <div class="meta"><b>17:00</b> · Selin · <b>6/8</b></div>
+        </div>
+        <span class="pill good">Open</span>
+      </div>
+
+      <div class="class-card">
+        <div class="icon ic-yoga">Y</div>
+        <div>
+          <div class="name">Yoga Flow</div>
+          <div class="meta"><b>18:00</b> · Ayşe · <b>8/12</b></div>
+        </div>
+        <span class="pill good">Open</span>
+      </div>
+
+      <div class="class-card">
+        <div class="icon ic-cross">C</div>
+        <div>
+          <div class="name">CrossFit WOD</div>
+          <div class="meta"><b>19:30</b> · Mehmet · <b>12/12</b></div>
+        </div>
+        <span class="pill warn">Waitlist</span>
+      </div>
+
+      <div class="class-card">
+        <div class="icon ic-spin">S</div>
+        <div>
+          <div class="name">Spin</div>
+          <div class="meta"><b>20:30</b> · Hakan · <b>4/8</b></div>
+        </div>
+        <span class="pill good">Open</span>
+      </div>
+
+      <div class="class-card">
+        <div class="icon ic-strength">L</div>
+        <div>
+          <div class="name">Strength 101</div>
+          <div class="meta"><b>21:00</b> · Mehmet · <b>3/10</b></div>
+        </div>
+        <span class="pill good">Open</span>
+      </div>
+
+      <div class="filter-row">
+        <span class="chip on">All</span>
+        <span class="chip">Yoga</span>
+        <span class="chip">CrossFit</span>
+        <span class="chip">Pilates</span>
+        <span class="chip">Strength</span>
+        <span class="chip">Spin</span>
+      </div>
+
+    </div>
+
+    <div class="tabbar">
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-7h6v7h3a1 1 0 001-1V10"/></svg><span>Home</span></div>
+      <div class="tab active"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg><span>Classes</span></div>
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg><span>Pay</span></div>
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0M12 13a4 4 0 100-8 4 4 0 000 8z"/></svg><span>Profile</span></div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>B2 — Classes.</b> Day tabs · category-coded class cards · capacity + status pill · filter chips.</div>
+</div>
+</div>
+</body></html>

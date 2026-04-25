@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Wireframe Gallery — WhatsApp-Native Gym OS</title>
+<style>
+  :root {
+    --bg: #fafaf9; --fg: #1a1a1a; --fg-muted: #6b7280; --border: #e7e5e4;
+    --accent: #f59e0b; --surface: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    -webkit-font-smoothing: antialiased; }
+
+  header { padding: 64px 32px 32px; max-width: 1280px; margin: 0 auto; }
+  h1 { font-size: 44px; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 8px; }
+  header p { font-size: 16px; color: var(--fg-muted); margin: 0; max-width: 680px; line-height: 1.5; }
+  header .meta { margin-top: 18px; display: flex; gap: 24px; font-size: 13px; color: var(--fg-muted); flex-wrap: wrap; }
+  header .meta b { color: var(--fg); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  section { max-width: 1280px; margin: 0 auto; padding: 8px 32px; }
+  section h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 32px 0 4px; }
+  section .sub { font-size: 13px; color: var(--fg-muted); margin: 0 0 20px; }
+
+  .grid { display: grid; gap: 20px; }
+  .grid.mobile { grid-template-columns: repeat(4, 1fr); }
+  .grid.desktop { grid-template-columns: repeat(2, 1fr); }
+  .grid.marketing { grid-template-columns: repeat(2, 1fr); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: transform 200ms, box-shadow 200ms; text-decoration: none; color: inherit; display: block;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+
+  .thumb-mobile {
+    height: 280px; background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%);
+    position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+  }
+  .thumb-mobile iframe {
+    width: 460px; height: 980px; border: 0;
+    transform: scale(0.27); transform-origin: top left;
+    pointer-events: none; position: absolute; top: 50%; left: 50%; margin: -490px 0 0 -230px;
+  }
+
+  .thumb-desktop {
+    height: 240px; background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%);
+    position: relative; overflow: hidden;
+  }
+  .thumb-desktop iframe {
+    width: 1320px; height: 880px; border: 0;
+    transform: scale(0.36); transform-origin: top left;
+    pointer-events: none; position: absolute; top: 0; left: 50%; margin-left: -660px;
+  }
+
+  .meta-row { padding: 12px 14px; }
+  .meta-row .id { font-size: 10px; color: var(--accent); font-weight: 800; letter-spacing: 0.06em; }
+  .meta-row h3 { margin: 2px 0 3px; font-size: 13px; font-weight: 700; }
+  .meta-row p { margin: 0; font-size: 11px; color: var(--fg-muted); line-height: 1.4; }
+
+  footer { max-width: 1280px; margin: 32px auto; padding: 32px;
+    border-top: 1px solid var(--border); font-size: 13px; color: var(--fg-muted); text-align: center; }
+  footer a { color: var(--accent); }
+
+  .legend { display: flex; gap: 20px; font-size: 12px; color: var(--fg-muted); margin-top: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+</style>
+</head><body>
+
+<header>
+  <h1>Wireframe Gallery</h1>
+  <p>WhatsApp-Native Gym OS — Member mobile, admin web, marketing site. Click any tile for the full artifact.</p>
+  <div class="meta">
+    <span><b>33</b> screens rendered</span>
+    <span><b>14</b> mobile · <b>15</b> admin · <b>4</b> marketing</span>
+    <span>Tokens: <a href="_tokens.css">_tokens.css</a></span>
+    <span>Spec: <a href="../2026-04-25-wireframe-specs.md">wireframe-specs.md</a></span>
+  </div>
+</header>
+
+<section>
+  <h2>Member mobile (Expo)</h2>
+  <p class="sub">iPhone 15-class frame · 14 screens covering onboarding, daily-use, settings.</p>
+  <div class="grid mobile">
+
+    <a class="card" href="A1-splash.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A1-splash.html"></iframe></div>
+      <div class="meta-row"><div class="id">A1</div><h3>Splash</h3><p>Brand impression on cold start</p></div>
+    </a>
+
+    <a class="card" href="A2-otp-request.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A2-otp-request.html"></iframe></div>
+      <div class="meta-row"><div class="id">A2</div><h3>Phone OTP</h3><p>Phone-first login, no passwords</p></div>
+    </a>
+
+    <a class="card" href="A3-otp-verify.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A3-otp-verify.html"></iframe></div>
+      <div class="meta-row"><div class="id">A3</div><h3>OTP Verify</h3><p>6-digit code, paste-friendly</p></div>
+    </a>
+
+    <a class="card" href="A4-profile.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A4-profile.html"></iframe></div>
+      <div class="meta-row"><div class="id">A4</div><h3>Profile Complete</h3><p>Captured in under 30 seconds</p></div>
+    </a>
+
+    <a class="card" href="A5-plan-picker.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A5-plan-picker.html"></iframe></div>
+      <div class="meta-row"><div class="id">A5</div><h3>Plan Picker</h3><p>3 plans · Premium featured</p></div>
+    </a>
+
+    <a class="card" href="A7-permissions.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A7-permissions.html"></iframe></div>
+      <div class="meta-row"><div class="id">A7</div><h3>Welcome + Permissions</h3><p>Onboard before showing the QR</p></div>
+    </a>
+
+    <a class="card" href="A8-fullscreen-qr.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A8-fullscreen-qr.html"></iframe></div>
+      <div class="meta-row"><div class="id">A8</div><h3>Full-screen QR</h3><p>Black bg + max brightness · 30s rotating</p></div>
+    </a>
+
+    <a class="card" href="A9-notifications.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="A9-notifications.html"></iframe></div>
+      <div class="meta-row"><div class="id">A9</div><h3>Notifications Inbox</h3><p>WhatsApp is primary; this is fallback</p></div>
+    </a>
+
+    <a class="card" href="B1-home.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="B1-home.html"></iframe></div>
+      <div class="meta-row"><div class="id">B1</div><h3>Home</h3><p>Rotating QR + week stats + activity</p></div>
+    </a>
+
+    <a class="card" href="B2-classes.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="B2-classes.html"></iframe></div>
+      <div class="meta-row"><div class="id">B2</div><h3>Classes</h3><p>Day tabs · capacity + status pills</p></div>
+    </a>
+
+    <a class="card" href="B3-membership.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="B3-membership.html"></iframe></div>
+      <div class="meta-row"><div class="id">B3</div><h3>Membership & Payment</h3><p>Dark hero · Stripe Customer Portal</p></div>
+    </a>
+
+    <a class="card" href="B4-profile.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="B4-profile.html"></iframe></div>
+      <div class="meta-row"><div class="id">B4</div><h3>Profile / Settings</h3><p>Notification preferences front and center</p></div>
+    </a>
+
+    <a class="card" href="C1-class-detail.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="C1-class-detail.html"></iframe></div>
+      <div class="meta-row"><div class="id">C1</div><h3>Class Detail</h3><p>Hero + book CTA in tap distance</p></div>
+    </a>
+
+    <a class="card" href="C2-booking-confirm.html" target="_blank">
+      <div class="thumb-mobile"><iframe src="C2-booking-confirm.html"></iframe></div>
+      <div class="meta-row"><div class="id">C2</div><h3>Booking Confirm</h3><p>Modal sheet · calendar quick-link</p></div>
+    </a>
+
+  </div>
+</section>
+
+<section>
+  <h2>Admin web (Next.js)</h2>
+  <p class="sub">1280-wide browser frame · sidebar + topbar shell · 15 screens.</p>
+  <div class="grid desktop">
+
+    <a class="card" href="W1-login.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W1-login.html"></iframe></div>
+      <div class="meta-row"><div class="id">W1</div><h3>Admin Login</h3><p>Email + password, optional magic link</p></div>
+    </a>
+
+    <a class="card" href="W2-shell-empty.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W2-shell-empty.html"></iframe></div>
+      <div class="meta-row"><div class="id">W2</div><h3>Empty Shell</h3><p>First-login state · 3 quick-start cards</p></div>
+    </a>
+
+    <a class="card" href="W3-dashboard.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W3-dashboard.html"></iframe></div>
+      <div class="meta-row"><div class="id">W3</div><h3>Dashboard</h3><p>4 KPI · live feed · 3 charts · attention queue</p></div>
+    </a>
+
+    <a class="card" href="W4-members.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W4-members.html"></iframe></div>
+      <div class="meta-row"><div class="id">W4</div><h3>Members List</h3><p>Search · status pills · 487 members</p></div>
+    </a>
+
+    <a class="card" href="W5-member-detail.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W5-member-detail.html"></iframe></div>
+      <div class="meta-row"><div class="id">W5</div><h3>Member Detail</h3><p>3-col · timeline + risk + comms</p></div>
+    </a>
+
+    <a class="card" href="W6-member-create.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W6-member-create.html"></iframe></div>
+      <div class="meta-row"><div class="id">W6</div><h3>Member Create Modal</h3><p>Auto WhatsApp welcome on by default</p></div>
+    </a>
+
+    <a class="card" href="W7-plans.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W7-plans.html"></iframe></div>
+      <div class="meta-row"><div class="id">W7</div><h3>Plans</h3><p>3 active plans · drag to reorder</p></div>
+    </a>
+
+    <a class="card" href="W8-classes.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W8-classes.html"></iframe></div>
+      <div class="meta-row"><div class="id">W8</div><h3>Classes Schedule</h3><p>Week grid · today highlighted · color-coded</p></div>
+    </a>
+
+    <a class="card" href="W9-session-detail.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W9-session-detail.html"></iframe></div>
+      <div class="meta-row"><div class="id">W9</div><h3>Session Detail</h3><p>Roster · attendance · waitlist promotion</p></div>
+    </a>
+
+    <a class="card" href="W10-checkins.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W10-checkins.html"></iframe></div>
+      <div class="meta-row"><div class="id">W10</div><h3>Check-ins</h3><p>Realtime feed · manual entry · 7-day history</p></div>
+    </a>
+
+    <a class="card" href="W11-payments.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W11-payments.html"></iframe></div>
+      <div class="meta-row"><div class="id">W11</div><h3>Payments</h3><p>KPI strip · failed-row inline retry · Stripe</p></div>
+    </a>
+
+    <a class="card" href="W12-notifications.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W12-notifications.html"></iframe></div>
+      <div class="meta-row"><div class="id">W12</div><h3>Notifications · Compose</h3><p>WhatsApp template-driven · live preview</p></div>
+    </a>
+
+    <a class="card" href="W13-reports.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W13-reports.html"></iframe></div>
+      <div class="meta-row"><div class="id">W13</div><h3>Reports</h3><p>Revenue · cohorts · attendance · CSV+WhatsApp export</p></div>
+    </a>
+
+    <a class="card" href="W14-audit.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W14-audit.html"></iframe></div>
+      <div class="meta-row"><div class="id">W14</div><h3>Audit Log</h3><p>Compliance trail · expandable JSON · KVKK+GDPR</p></div>
+    </a>
+
+    <a class="card" href="W15-settings.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="W15-settings.html"></iframe></div>
+      <div class="meta-row"><div class="id">W15</div><h3>Settings · General</h3><p>Tenant + contact + hours · Channels next</p></div>
+    </a>
+
+  </div>
+</section>
+
+<section>
+  <h2>Public marketing</h2>
+  <p class="sub">Conversion-focused site · hero + themes + comparison + pricing + trust.</p>
+  <div class="grid marketing">
+
+    <a class="card" href="M1-homepage.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="M1-homepage.html"></iframe></div>
+      <div class="meta-row"><div class="id">M1</div><h3>Homepage</h3><p>Hero (phone+admin overlay) · 3 themes · compare · pricing · final CTA</p></div>
+    </a>
+
+    <a class="card" href="M2-pricing.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="M2-pricing.html"></iframe></div>
+      <div class="meta-row"><div class="id">M2</div><h3>Pricing</h3><p>Single tier · feature matrix · 10-FAQ accordion</p></div>
+    </a>
+
+    <a class="card" href="M3-demo.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="M3-demo.html"></iframe></div>
+      <div class="meta-row"><div class="id">M3</div><h3>Demo</h3><p>Phone-based member demo · founder walkthrough</p></div>
+    </a>
+
+    <a class="card" href="M4-trust.html" target="_blank">
+      <div class="thumb-desktop"><iframe src="M4-trust.html"></iframe></div>
+      <div class="meta-row"><div class="id">M4</div><h3>Trust</h3><p>Compliance · security · founder · durability · roadmap</p></div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <p><b>33 screens rendered.</b> Click any tile for the full HTML artifact.</p>
+  <p>
+    Specs: <a href="../2026-04-25-wireframe-specs.md">wireframe-specs.md</a> ·
+    Positioning: <a href="../2026-04-25-positioning.md">positioning.md</a> ·
+    Sales deck: <a href="../2026-04-25-sales-deck.md">sales-deck.md</a> ·
+    Claude Design prompt: <a href="../2026-04-25-claude-design-prompt.md">claude-design-prompt.md</a>
+  </p>
+</footer>
+
+</body></html>

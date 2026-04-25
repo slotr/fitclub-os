@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>W2 — Admin Shell (Empty)</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  body { background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%); }
+  .stage { padding: 32px; }
+  .browser {
+    width: 1280px; max-width: 100%; height: 800px;
+    background: var(--surface); border-radius: 14px;
+    box-shadow: var(--sh-float); overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .browser-bar {
+    height: 36px; background: #f5f4f1; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 14px; gap: 6px; flex-shrink: 0;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #ef4444; } .dot.y { background: #f59e0b; } .dot.g { background: #10b981; }
+  .url { flex: 1; margin: 0 80px 0 14px; height: 22px; background: var(--surface);
+    border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--fg-muted); }
+
+  .app { flex: 1; display: grid; grid-template-columns: 224px 1fr; min-height: 0; }
+  .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 18px 12px; }
+  .brand { font-weight: 800; letter-spacing: -0.02em; font-size: 16px; padding: 4px 8px; margin-bottom: 14px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; margin: 2px 0; border-radius: var(--r-sm);
+    color: var(--fg-muted); font-size: 13px; font-weight: 500; cursor: pointer;
+  }
+  .nav-item.hover { background: #faf9f6; color: var(--fg); }
+  .nav-item svg { width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0; }
+
+  .main { display: flex; flex-direction: column; min-height: 0; background: var(--bg); }
+  .topbar {
+    height: 56px; background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 24px; gap: 16px; flex-shrink: 0;
+  }
+  .crumb { font-size: 13px; color: var(--fg-faint); }
+  .search { flex: 1; max-width: 360px; height: 32px; background: #f5f4f1;
+    border-radius: var(--r-sm); display: flex; align-items: center; padding: 0 12px;
+    font-size: 12px; color: var(--fg-muted); }
+  .search kbd { margin-left: auto; padding: 2px 6px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; font-size: 10px; font-family: ui-monospace, monospace; }
+
+  .content { flex:1; padding: 24px 32px; overflow: auto; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; }
+
+  .empty-illo { width: 200px; height: 200px; margin-bottom: 18px; }
+  .empty-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0; color: var(--fg); }
+  .empty-sub { font-size: 14px; font-weight: 400; color: var(--fg-muted); margin: 6px 0 28px; }
+
+  .quick-row { display: grid; grid-template-columns: repeat(3, 240px); gap: 14px; }
+  .quick-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 16px 18px; box-shadow: var(--sh-1); cursor: pointer; transition: transform 80ms ease;
+  }
+  .quick-card:hover { transform: translateY(-1px); box-shadow: var(--sh-2); }
+  .quick-card .ico {
+    width: 32px; height: 32px; border-radius: 8px; background: var(--accent-soft);
+    display:flex; align-items:center; justify-content:center; margin-bottom: 10px;
+  }
+  .quick-card .ico svg { width: 18px; height: 18px; stroke: var(--fg); stroke-width: 2; fill: none; }
+  .quick-card .qt { font-size: 13px; font-weight: 700; color: var(--fg); }
+  .quick-card .qd { font-size: 11px; color: var(--fg-muted); margin-top: 4px; }
+  .quick-card .ql { font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 10px; display:flex; align-items:center; gap:4px; }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="browser">
+  <div class="browser-bar">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <div class="url">fitclub.local/admin</div>
+  </div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">FitClub</div>
+      <div class="nav-item hover">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-7h6v7h3a1 1 0 001-1V10"/></svg>
+        Dashboard
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0M12 13a4 4 0 100-8 4 4 0 000 8z"/></svg>
+        Members
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Plans
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
+        Classes
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+        Check-ins
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg>
+        Payments
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14V11a6 6 0 10-12 0v3a2 2 0 01-.6 1.4L4 17h5m6 0a3 3 0 11-6 0"/></svg>
+        Notifications
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V13M15 19V9M3 19h18M3 19V5"/></svg>
+        Reports
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/></svg>
+        Audit log
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.3 3.6a1.5 1.5 0 013.4 0l.2 1a8 8 0 014.5 2.5l1-.4a1.5 1.5 0 011.7 2.4l-.7.7a8 8 0 010 5.4l.7.7a1.5 1.5 0 01-1.7 2.4l-1-.4a8 8 0 01-4.5 2.5l-.2 1a1.5 1.5 0 01-3.4 0l-.2-1a8 8 0 01-4.5-2.5l-1 .4a1.5 1.5 0 01-1.7-2.4l.7-.7a8 8 0 010-5.4L1.9 9.1a1.5 1.5 0 011.7-2.4l1 .4a8 8 0 014.5-2.5l.2-1zM12 15a3 3 0 100-6 3 3 0 000 6z"/></svg>
+        Settings
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Dashboard</div>
+        <div class="search">
+          <span>Search members, classes, payments…</span>
+          <kbd>⌘K</kbd>
+        </div>
+        <button class="btn" style="height:32px;padding:0 14px;font-size:12px">+ New</button>
+        <div style="width:32px;height:32px;border-radius:50%;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">HK</div>
+      </div>
+
+      <div class="content">
+        <svg class="empty-illo" viewBox="0 0 200 200" fill="none" stroke="#cbc7c0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <!-- gym dumbbell -->
+          <rect x="14" y="86" width="14" height="28" rx="3"/>
+          <rect x="172" y="86" width="14" height="28" rx="3"/>
+          <rect x="32" y="78" width="10" height="44" rx="2"/>
+          <rect x="158" y="78" width="10" height="44" rx="2"/>
+          <line x1="42" y1="100" x2="158" y2="100"/>
+          <!-- subtle chart line above -->
+          <path d="M40 50 L70 42 L96 56 L120 38 L150 30" stroke-dasharray="3 4" opacity="0.7"/>
+          <circle cx="150" cy="30" r="3" fill="#cbc7c0" stroke="none"/>
+          <!-- ground line -->
+          <line x1="20" y1="150" x2="180" y2="150" stroke-dasharray="2 6" opacity="0.5"/>
+        </svg>
+        <h1 class="empty-title">Welcome to FitClub Admin</h1>
+        <p class="empty-sub">Pick something from the sidebar to get started.</p>
+
+        <div class="quick-row">
+          <div class="quick-card">
+            <div class="ico">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM20 8v6M23 11h-6"/></svg>
+            </div>
+            <div class="qt">Add your first member</div>
+            <div class="qd">Onboard via WhatsApp in under 30 seconds.</div>
+            <div class="ql">Start →</div>
+          </div>
+          <div class="quick-card">
+            <div class="ico">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.7 0-3 1.3-3 3 0 1.7 1.3 3 3 3s3-1.3 3-3c0-1.7-1.3-3-3-3zM4 12a8 8 0 1116 0 8 8 0 01-16 0zM12 4v2M12 18v2M4 12h2M18 12h2"/></svg>
+            </div>
+            <div class="qt">Create a plan</div>
+            <div class="qd">Basic, Premium, or build your own pricing.</div>
+            <div class="ql">Start →</div>
+          </div>
+          <div class="quick-card">
+            <div class="ico">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
+            </div>
+            <div class="qt">Schedule a class</div>
+            <div class="qd">Recurring sessions Mon–Fri or one-off.</div>
+            <div class="ql">Start →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>W2 — Admin Shell.</b> Empty state on first login or new tenant.</div>
+</div>
+</div>
+</body></html>

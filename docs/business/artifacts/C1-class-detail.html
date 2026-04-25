@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>C1 — Class Detail</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .screen { background: var(--bg); }
+  .content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scroll-area {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* hero */
+  .hero {
+    height: 200px;
+    background: var(--cat-yoga);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+  }
+  .hero::before {
+    width: 200px; height: 200px;
+    top: -80px; right: -60px;
+  }
+  .hero::after {
+    width: 120px; height: 120px;
+    bottom: -40px; left: -30px;
+    background: rgba(245,158,11,0.15);
+  }
+  .hero .icon-y {
+    font-size: 120px;
+    font-weight: 800;
+    color: rgba(245,158,11,0.55);
+    letter-spacing: -0.05em;
+    z-index: 1;
+    line-height: 1;
+  }
+  .hero .back {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg);
+    z-index: 2;
+  }
+  .hero .back svg { width: 18px; height: 18px; stroke-width: 2; }
+  .hero .heart {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg);
+    z-index: 2;
+  }
+  .hero .heart svg { width: 18px; height: 18px; stroke-width: 2; }
+
+  .body {
+    padding: 18px 20px 16px;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: var(--fg-muted);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .instructor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 12px;
+    box-shadow: var(--sh-1);
+    margin-bottom: 16px;
+  }
+  .ins-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fce7f3, #f59e0b);
+    color: var(--accent-fg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .ins-info { flex: 1; }
+  .ins-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .ins-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .ins-link {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .desc {
+    font-size: 13px;
+    color: var(--fg-muted);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  .capacity {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: var(--sh-1);
+    margin-bottom: 14px;
+  }
+  .cap-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .cap-row .l {
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .cap-row .r {
+    color: var(--fg-muted);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+  }
+  .bar {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--border-faint);
+    overflow: hidden;
+  }
+  .bar .fill {
+    height: 100%;
+    width: 66.66%;
+    background: var(--accent);
+    border-radius: 999px;
+  }
+
+  .chips {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fg-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .chip svg { width: 12px; height: 12px; stroke-width: 2; }
+  .chip.good { background: var(--good-soft); color: #166534; border-color: transparent; }
+
+  /* sticky CTA bar */
+  .cta-bar {
+    flex-shrink: 0;
+    height: 84px;
+    border-top: 1px solid var(--border);
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    padding: 14px 20px 24px;
+  }
+  .cta-bar .btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 14px;
+    background: var(--fg);
+    color: var(--surface);
+    border: 0;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+    </div>
+
+    <div class="content">
+      <div class="scroll-area">
+        <div class="hero">
+          <div class="back">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </div>
+          <div class="heart">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"/></svg>
+          </div>
+          <div class="icon-y">Y</div>
+        </div>
+
+        <div class="body">
+          <h2 class="title">Yoga Flow</h2>
+          <div class="subtitle">Friday, 25 Apr · 18:00 · 75 min</div>
+
+          <div class="instructor">
+            <div class="ins-avatar">AY</div>
+            <div class="ins-info">
+              <div class="ins-label">Instructor</div>
+              <div class="ins-name">Ayşe Yılmaz</div>
+            </div>
+            <div class="ins-link">View profile →</div>
+          </div>
+
+          <div class="desc">
+            Slow-flow vinyasa class focused on breath and alignment. Suitable for all levels — beginners welcome. Bring a mat or rent one at the front desk for ₺20.
+          </div>
+
+          <div class="capacity">
+            <div class="cap-row">
+              <span class="l">Capacity</span>
+              <span class="r tnum">8 / 12 booked · 4 spots left</span>
+            </div>
+            <div class="bar"><div class="fill"></div></div>
+          </div>
+
+          <div class="chips">
+            <div class="chip">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              Studio A · 2nd floor
+            </div>
+            <div class="chip good">Free with your plan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-bar">
+        <button class="btn">Book this class</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>C1 — Class detail.</b> Hero + book CTA in tap distance.</div>
+</div>
+</div>
+</body></html>

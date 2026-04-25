@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>A7 — Welcome + Permissions</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .content { flex:1; padding: 8px 22px 0; display: flex; flex-direction: column; overflow: hidden; }
+
+  .top {
+    margin: 8px 0 18px;
+  }
+  h1 {
+    font-size: 22px; font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .sub {
+    font-size: 13px;
+    color: var(--fg-muted);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .perm-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--sh-1);
+    border: 1px solid var(--border-faint);
+  }
+  .perm-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .icon-wrap {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg);
+    flex-shrink: 0;
+  }
+  .icon-wrap.info { background: var(--info-soft); color: #1e40af; }
+  .icon-wrap.dark { background: var(--fg); color: var(--surface); }
+  .icon-wrap svg { width: 20px; height: 20px; stroke-width: 2; }
+
+  .perm-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .perm-body {
+    font-size: 14px;
+    color: var(--fg-muted);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .perm-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .pbtn {
+    flex: 1;
+    height: 40px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--fg);
+    color: var(--surface);
+    cursor: pointer;
+  }
+  .pbtn.text {
+    background: transparent;
+    color: var(--fg-muted);
+  }
+  .pbtn.full { width: 100%; }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+    </div>
+
+    <div class="content">
+      <div class="top">
+        <h1>You're in, Hakan.</h1>
+        <p class="sub">A few quick things before we hand over the QR.</p>
+      </div>
+
+      <div class="perm-card">
+        <div class="perm-head">
+          <div class="icon-wrap">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0a3 3 0 11-6 0m6 0H9"/></svg>
+          </div>
+          <div class="perm-title">Notifications</div>
+        </div>
+        <div class="perm-body">Stay in the loop on WhatsApp — booking confirmations, class reminders and payment receipts.</div>
+        <div class="perm-actions">
+          <button class="pbtn">Allow</button>
+          <button class="pbtn text">Maybe later</button>
+        </div>
+      </div>
+
+      <div class="perm-card">
+        <div class="perm-head">
+          <div class="icon-wrap info">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.5v.01M8 3h8a2 2 0 012 2v14a2 2 0 01-2 2H8a2 2 0 01-2-2V5a2 2 0 012-2zM3 9v2M3 13v2M21 9v2M21 13v2"/></svg>
+          </div>
+          <div class="perm-title">Push notifications</div>
+        </div>
+        <div class="perm-body">Get push notifications too, in case WhatsApp is muted. We'll only send the important ones.</div>
+        <div class="perm-actions">
+          <button class="pbtn">Allow</button>
+          <button class="pbtn text">Skip</button>
+        </div>
+      </div>
+
+      <div class="perm-card">
+        <div class="perm-head">
+          <div class="icon-wrap dark">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h3m4 0v3m0 4v-1m-4 1v-3m0 0h4"/></svg>
+          </div>
+          <div class="perm-title">Your QR is ready</div>
+        </div>
+        <div class="perm-body">Your check-in code is in the app — just open it at the door. It rotates every 30 seconds for security.</div>
+        <div class="perm-actions">
+          <button class="pbtn full">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>A7 — Welcome + permissions.</b> Onboard before showing the QR.</div>
+</div>
+</div>
+</body></html>

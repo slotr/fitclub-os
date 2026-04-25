@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>W10 — Check-ins</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  body { background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%); }
+  .stage { padding: 32px; }
+  .browser { width: 1280px; max-width: 100%; height: 800px; background: var(--surface);
+    border-radius: 14px; box-shadow: var(--sh-float); overflow: hidden; display:flex; flex-direction:column; }
+  .browser-bar { height:36px; background:#f5f4f1; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; padding:0 14px; gap:6px; flex-shrink:0; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  .dot.r { background:#ef4444; } .dot.y { background:#f59e0b; } .dot.g { background:#10b981; }
+  .url { flex:1; margin:0 80px 0 14px; height:22px; background:var(--surface);
+    border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--fg-muted); }
+
+  .app { flex:1; display:grid; grid-template-columns: 224px 1fr; min-height:0; }
+  .sidebar { background:var(--surface); border-right:1px solid var(--border); padding:18px 12px; }
+  .brand { font-weight:800; letter-spacing:-0.02em; font-size:16px; padding:4px 8px; margin-bottom:14px; }
+  .nav-item { display:flex; align-items:center; gap:10px; padding:8px 10px; margin:2px 0;
+    border-radius:var(--r-sm); color:var(--fg-muted); font-size:13px; font-weight:500; }
+  .nav-item.active { background:#f5f4f1; color:var(--fg); position:relative; }
+  .nav-item.active::before { content:''; position:absolute; left:-12px; top:6px; bottom:6px;
+    width:3px; background:var(--accent); border-radius:0 2px 2px 0; }
+  .nav-item svg { width:16px; height:16px; stroke-width:2; flex-shrink:0; }
+
+  .main { display:flex; flex-direction:column; min-height:0; background:var(--bg); }
+  .topbar { height:56px; background:var(--surface); border-bottom:1px solid var(--border);
+    display:flex; align-items:center; padding:0 24px; gap:16px; flex-shrink:0; }
+  .crumb { font-size:13px; color:var(--fg-muted); } .crumb b { color:var(--fg); }
+
+  .content { padding: 18px 24px; overflow:auto; }
+
+  h1.page { margin:0 0 14px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+
+  .split { display: grid; grid-template-columns: 40fr 60fr; gap: 14px; margin-bottom: 16px; }
+  .card { background: var(--surface); border-radius: 12px; padding: 16px 18px; box-shadow: var(--sh-1);
+    border: 1px solid var(--border-faint); }
+  .card-head {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+  }
+  .card-head h3 { margin: 0; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; }
+  .pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--good);
+    box-shadow: 0 0 0 0 rgba(22,163,74,0.5);
+    animation: pulse 1.6s infinite;
+    display: inline-block;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(22,163,74,0.55); }
+    70%  { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
+    100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+  }
+  .pause-btn {
+    height: 26px; padding: 0 10px; font-size: 11px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--surface); border-radius: 6px;
+    color: var(--fg-muted); cursor: pointer;
+  }
+
+  .feed { max-height: 360px; overflow-y: auto; }
+  .feed::-webkit-scrollbar { width: 6px; }
+  .feed::-webkit-scrollbar-thumb { background: #d4d0c8; border-radius: 3px; }
+
+  .feed-item {
+    display: grid; grid-template-columns: 8px 1fr auto auto; gap: 10px; padding: 8px 0;
+    border-bottom: 1px solid var(--border-faint); font-size: 12px; align-items: center;
+  }
+  .feed-item:last-child { border: 0; }
+  .feed-item .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); }
+  .feed-item .who { font-weight: 600; }
+  .feed-item .time { color: var(--fg-muted); font-variant-numeric: tabular-nums; min-width: 36px; text-align: right; }
+
+  /* manual check-in form */
+  .form-row { display: flex; gap: 12px; margin-bottom: 12px; }
+  .field { flex: 1; }
+  .field-label { font-size: 11px; font-weight: 600; color: var(--fg-muted);
+    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+  .field-input { width: 100%; height: 38px; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0 12px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .field-input.search { border-color: var(--accent); background: var(--surface); }
+  .field-input.search input { border: 0; outline: 0; flex: 1; font-size: 13px; background: transparent; }
+
+  .auto-drop { margin-top: 6px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; box-shadow: var(--sh-2); padding: 4px; }
+  .auto-row { display: flex; align-items: center; gap: 10px; padding: 7px 8px;
+    font-size: 13px; border-radius: 6px; cursor: pointer; }
+  .auto-row:hover, .auto-row.hl { background: var(--accent-soft); }
+  .auto-mini { width:24px; height:24px; border-radius:50%;
+    background: var(--cat-yoga); color:#92400e; font-size:10px; font-weight:700;
+    display:inline-flex; align-items:center; justify-content:center; }
+  .auto-row .meta { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+
+  .field-select {
+    width: 100%; height: 38px; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0 12px; font-size: 13px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .field-select .car { color: var(--fg-faint); font-size: 11px; }
+
+  .form-actions { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+  .btn-mini { height: 38px; padding: 0 18px; font-size: 13px; }
+
+  .toolbar {
+    display: flex; gap: 10px; align-items: center; margin-bottom: 12px;
+    background: var(--surface); border-radius: 10px; padding: 10px 14px; box-shadow: var(--sh-1);
+  }
+  .filter { padding: 7px 12px; background: var(--bg); border-radius: 8px;
+    font-size: 12px; font-weight: 500; color: var(--fg); display: flex; align-items: center; gap: 6px; }
+
+  table { width: 100%; background: var(--surface); border-radius: 12px;
+    border-collapse: separate; border-spacing: 0; box-shadow: var(--sh-1); overflow: hidden; }
+  thead th { text-align: left; padding: 9px 14px; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted);
+    background: #faf9f7; border-bottom: 1px solid var(--border); }
+  tbody td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid var(--border-faint); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: #faf9f7; }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="browser">
+  <div class="browser-bar">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <div class="url">fitclub.local/admin/check-ins</div>
+  </div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">FitClub</div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-7h6v7h3a1 1 0 001-1V10"/></svg>Dashboard
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0M12 13a4 4 0 100-8 4 4 0 000 8z"/></svg>Members
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Plans
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>Classes
+      </div>
+      <div class="nav-item active">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h4l3-9 4 18 3-9h4"/></svg>Check-ins
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg>Payments
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14V11a6 6 0 10-12 0v3a2 2 0 01-.6 1.4L4 17h5m6 0a3 3 0 11-6 0"/></svg>Notifications
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V13M15 19V9M3 19h18M3 19V5"/></svg>Reports
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb"><b>Check-ins</b></div>
+        <div style="margin-left:auto;width:32px;height:32px;border-radius:50%;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">HK</div>
+      </div>
+
+      <div class="content">
+
+        <h1 class="page">Check-ins</h1>
+
+        <div class="split">
+
+          <!-- LIVE FEED 40% -->
+          <div class="card">
+            <div class="card-head">
+              <h3><span class="pulse"></span> Live check-in feed</h3>
+              <button class="pause-btn">⏸ Pause feed</button>
+            </div>
+            <div class="feed">
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Ayşe Y.</span><span class="pill outline">Main entrance</span><span class="time">14:32</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Mehmet K.</span><span class="pill outline">Main entrance</span><span class="time">14:30</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Selin D.</span><span class="pill outline">Main entrance</span><span class="time">14:28</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Ahmet B.</span><span class="pill outline">Main entrance</span><span class="time">14:25</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Zeynep T.</span><span class="pill outline">Studio A</span><span class="time">14:18</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Burak Ö.</span><span class="pill outline">Main entrance</span><span class="time">14:12</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Cem A.</span><span class="pill outline">Studio B</span><span class="time">14:05</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Emre Ç.</span><span class="pill outline">Main entrance</span><span class="time">13:58</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Deniz K.</span><span class="pill outline">Main entrance</span><span class="time">13:51</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Aysu Ç.</span><span class="pill outline">Studio A</span><span class="time">13:44</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Hakan K.</span><span class="pill outline">Main entrance</span><span class="time">13:36</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Ahmet B.</span><span class="pill outline">Main entrance</span><span class="time">13:22</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Selin D.</span><span class="pill outline">Studio A</span><span class="time">13:15</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Mehmet K.</span><span class="pill outline">Main entrance</span><span class="time">13:08</span></div>
+              <div class="feed-item"><span class="live-dot"></span><span class="who">Burcu A.</span><span class="pill outline">Main entrance</span><span class="time">12:55</span></div>
+            </div>
+          </div>
+
+          <!-- MANUAL CHECK-IN 60% -->
+          <div class="card">
+            <div class="card-head">
+              <h3>Manual check-in</h3>
+              <span style="font-size:11px;color:var(--fg-muted)">Last manual: 14:12 by HK</span>
+            </div>
+
+            <div class="field" style="margin-bottom:12px">
+              <div class="field-label">Member</div>
+              <div class="field-input search">
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input value="ay" placeholder="Search by name, phone, or member ID…">
+                <span style="font-size:11px;color:var(--fg-muted)">3 matches</span>
+              </div>
+              <div class="auto-drop">
+                <div class="auto-row hl">
+                  <span class="auto-mini">AY</span>
+                  <div>
+                    <div style="font-weight:600">Ayşe Yılmaz</div>
+                    <div style="font-size:11px;color:var(--fg-muted)">+90 555 ••• 11 22 · Premium</div>
+                  </div>
+                  <span class="meta">M-1042</span>
+                </div>
+                <div class="auto-row">
+                  <span class="auto-mini" style="background:var(--cat-pilates);color:#1e40af">AÇ</span>
+                  <div>
+                    <div style="font-weight:600">Aysu Çetin</div>
+                    <div style="font-size:11px;color:var(--fg-muted)">+90 555 ••• 44 88 · Basic</div>
+                  </div>
+                  <span class="meta">M-1199</span>
+                </div>
+                <div class="auto-row">
+                  <span class="auto-mini" style="background:var(--cat-cardio);color:#065f46">AK</span>
+                  <div>
+                    <div style="font-weight:600">Ayhan Karaca</div>
+                    <div style="font-size:11px;color:var(--fg-muted)">+90 555 ••• 77 19 · Performance</div>
+                  </div>
+                  <span class="meta">M-0734</span>
+                </div>
+                <div class="auto-row">
+                  <span class="auto-mini" style="background:var(--cat-strength);color:#5b21b6">AB</span>
+                  <div>
+                    <div style="font-weight:600">Aylin Bayrak</div>
+                    <div style="font-size:11px;color:var(--fg-muted)">+90 555 ••• 22 03 · Premium</div>
+                  </div>
+                  <span class="meta">M-0918</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <div class="field-label">Source</div>
+                <div class="field-select">
+                  <span>Manual</span>
+                  <span class="car">▾</span>
+                </div>
+              </div>
+              <div class="field">
+                <div class="field-label">Gate</div>
+                <div class="field-select">
+                  <span>Main entrance</span>
+                  <span class="car">▾</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field" style="margin-bottom:12px">
+              <div class="field-label">Note (optional)</div>
+              <div class="field-input"><span style="color:var(--fg-faint)">e.g. forgot card, guest pass…</span></div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-mini">Mark check-in</button>
+              <button class="btn secondary btn-mini" style="background:transparent;border:0">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="filter">Date range: Last 7 days ▾</div>
+          <div class="filter">Source: All ▾</div>
+          <div class="filter">Member: All ▾</div>
+          <div class="filter">Gate: All ▾</div>
+          <button class="btn secondary" style="margin-left:auto;height:32px;padding:0 14px;font-size:12px">Export CSV</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width:160px">Date &amp; time</th>
+              <th>Member</th>
+              <th>Source</th>
+              <th>Gate</th>
+              <th style="width:120px">Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="tnum">25 Apr · 14:32</td><td>Ayşe Yılmaz</td><td><span class="pill outline">QR</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+            <tr><td class="tnum">25 Apr · 14:30</td><td>Mehmet Kaya</td><td><span class="pill outline">QR</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+            <tr><td class="tnum">25 Apr · 14:28</td><td>Selin Demir</td><td><span class="pill outline">Kiosk</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+            <tr><td class="tnum">25 Apr · 14:25</td><td>Ahmet Bayrak</td><td><span class="pill outline">QR</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+            <tr><td class="tnum">25 Apr · 14:18</td><td>Zeynep Tan</td><td><span class="pill dark">Manual</span></td><td>Studio A</td><td>Forgot card</td></tr>
+            <tr><td class="tnum">25 Apr · 14:12</td><td>Burak Özkan</td><td><span class="pill outline">QR</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+            <tr><td class="tnum">25 Apr · 13:58</td><td>Emre Çelik</td><td><span class="pill outline">QR</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+            <tr><td class="tnum">25 Apr · 13:44</td><td>Aysu Çetin</td><td><span class="pill dark">Manual</span></td><td>Studio A</td><td>Guest pass</td></tr>
+            <tr><td class="tnum">24 Apr · 19:21</td><td>Hakan Karaca</td><td><span class="pill outline">QR</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+            <tr><td class="tnum">24 Apr · 18:08</td><td>Deniz Koç</td><td><span class="pill outline">Kiosk</span></td><td>Main entrance</td><td style="color:var(--fg-faint)">—</td></tr>
+          </tbody>
+        </table>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--fg-muted)">
+          <span>Showing 1–10 of 612 check-ins · last 7 days</span>
+          <span>Page 1 of 62</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>W10 — Check-ins.</b> Realtime feed · manual entry · 7-day history.</div>
+</div>
+</div>
+</body></html>
