@@ -25,3 +25,8 @@ out/
 # Build artifacts
 dist/
 *.tsbuildinfo
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
