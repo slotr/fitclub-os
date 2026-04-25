@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>C2 — Booking Confirmation</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .screen {
+    position: relative;
+  }
+
+  /* dimmed/blurred faux-home background */
+  .bg-home {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    filter: blur(3px);
+    opacity: 0.65;
+    overflow: hidden;
+  }
+  .bg-home .statusbar { color: var(--fg); }
+  .bg-content {
+    flex: 1;
+    padding: 8px 20px 0;
+  }
+  .bg-greet h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .bg-greet .status {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+  .bg-qr {
+    margin-top: 16px;
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 18px;
+    box-shadow: var(--sh-1);
+  }
+  .bg-qr .l {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--fg-muted);
+    margin-bottom: 12px;
+  }
+  .bg-qr .square {
+    aspect-ratio: 1;
+    background:
+      repeating-linear-gradient(0deg, var(--fg) 0 6px, transparent 6px 12px),
+      repeating-linear-gradient(90deg, var(--fg) 0 6px, transparent 6px 12px);
+    background-blend-mode: lighten;
+    border-radius: 12px;
+    margin: 0 auto;
+    width: 78%;
+    opacity: 0.4;
+  }
+  .bg-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .bg-stat {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: var(--sh-1);
+    height: 76px;
+  }
+
+  /* dim layer */
+  .dim {
+    position: absolute; inset: 0;
+    background: rgba(10,10,10,0.45);
+    z-index: 2;
+  }
+
+  /* modal sheet */
+  .modal {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 60%;
+    background: var(--surface);
+    border-radius: 24px 24px 0 0;
+    z-index: 3;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    padding: 22px 22px 28px;
+  }
+  .grabber {
+    width: 36px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 999px;
+    margin: 0 auto 18px;
+  }
+  .check-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .check-wrap svg {
+    width: 64px; height: 64px;
+    color: var(--good);
+    stroke-width: 2;
+  }
+  .modal-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  .modal-body {
+    text-align: center;
+    font-size: 14px;
+    color: var(--fg-muted);
+    line-height: 1.5;
+    margin: 0 0 4px;
+  }
+  .policy {
+    text-align: center;
+    font-size: 12px;
+    color: var(--fg-faint);
+    margin-top: 6px;
+  }
+
+  .cal-link {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+    background: var(--surface);
+  }
+  .cal-link svg { width: 16px; height: 16px; stroke-width: 2; color: var(--fg-muted); }
+
+  .done-cta {
+    margin-top: auto;
+    height: 50px;
+    border-radius: 14px;
+    background: var(--fg);
+    color: var(--surface);
+    border: 0;
+    font-size: 15px;
+    font-weight: 700;
+    width: 100%;
+  }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen">
+    <!-- blurred B1-like home behind the modal -->
+    <div class="bg-home">
+      <div class="statusbar">
+        <span>9:41</span>
+        <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+      </div>
+      <div class="bg-content">
+        <div class="bg-greet">
+          <h1>Hi Hakan</h1>
+          <div class="status">Active membership · 23 days left</div>
+        </div>
+        <div class="bg-qr">
+          <div class="l">Check-in QR · 28s</div>
+          <div class="square"></div>
+        </div>
+        <div class="bg-stats">
+          <div class="bg-stat"></div>
+          <div class="bg-stat"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dim"></div>
+
+    <div class="modal">
+      <div class="grabber"></div>
+      <div class="check-wrap">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="10"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 12.5l3 3 5-6"/>
+        </svg>
+      </div>
+      <h2 class="modal-title">Booking confirmed!</h2>
+      <p class="modal-body">Yoga Flow with Ayşe<br>Friday, 25 Apr at 18:00 · Studio A</p>
+      <p class="policy">Cancel up to 1 hour before for free.</p>
+
+      <div class="cal-link">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
+        Add to calendar
+      </div>
+
+      <button class="done-cta">Done</button>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>C2 — Booking confirmation.</b> Modal sheet, calendar quick-link.</div>
+</div>
+</div>
+</body></html>
