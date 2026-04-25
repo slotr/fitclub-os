@@ -11,7 +11,9 @@
     "push": "drizzle-kit push",
     "studio": "drizzle-kit studio",
     "seed": "tsx src/seed.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "drizzle-orm": "^0.36.4",
@@ -21,6 +23,7 @@
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
     "typescript": "^5.6.2",
-    "@types/node": "^22.7.5"
+    "@types/node": "^22.7.5",
+    "vitest": "^2.1.4"
   }
 }
