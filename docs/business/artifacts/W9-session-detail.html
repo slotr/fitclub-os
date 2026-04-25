@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>W9 — Session Detail</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  body { background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%); }
+  .stage { padding: 32px; }
+  .browser { width: 1280px; max-width: 100%; height: 800px; background: var(--surface);
+    border-radius: 14px; box-shadow: var(--sh-float); overflow: hidden; display:flex; flex-direction:column; }
+  .browser-bar { height:36px; background:#f5f4f1; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; padding:0 14px; gap:6px; flex-shrink:0; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  .dot.r { background:#ef4444; } .dot.y { background:#f59e0b; } .dot.g { background:#10b981; }
+  .url { flex:1; margin:0 80px 0 14px; height:22px; background:var(--surface);
+    border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--fg-muted); }
+
+  .app { flex:1; display:grid; grid-template-columns: 224px 1fr; min-height:0; }
+  .sidebar { background:var(--surface); border-right:1px solid var(--border); padding:18px 12px; }
+  .brand { font-weight:800; letter-spacing:-0.02em; font-size:16px; padding:4px 8px; margin-bottom:14px; }
+  .nav-item { display:flex; align-items:center; gap:10px; padding:8px 10px; margin:2px 0;
+    border-radius:var(--r-sm); color:var(--fg-muted); font-size:13px; font-weight:500; }
+  .nav-item.active { background:#f5f4f1; color:var(--fg); position:relative; }
+  .nav-item.active::before { content:''; position:absolute; left:-12px; top:6px; bottom:6px;
+    width:3px; background:var(--accent); border-radius:0 2px 2px 0; }
+  .nav-item svg { width:16px; height:16px; stroke-width:2; flex-shrink:0; }
+
+  .main { display:flex; flex-direction:column; min-height:0; background:var(--bg); }
+  .topbar { height:56px; background:var(--surface); border-bottom:1px solid var(--border);
+    display:flex; align-items:center; padding:0 24px; gap:16px; flex-shrink:0; }
+  .crumb { font-size:13px; color:var(--fg-muted); } .crumb b { color:var(--fg); }
+
+  .content { padding: 20px 28px; overflow:auto; }
+
+  .hero {
+    background: var(--surface); border-radius: 14px; padding: 22px 24px; box-shadow: var(--sh-1);
+    border: 1px solid var(--border); margin-bottom: 16px;
+    display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;
+  }
+  .hero h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .hero .meta { margin-top: 6px; font-size: 13px; color: var(--fg-muted); }
+  .hero .meta b { color: var(--fg); font-weight: 600; }
+
+  .cap-block { margin-top: 16px; max-width: 520px; }
+  .cap-meter { width: 100%; height: 10px; background: #f3f1ee; border-radius: 999px; overflow: hidden;
+    border: 1px solid var(--border-faint); }
+  .cap-meter > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+  .cap-text { margin-top: 8px; font-size: 12px; color: var(--fg-muted); display: flex; gap: 14px; }
+  .cap-text b { color: var(--fg); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .hero-actions { display: flex; flex-direction: column; gap: 8px; }
+  .btn-mini { height: 34px; padding: 0 14px; font-size: 12px; }
+  .btn-danger { background: var(--surface); color: var(--bad); border: 1px solid var(--bad-soft); }
+  .btn-danger:hover { background: var(--bad-soft); }
+
+  .tabs { display: flex; gap: 0; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .tab-btn { padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--fg-muted);
+    border-bottom: 2px solid transparent; cursor: pointer; }
+  .tab-btn.on { color: var(--fg); border-color: var(--fg); }
+  .tab-btn .ct { font-size: 11px; color: var(--fg-faint); margin-left: 4px; font-variant-numeric: tabular-nums; }
+  .tab-btn.on .ct { color: var(--fg-muted); }
+
+  table { width: 100%; background: var(--surface); border-radius: 12px;
+    border-collapse: separate; border-spacing: 0; box-shadow: var(--sh-1); overflow: hidden; }
+  thead th { text-align: left; padding: 9px 14px; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted);
+    background: #faf9f7; border-bottom: 1px solid var(--border); }
+  tbody td { padding: 11px 14px; font-size: 13px; border-bottom: 1px solid var(--border-faint);
+    vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: #faf9f7; }
+
+  .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--cat-yoga);
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 700;
+    font-size: 11px; color: #92400e; vertical-align: middle; margin-right: 8px; }
+  .av-2 { background: var(--cat-pilates); color: #1e40af; }
+  .av-3 { background: var(--cat-cross); color: #991b1b; }
+  .av-4 { background: var(--cat-strength); color: #5b21b6; }
+  .av-5 { background: var(--cat-cardio); color: #065f46; }
+  .av-6 { background: var(--cat-pt); color: #9f1239; }
+
+  .row-name { font-weight: 600; }
+  .row-meta { font-size: 11px; color: var(--fg-muted); }
+
+  .ibtn {
+    display: inline-flex; align-items: center; padding: 5px 10px; font-size: 11px; font-weight: 600;
+    border-radius: 6px; border: 1px solid var(--border); background: var(--surface);
+    color: var(--fg); cursor: pointer; margin-right: 4px;
+  }
+  .ibtn.green { color: var(--good); border-color: var(--good-soft); }
+  .ibtn.red { color: var(--bad); border-color: var(--bad-soft); }
+
+  .waitlist {
+    margin-top: 16px; background: var(--surface); border-radius: 12px;
+    box-shadow: var(--sh-1); padding: 14px 18px; border: 1px solid var(--border-faint);
+  }
+  .waitlist h3 { margin: 0 0 10px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .wait-row { display: grid; grid-template-columns: 28px 1fr auto; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid var(--border-faint); font-size: 13px; }
+  .wait-row:last-child { border-bottom: 0; }
+  .wait-pos { width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft);
+    color: #92400e; font-weight: 700; font-size: 11px; display: inline-flex;
+    align-items: center; justify-content: center; }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="browser">
+  <div class="browser-bar">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <div class="url">fitclub.local/admin/classes/sessions/yoga-flow-2026-04-25-1800</div>
+  </div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">FitClub</div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-7h6v7h3a1 1 0 001-1V10"/></svg>Dashboard
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0M12 13a4 4 0 100-8 4 4 0 000 8z"/></svg>Members
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Plans
+      </div>
+      <div class="nav-item active">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>Classes
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h4l3-9 4 18 3-9h4"/></svg>Check-ins
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg>Payments
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14V11a6 6 0 10-12 0v3a2 2 0 01-.6 1.4L4 17h5m6 0a3 3 0 11-6 0"/></svg>Notifications
+      </div>
+      <div class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V13M15 19V9M3 19h18M3 19V5"/></svg>Reports
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Classes · Yoga Flow · <b>Friday 25 Apr 18:00</b></div>
+        <div style="margin-left:auto;width:32px;height:32px;border-radius:50%;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">HK</div>
+      </div>
+
+      <div class="content">
+
+        <div class="hero">
+          <div>
+            <h1>Yoga Flow</h1>
+            <div class="meta">
+              <b>Friday, 25 Apr</b> · 18:00 · 75 min · <b>Studio A</b> · Ayşe Yılmaz
+            </div>
+            <div class="cap-block">
+              <div class="cap-meter"><i style="width:66.7%"></i></div>
+              <div class="cap-text">
+                <span><b class="tnum">8</b> confirmed</span>
+                <span><b class="tnum">4</b> spots left</span>
+                <span><b class="tnum">3</b> on waitlist</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <button class="btn secondary btn-mini">Edit session</button>
+            <button class="btn btn-danger btn-mini">Cancel session</button>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <span class="tab-btn on">Confirmed <span class="ct">(8)</span></span>
+          <span class="tab-btn">Waitlist <span class="ct">(3)</span></span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Member</th>
+              <th>Booked</th>
+              <th>Status</th>
+              <th style="text-align:right;width:280px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="avatar">AY</span>
+                <span>
+                  <span class="row-name">Ayşe Yılmaz</span>
+                  <div class="row-meta">M-1042 · Premium</div>
+                </span>
+              </td>
+              <td class="tnum">3 days ago</td>
+              <td><span class="pill good">Attended</span></td>
+              <td style="text-align:right;color:var(--fg-faint)">— checked in 17:54</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="avatar av-2">MK</span>
+                <span>
+                  <span class="row-name">Mehmet Kaya</span>
+                  <div class="row-meta">M-0871 · Performance</div>
+                </span>
+              </td>
+              <td class="tnum">3 days ago</td>
+              <td><span class="pill good">Attended</span></td>
+              <td style="text-align:right;color:var(--fg-faint)">— checked in 17:58</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="avatar av-3">SD</span>
+                <span>
+                  <span class="row-name">Selin Demir</span>
+                  <div class="row-meta">M-0455 · Premium</div>
+                </span>
+              </td>
+              <td class="tnum">2 days ago</td>
+              <td><span class="pill bad">No-show</span></td>
+              <td style="text-align:right;color:var(--fg-faint)">— marked 18:10</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="avatar av-4">AB</span>
+                <span>
+                  <span class="row-name">Ahmet Bayrak</span>
+                  <div class="row-meta">M-1198 · Basic</div>
+                </span>
+              </td>
+              <td class="tnum">2 days ago</td>
+              <td><span class="pill good">Attended</span></td>
+              <td style="text-align:right;color:var(--fg-faint)">— checked in 18:02</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="avatar av-5">ZT</span>
+                <span>
+                  <span class="row-name">Zeynep Tan</span>
+                  <div class="row-meta">M-0623 · Premium</div>
+                </span>
+              </td>
+              <td class="tnum">2 days ago</td>
+              <td><span class="pill good">Attended</span></td>
+              <td style="text-align:right;color:var(--fg-faint)">— checked in 17:50</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="avatar av-6">BO</span>
+                <span>
+                  <span class="row-name">Burak Özkan</span>
+                  <div class="row-meta">M-1331 · Performance</div>
+                </span>
+              </td>
+              <td class="tnum">1 day ago</td>
+              <td><span class="pill outline">Booked</span></td>
+              <td style="text-align:right">
+                <button class="ibtn green">Mark attended</button>
+                <button class="ibtn red">No-show</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="avatar av-2">EÇ</span>
+                <span>
+                  <span class="row-name">Emre Çelik</span>
+                  <div class="row-meta">M-0987 · Premium</div>
+                </span>
+              </td>
+              <td class="tnum">14 hours ago</td>
+              <td><span class="pill outline">Booked</span></td>
+              <td style="text-align:right">
+                <button class="ibtn green">Mark attended</button>
+                <button class="ibtn red">No-show</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="avatar">DK</span>
+                <span>
+                  <span class="row-name">Deniz Koç</span>
+                  <div class="row-meta">M-1402 · Basic</div>
+                </span>
+              </td>
+              <td class="tnum">5 hours ago</td>
+              <td><span class="pill outline">Booked</span></td>
+              <td style="text-align:right">
+                <button class="ibtn green">Mark attended</button>
+                <button class="ibtn red">No-show</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="waitlist">
+          <h3>
+            Waitlist preview
+            <span style="font-weight:500;color:var(--fg-muted);font-size:11px">3 promotions queued · auto-promote on cancel</span>
+          </h3>
+          <div class="wait-row">
+            <span class="wait-pos tnum">1</span>
+            <div>
+              <span class="row-name">Cem Aydın</span>
+              <span style="color:var(--fg-muted);font-size:12px"> · M-1521 · joined waitlist 6h ago</span>
+            </div>
+            <button class="ibtn">Promote</button>
+          </div>
+          <div class="wait-row">
+            <span class="wait-pos tnum">2</span>
+            <div>
+              <span class="row-name">Hakan Karaca</span>
+              <span style="color:var(--fg-muted);font-size:12px"> · M-0204 · joined waitlist 4h ago</span>
+            </div>
+            <button class="ibtn">Promote</button>
+          </div>
+          <div class="wait-row">
+            <span class="wait-pos tnum">3</span>
+            <div>
+              <span class="row-name">Aysu Çetin</span>
+              <span style="color:var(--fg-muted);font-size:12px"> · M-1199 · joined waitlist 1h ago</span>
+            </div>
+            <button class="ibtn">Promote</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>W9 — Session Detail.</b> Roster · attendance · waitlist promotion in one view.</div>
+</div>
+</div>
+</body></html>
