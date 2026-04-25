@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createMemberInput } from "@fitness/api";
 import { members } from "@fitness/db";
+import { logAudit } from "@/lib/audit";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
 
@@ -31,6 +32,9 @@ export async function createMemberAction(formData: FormData) {
       gender: parsed.data.gender ?? null,
       status: "pending",
     });
+  });
+  await logAudit("member.create", "member", null, {
+    email: parsed.data.email,
   });
   revalidatePath("/admin/members");
   redirect("/admin/members");

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { checkins } from "@fitness/db";
+import { logAudit } from "@/lib/audit";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
 
@@ -16,5 +17,6 @@ export async function manualCheckinAction(formData: FormData) {
       source: "manual",
     });
   });
+  await logAudit("checkin.manual", "member", memberId);
   revalidatePath("/admin/checkins");
 }
