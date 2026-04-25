@@ -1,0 +1,134 @@
+/* Shared design tokens. Import via <link rel="stylesheet" href="_tokens.css">. */
+:root {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --fg: #1a1a1a;
+  --fg-muted: #6b7280;
+  --fg-faint: #9ca3af;
+  --border: #e7e5e4;
+  --border-faint: #f3f1ee;
+  --accent: #f59e0b;
+  --accent-fg: #1a1a1a;
+  --accent-soft: #fef3c7;
+  --good: #16a34a;
+  --good-soft: #dcfce7;
+  --warn: #ca8a04;
+  --warn-soft: #fef3c7;
+  --bad: #dc2626;
+  --bad-soft: #fee2e2;
+  --info: #2563eb;
+  --info-soft: #dbeafe;
+
+  --cat-yoga: #fef3c7;
+  --cat-cross: #fee2e2;
+  --cat-pilates: #dbeafe;
+  --cat-strength: #ede9fe;
+  --cat-cardio: #d1fae5;
+  --cat-pt: #fce7f3;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+
+  --sh-1: 0 1px 3px rgba(0,0,0,.04);
+  --sh-2: 0 4px 12px rgba(0,0,0,.06);
+  --sh-3: 0 12px 32px rgba(0,0,0,.08);
+  --sh-float: 0 30px 80px rgba(0,0,0,.20), 0 8px 20px rgba(0,0,0,.10);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv11', 'ss01';
+  background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%);
+  color: var(--fg);
+}
+
+.stage { min-height: 100vh; display: grid; place-items: center; padding: 48px 16px; }
+
+/* iPhone 15-class frame */
+.phone {
+  width: 390px; height: 844px;
+  background: #0a0a0a; border-radius: 56px;
+  padding: 12px; box-shadow: var(--sh-float);
+  position: relative;
+}
+.phone::before {
+  content: ''; position: absolute; top: 18px; left: 50%;
+  transform: translateX(-50%); width: 110px; height: 32px;
+  background: #0a0a0a; border-radius: 22px; z-index: 5;
+}
+.screen {
+  width: 100%; height: 100%; background: var(--bg);
+  border-radius: 44px; overflow: hidden;
+  display: flex; flex-direction: column; position: relative;
+}
+.statusbar {
+  height: 54px; flex-shrink: 0;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 28px 6px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+}
+.statusbar .right { display: flex; align-items: center; gap: 6px; }
+.battery {
+  width: 26px; height: 12px; border: 1.5px solid var(--fg);
+  border-radius: 3px; padding: 1px; position: relative;
+}
+.battery::after {
+  content: ''; position: absolute; right: -3px; top: 3px;
+  width: 2px; height: 4px; background: var(--fg); border-radius: 0 1px 1px 0;
+}
+.battery .fill { width: 80%; height: 100%; background: var(--fg); border-radius: 1px; }
+
+.tabbar {
+  flex-shrink: 0; height: 80px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  padding: 8px 12px 24px;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 6px; color: var(--fg-muted); font-size: 10px; font-weight: 500;
+}
+.tab.active { color: var(--fg); }
+.tab svg { width: 22px; height: 22px; stroke-width: 2; }
+
+/* Pill */
+.pill {
+  display: inline-flex; align-items: center;
+  padding: 4px 10px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+}
+.pill.good { background: var(--good-soft); color: #166534; }
+.pill.warn { background: var(--warn-soft); color: #92400e; }
+.pill.bad  { background: var(--bad-soft); color: #991b1b; }
+.pill.info { background: var(--info-soft); color: #1e40af; }
+.pill.dark { background: var(--fg); color: var(--surface); }
+.pill.outline { background: var(--surface); border: 1px solid var(--border); color: var(--fg-muted); }
+
+/* CTA button */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 44px; padding: 0 20px; border-radius: var(--r-md);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  background: var(--fg); color: var(--surface); border: 0;
+  transition: transform 80ms ease;
+}
+.btn.full { width: 100%; }
+.btn.secondary { background: var(--surface); color: var(--fg); border: 1px solid var(--border); }
+.btn.accent { background: var(--accent); color: var(--accent-fg); }
+.btn:hover { transform: translateY(-1px); }
+
+/* Caption under any frame */
+.caption {
+  margin-top: 24px; text-align: center; color: #444; font-size: 13px; letter-spacing: 0.02em;
+}
+.caption b { color: #111; font-weight: 700; }
+
+/* Tabular numbers on metrics */
+.tnum { font-variant-numeric: tabular-nums; }

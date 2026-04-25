@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>A8 — Full-screen QR</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .screen.dark { background: #0a0a0a; color: #fff; padding: 80px 40px 40px; }
+  .qr-wrap-big { position: relative; width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+  .qr-ring-big { position: absolute; inset: 0; transform: rotate(-90deg); }
+  .qr-ring-big circle { fill: none; stroke-width: 5; }
+  .qr-ring-big .track { stroke: rgba(255,255,255,0.08); }
+  .qr-ring-big .progress { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+  .qr-img-big {
+    width: 80%; aspect-ratio: 1; background: #fff;
+    padding: 18px; border-radius: 18px;
+    display: grid; grid-template-columns: repeat(21, 1fr); gap: 1px;
+  }
+  .qr-img-big > i { background: transparent; display: block; }
+  .qr-img-big > i.on { background: #0a0a0a; }
+  .label-block { text-align: center; }
+  .label-block .head { font-size: 16px; font-weight: 600; opacity: 0.8; margin-bottom: 6px; }
+  .label-block .sub { font-size: 14px; opacity: 0.5; font-variant-numeric: tabular-nums; }
+  .close {
+    position: absolute; top: 60px; right: 28px; width: 36px; height: 36px;
+    background: rgba(255,255,255,0.1); border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; color: #fff; font-size: 18px;
+    z-index: 10;
+  }
+  .brightness-pill {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 999px;
+    font-size: 11px; opacity: 0.6; font-weight: 500;
+  }
+  .statusbar.dark { color: #fff; }
+  .statusbar.dark .battery { border-color: #fff; }
+  .statusbar.dark .battery .fill { background: #fff; }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen dark">
+    <div class="statusbar dark" style="position:absolute;top:0;left:0;right:0;color:#fff">
+      <span>9:41</span>
+      <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+    </div>
+    <div class="close">×</div>
+
+    <div class="qr-wrap-big">
+      <svg class="qr-ring-big" viewBox="0 0 200 200">
+        <circle class="track" cx="100" cy="100" r="96"/>
+        <circle class="progress" cx="100" cy="100" r="96" stroke-dasharray="603.18" stroke-dashoffset="60"/>
+      </svg>
+      <div class="qr-img-big" id="qrbig"></div>
+    </div>
+
+    <div class="label-block">
+      <div class="head">Show at the door</div>
+      <div class="sub" id="sub">Refreshes in 28s</div>
+    </div>
+
+    <div class="brightness-pill">☀ Brightness max</div>
+  </div>
+</div>
+<div class="caption"><b>A8 — Full-screen QR.</b> Black bg + max brightness · 30s rotating · staff scan from across the lobby.</div>
+</div>
+</div>
+
+<script>
+  (function () {
+    const N = 21;
+    const grid = Array.from({ length: N }, () => Array(N).fill(0));
+    function placeFinder(r, c) {
+      for (let dr = 0; dr < 7; dr++)
+        for (let dc = 0; dc < 7; dc++)
+          grid[r + dr][c + dc] = ((dr === 0 || dr === 6 || dc === 0 || dc === 6) || (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4)) ? 1 : 0;
+    }
+    placeFinder(0,0); placeFinder(0, N-7); placeFinder(N-7, 0);
+    for (let dr=0; dr<5; dr++) for (let dc=0; dc<5; dc++) {
+      grid[N-9+dr][N-9+dc] = ((dr===0||dr===4||dc===0||dc===4)||(dr===2&&dc===2)) ? 1 : 0;
+    }
+    for (let i = 8; i < N-8; i++) { grid[6][i] = i%2===0?1:0; grid[i][6] = i%2===0?1:0; }
+    function reserved(r,c){
+      if(r<8&&c<8) return true; if(r<8&&c>=N-8) return true; if(r>=N-8&&c<8) return true;
+      if(r>=N-9&&c>=N-9&&r<N-4&&c<N-4) return true; if(r===6||c===6) return true; return false;
+    }
+    let s=0xbeef; function rand(){s=(s*9301+49297)%233280;return s/233280;}
+    for (let r=0;r<N;r++) for (let c=0;c<N;c++) if(!reserved(r,c)) grid[r][c]=rand()>0.5?1:0;
+    const root = document.getElementById('qrbig');
+    root.innerHTML = grid.flat().map(v => `<i class="${v?'on':''}"></i>`).join('');
+  })();
+  (function(){
+    const total=30, circ=603.18;
+    const ring=document.querySelector('.qr-ring-big .progress');
+    const sub=document.getElementById('sub');
+    let t=28;
+    function tick(){
+      sub.textContent = `Refreshes in ${t}s`;
+      ring.setAttribute('stroke-dashoffset', circ*(1-t/total));
+      t = t>0 ? t-1 : 30;
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+</body></html>

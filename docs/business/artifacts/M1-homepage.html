@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>M1 — Marketing Homepage</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  body { background: var(--bg); }
+  .stage { padding: 0; min-height: auto; display: block; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+  /* Top nav */
+  .nav { display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 0; }
+  .logo { font-weight: 800; letter-spacing: -0.02em; font-size: 18px; }
+  .nav-links { display: flex; gap: 28px; font-size: 13px; font-weight: 500; color: var(--fg-muted); }
+  .nav-links a { color: inherit; }
+
+  /* Hero */
+  .hero { padding: 56px 0 80px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+  .hero-text { }
+  .eyebrow { display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; background: var(--accent-soft); color: #92400e;
+    border-radius: 999px; font-size: 12px; font-weight: 600; margin-bottom: 18px; }
+  .hero h1 { font-size: 60px; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.0; margin: 0 0 16px; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p { font-size: 17px; line-height: 1.5; color: var(--fg-muted); max-width: 480px; margin: 0 0 28px; }
+  .cta-row { display: flex; gap: 12px; align-items: center; }
+  .btn-lg { display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 22px; border-radius: 12px; font-size: 15px; font-weight: 600; }
+  .btn-primary { background: var(--fg); color: var(--surface); }
+  .btn-text { color: var(--fg); border: 0; background: transparent; }
+
+  /* Hero visual: phone + admin overlay */
+  .hero-visual { position: relative; height: 540px; }
+  .phone-mini {
+    position: absolute; top: 0; left: 30px; width: 270px; height: 540px;
+    background: #0a0a0a; border-radius: 40px; padding: 8px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+  }
+  .phone-mini .screen-mini {
+    width: 100%; height: 100%; background: var(--bg); border-radius: 32px; overflow: hidden; padding: 16px;
+  }
+  .phone-mini h2 { font-size: 18px; margin: 4px 0; font-weight: 800; letter-spacing: -0.01em; }
+  .phone-mini .status-mini { font-size: 10px; color: var(--fg-muted); margin-bottom: 12px; }
+  .qr-mini-card { background: var(--surface); border-radius: 16px; padding: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .qr-mini-label { font-size: 9px; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--fg-muted); margin-bottom: 8px;
+    display: flex; justify-content: space-between; }
+  .qr-mini { width: 100%; aspect-ratio: 1;
+    display: grid; grid-template-columns: repeat(21, 1fr); gap: 1px;
+    background: var(--surface); padding: 8px; border-radius: 8px; }
+  .qr-mini > i { display: block; }
+  .qr-mini > i.on { background: var(--fg); }
+  .qr-mini-foot { text-align: center; font-size: 10px; color: var(--fg-muted); margin-top: 8px; }
+
+  .admin-mini {
+    position: absolute; bottom: 0; right: 0; width: 380px; height: 280px;
+    background: var(--surface); border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+    overflow: hidden;
+    transform: rotate(2deg);
+  }
+  .admin-bar { height: 30px; background: #f5f4f1; display: flex; align-items: center; padding: 0 10px; gap: 4px; }
+  .admin-bar .dt { width: 8px; height: 8px; border-radius: 50%; }
+  .admin-bar .dt:nth-child(1) { background: #ef4444; }
+  .admin-bar .dt:nth-child(2) { background: #f59e0b; }
+  .admin-bar .dt:nth-child(3) { background: #10b981; }
+  .admin-body { padding: 14px; }
+  .admin-body h4 { margin: 0 0 8px; font-size: 11px; font-weight: 700; }
+  .mini-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
+  .mini-kpi { background: var(--bg); border-radius: 6px; padding: 6px; }
+  .mini-kpi .l { font-size: 7px; color: var(--fg-muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .mini-kpi .v { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
+  .mini-feed { font-size: 9px; }
+  .mini-feed div { padding: 3px 0; border-bottom: 1px solid var(--border-faint); display: flex; gap: 6px; }
+  .mini-feed div::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--good); display: inline-block; align-self: center; }
+
+  /* logos */
+  .logos { padding: 24px 0 8px; text-align: center; }
+  .logos-label { font-size: 11px; color: var(--fg-muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
+  .logos-row { display: flex; gap: 36px; justify-content: center; align-items: center;
+    color: var(--fg-faint); font-size: 14px; font-weight: 600; opacity: 0.7; flex-wrap: wrap; }
+
+  /* themes */
+  .themes { padding: 80px 0; }
+  .themes-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .theme {
+    background: var(--surface); border-radius: 18px; padding: 28px;
+    box-shadow: var(--sh-1); border: 1px solid var(--border-faint);
+  }
+  .theme .ico { font-size: 28px; margin-bottom: 16px; }
+  .theme h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 8px; }
+  .theme p { font-size: 13px; color: var(--fg-muted); line-height: 1.5; margin: 0; }
+
+  /* compare strip */
+  .compare { padding: 32px 0 80px; }
+  .compare h2 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 28px; }
+  table.cmp { width: 100%; border-collapse: separate; border-spacing: 0;
+    background: var(--surface); border-radius: 14px; overflow: hidden; box-shadow: var(--sh-1); }
+  table.cmp th, table.cmp td { padding: 14px 16px; font-size: 13px; }
+  table.cmp thead th { background: #faf9f7; text-align: left; font-weight: 700;
+    color: var(--fg-muted); border-bottom: 1px solid var(--border); }
+  table.cmp tbody td { border-bottom: 1px solid var(--border-faint); }
+  table.cmp tbody tr:last-child td { border-bottom: 0; }
+  table.cmp .us { background: var(--accent-soft); font-weight: 700; }
+  .ck { color: var(--good); font-weight: 700; }
+  .x { color: var(--bad); font-weight: 700; }
+
+  /* pricing */
+  .pricing { padding: 80px 0; background: linear-gradient(180deg, transparent 0%, #f5f4f1 100%); }
+  .pricing-card { max-width: 480px; margin: 0 auto; background: var(--surface);
+    border-radius: 20px; padding: 36px; box-shadow: var(--sh-3); border: 2px solid var(--accent); position: relative; }
+  .pricing-card .pop { position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: var(--accent-fg); padding: 4px 14px;
+    border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .pricing-card h3 { margin: 0 0 8px; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); }
+  .pricing-card .big { font-size: 56px; font-weight: 800; letter-spacing: -0.03em;
+    margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+  .pricing-card .big small { font-size: 18px; font-weight: 500; color: var(--fg-muted); }
+  .pricing-card ul { padding: 18px 0 0; margin: 0; list-style: none; font-size: 14px; }
+  .pricing-card ul li { padding: 6px 0; display: flex; align-items: center; gap: 10px; }
+  .pricing-card ul li::before { content: '✓'; color: var(--good); font-weight: 700; }
+  .pricing-card .pilot { margin: 16px 0 0; padding: 10px 14px;
+    background: var(--good-soft); color: #166534; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: center; }
+
+  /* final cta */
+  .final { background: var(--fg); color: var(--surface); padding: 80px 0; text-align: center; }
+  .final h2 { font-size: 44px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 16px; line-height: 1.1; }
+  .final p { font-size: 17px; opacity: 0.75; margin: 0 auto 28px; max-width: 540px; }
+  .final .btn-lg { background: var(--accent); color: var(--accent-fg); }
+
+  /* footer */
+  footer { padding: 32px 0; font-size: 12px; color: var(--fg-muted); text-align: center; border-top: 1px solid var(--border); }
+</style>
+</head><body>
+
+<!-- NAV -->
+<header class="container">
+  <div class="nav">
+    <div class="logo">FitClub<span style="color:var(--accent)">.</span></div>
+    <nav class="nav-links">
+      <a>Product</a><a>Pricing</a><a>Customers</a><a>Trust</a><a>Log in</a>
+    </nav>
+    <button class="btn" style="height:36px;font-size:13px">Book a demo</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="container">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">⚡ For hybrid gyms · 300–1,500 members</div>
+      <h1>WhatsApp-native<br>gym software<span class="accent">.</span></h1>
+      <p>The modern way to run a hybrid gym. Open gym, classes, and PT — one platform. Your members live on WhatsApp, so your software does too.</p>
+      <div class="cta-row">
+        <button class="btn-lg btn-primary">Book a 14-day pilot →</button>
+        <button class="btn-lg btn-text">See it in action</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <!-- Mini phone with QR -->
+      <div class="phone-mini">
+        <div class="screen-mini">
+          <h2>Hi Hakan</h2>
+          <div class="status-mini">● Active membership · 23 days left</div>
+          <div class="qr-mini-card">
+            <div class="qr-mini-label"><span>Check-in QR</span><span>28s</span></div>
+            <div class="qr-mini" id="qrmini"></div>
+            <div class="qr-mini-foot">Show this at the door</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px">
+            <div style="background:var(--surface);border-radius:10px;padding:8px;font-size:9px">
+              <div style="color:var(--fg-muted);font-weight:600">THIS WEEK</div>
+              <div style="font-size:14px;font-weight:800">4 visits</div>
+            </div>
+            <div style="background:var(--surface);border-radius:10px;padding:8px;font-size:9px">
+              <div style="color:var(--fg-muted);font-weight:600">NEXT CLASS</div>
+              <div style="font-size:11px;font-weight:700">Yoga 18:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin mini -->
+      <div class="admin-mini">
+        <div class="admin-bar"><span class="dt"></span><span class="dt"></span><span class="dt"></span><span style="font-size:9px;color:var(--fg-muted);margin-left:8px">fitclub.local/admin</span></div>
+        <div class="admin-body">
+          <h4>Today · 25 Apr 2026</h4>
+          <div class="mini-kpis">
+            <div class="mini-kpi"><div class="l">Active</div><div class="v tnum">487</div></div>
+            <div class="mini-kpi"><div class="l">MRR</div><div class="v tnum">₺438k</div></div>
+            <div class="mini-kpi"><div class="l">Today</div><div class="v tnum">142</div></div>
+            <div class="mini-kpi"><div class="l">Churn</div><div class="v tnum">2.1%</div></div>
+          </div>
+          <h4 style="margin-top:8px">Live check-in</h4>
+          <div class="mini-feed">
+            <div><span style="flex:1">Ayşe Y.</span><span style="color:var(--fg-muted)" class="tnum">14:32</span></div>
+            <div><span style="flex:1">Mehmet K.</span><span style="color:var(--fg-muted)" class="tnum">14:30</span></div>
+            <div><span style="flex:1">Selin D.</span><span style="color:var(--fg-muted)" class="tnum">14:28</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos container">
+  <div class="logos-label">Trusted by hybrid gyms in</div>
+  <div class="logos-row">
+    🇹🇷 ISTANBUL · 🇪🇸 MADRID · 🇦🇪 DUBAI · 🇮🇳 MUMBAI · 🇧🇷 SÃO PAULO · 🇮🇹 MILAN
+  </div>
+</div>
+
+<!-- THEMES -->
+<section class="themes container">
+  <div class="themes-row">
+    <div class="theme">
+      <div class="ico">💬</div>
+      <h3>WhatsApp-first.</h3>
+      <p>Every payment receipt, class reminder, waitlist promotion, and churn save runs on WhatsApp by default. Pre-approved Meta templates for every gym lifecycle event. No Twilio glue. No Zapier.</p>
+    </div>
+    <div class="theme">
+      <div class="ico">🔄</div>
+      <h3>Rotating QR.</h3>
+      <p>Member's check-in code refreshes every 30 seconds. A screenshot is worthless 31 seconds later. No biometric data captured. No turnstile capex. Recover 5–15% of leaked check-ins on day one.</p>
+    </div>
+    <div class="theme">
+      <div class="ico">🏋️</div>
+      <h3>Built for hybrid.</h3>
+      <p>Open gym, classes, and PT live in one data model. A member with a subscription, 8 booked classes, and a 10-pack of PT sessions is one row, not three tools. One bill. One report. One inbox.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare container">
+  <h2>Picked against the obvious alternatives.</h2>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>Us</th>
+        <th>Glofox</th>
+        <th>Mindbody</th>
+        <th>Wellyx</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Native WhatsApp templates</td><td class="us"><span class="ck">✓</span></td><td><span class="x">✗</span></td><td><span class="x">✗</span></td><td>◐</td></tr>
+      <tr><td>Rotating QR (TOTP)</td><td class="us"><span class="ck">✓</span></td><td><span class="x">✗</span></td><td><span class="x">✗</span></td><td><span class="x">✗</span></td></tr>
+      <tr><td>Hybrid data model (open + class + PT)</td><td class="us"><span class="ck">✓</span></td><td>◐</td><td>◐</td><td>◐</td></tr>
+      <tr><td>Modern member app</td><td class="us"><span class="ck">✓</span></td><td>◐</td><td>◐</td><td><span class="ck">✓</span></td></tr>
+      <tr><td>Pricing transparency</td><td class="us"><span class="ck">✓</span></td><td><span class="x">✗</span></td><td><span class="x">✗</span></td><td><span class="ck">✓</span></td></tr>
+      <tr><td>Onboarding</td><td class="us">14 days</td><td>30–60 days</td><td>30–90 days</td><td>14–30 days</td></tr>
+      <tr><td>Monthly cost (~500 members)</td><td class="us">$199</td><td>$250–450 +txn</td><td>$300–600 +txn</td><td>$99–299</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="container">
+    <div class="pricing-card">
+      <div class="pop">Single plan, no surprises</div>
+      <h3>Growth</h3>
+      <div class="big tnum">$199<small> / month</small></div>
+      <div style="font-size:12px;color:var(--fg-muted)">per location · unlimited members</div>
+      <ul>
+        <li>Native WhatsApp + Telegram</li>
+        <li>Rotating QR check-in</li>
+        <li>Hybrid data model (open + class + PT)</li>
+        <li>Branded member app</li>
+        <li>Stripe-native billing</li>
+        <li>14-day onboarding</li>
+        <li>Founder on-call during pilot</li>
+      </ul>
+      <div class="pilot">🎁 Pilot: $99/mo for the first 6 months · first 10 customers</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="container">
+    <h2>Try us for 14 days.<br>We migrate your data this week.</h2>
+    <p>If after 14 days your team isn't happier and your member-app DAU isn't up, we hand back your data and walk. No charge.</p>
+    <button class="btn-lg">Book the call →</button>
+  </div>
+</section>
+
+<footer class="container">
+  © 2026 FitClub · Built in Türkiye for the world · Privacy · Terms · KVKK
+</footer>
+
+<script>
+  // mini QR
+  (function () {
+    const N = 21;
+    const grid = Array.from({ length: N }, () => Array(N).fill(0));
+    function placeFinder(r, c) {
+      for (let dr = 0; dr < 7; dr++) for (let dc = 0; dc < 7; dc++)
+        grid[r+dr][c+dc] = ((dr===0||dr===6||dc===0||dc===6)||(dr>=2&&dr<=4&&dc>=2&&dc<=4)) ? 1 : 0;
+    }
+    placeFinder(0,0); placeFinder(0,N-7); placeFinder(N-7,0);
+    for (let dr=0;dr<5;dr++) for (let dc=0;dc<5;dc++)
+      grid[N-9+dr][N-9+dc] = ((dr===0||dr===4||dc===0||dc===4)||(dr===2&&dc===2)) ? 1 : 0;
+    for (let i=8;i<N-8;i++){ grid[6][i]=i%2===0?1:0; grid[i][6]=i%2===0?1:0; }
+    function reserved(r,c){
+      if(r<8&&c<8) return true; if(r<8&&c>=N-8) return true; if(r>=N-8&&c<8) return true;
+      if(r>=N-9&&c>=N-9&&r<N-4&&c<N-4) return true; if(r===6||c===6) return true; return false;
+    }
+    let s=0xface; function rand(){s=(s*9301+49297)%233280;return s/233280;}
+    for (let r=0;r<N;r++) for (let c=0;c<N;c++) if(!reserved(r,c)) grid[r][c]=rand()>0.5?1:0;
+    const root = document.getElementById('qrmini');
+    root.innerHTML = grid.flat().map(v=>`<i class="${v?'on':''}"></i>`).join('');
+  })();
+</script>
+</body></html>

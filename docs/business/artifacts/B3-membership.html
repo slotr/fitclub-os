@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>B3 — Membership & Payment</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .content { flex:1; overflow:hidden; padding: 8px 20px 0; }
+  .h1 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin: 4px 0 14px; }
+
+  .plan-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    color: #fff; border-radius: 18px; padding: 18px 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    margin-bottom: 14px; position: relative; overflow: hidden;
+  }
+  .plan-card::after {
+    content: ''; position: absolute; top: -40px; right: -30px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.4) 0%, rgba(245,158,11,0) 70%);
+  }
+  .plan-card .label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; font-weight: 600; }
+  .plan-card .price { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; margin: 6px 0; font-variant-numeric: tabular-nums; }
+  .plan-card .price small { font-size: 13px; font-weight: 500; opacity: 0.6; margin-left: 2px; }
+  .plan-card .next { font-size: 12px; opacity: 0.65; margin-bottom: 14px; }
+  .plan-card .manage {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.1); color: #fff;
+    padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .section-label { font-size: 11px; font-weight: 600; color: var(--fg-muted); margin: 14px 4px 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .pay-list { background: var(--surface); border-radius: 14px; box-shadow: var(--sh-1); }
+  .pay-row {
+    display: grid; grid-template-columns: 1fr auto;
+    padding: 11px 14px; border-bottom: 1px solid var(--border-faint);
+    align-items: center;
+  }
+  .pay-row:last-child { border-bottom: 0; }
+  .pay-row .when { font-size: 13px; font-weight: 600; }
+  .pay-row .what { font-size: 11px; color: var(--fg-muted); margin-top: 1px; }
+  .pay-row .amt { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .ghost-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 11px; text-align: center;
+    font-size: 13px; font-weight: 600;
+  }
+  .ghost-btn.danger { color: var(--bad); }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+    </div>
+    <div class="content">
+      <h1 class="h1">Membership & Payment</h1>
+
+      <div class="plan-card">
+        <div class="label">Premium plan</div>
+        <div class="price tnum">₺899<small>/month</small></div>
+        <div class="next">Next payment: 15 May 2026</div>
+        <div class="manage">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg>
+          Update card
+        </div>
+      </div>
+
+      <div class="section-label">Payment history</div>
+
+      <div class="pay-list">
+        <div class="pay-row">
+          <div>
+            <div class="when">15 Apr 2026</div>
+            <div class="what">Premium · 1 month</div>
+          </div>
+          <div class="amt tnum">₺899</div>
+        </div>
+        <div class="pay-row">
+          <div>
+            <div class="when">15 Mar 2026</div>
+            <div class="what">Premium · 1 month</div>
+          </div>
+          <div class="amt tnum">₺899</div>
+        </div>
+        <div class="pay-row">
+          <div>
+            <div class="when">15 Feb 2026</div>
+            <div class="what">Premium · 1 month</div>
+          </div>
+          <div class="amt tnum">₺899</div>
+        </div>
+        <div class="pay-row">
+          <div>
+            <div class="when">14 Jan 2026</div>
+            <div class="what">Premium · 1 month · joined</div>
+          </div>
+          <div class="amt tnum">₺899</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="ghost-btn">Change plan</div>
+        <div class="ghost-btn danger">Pause / Cancel</div>
+      </div>
+
+    </div>
+
+    <div class="tabbar">
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-7h6v7h3a1 1 0 001-1V10"/></svg><span>Home</span></div>
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg><span>Classes</span></div>
+      <div class="tab active"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg><span>Pay</span></div>
+      <div class="tab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0M12 13a4 4 0 100-8 4 4 0 000 8z"/></svg><span>Profile</span></div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>B3 — Membership & Payment.</b> Dark hero plan card · payment history · update card via Stripe Customer Portal.</div>
+</div>
+</div>
+</body></html>

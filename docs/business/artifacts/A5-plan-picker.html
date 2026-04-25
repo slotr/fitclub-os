@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>A5 — Plan Picker</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  .content { flex:1; overflow:hidden; padding: 8px 20px 0; }
+  .head h1 { font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:4px 0 4px; }
+  .head p { font-size:13px; color:var(--fg-muted); margin: 0 0 18px; }
+
+  .plan {
+    background: var(--surface); border-radius: 16px;
+    border: 1px solid var(--border); padding: 18px;
+    margin-bottom: 12px; box-shadow: var(--sh-1);
+    position: relative;
+  }
+  .plan.featured {
+    border-color: var(--accent); border-width: 2px;
+    box-shadow: 0 8px 24px rgba(245,158,11,0.18);
+  }
+  .featured-pill {
+    position: absolute; top: -10px; right: 16px;
+    background: var(--accent); color: var(--accent-fg);
+    padding: 3px 10px; border-radius: 999px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .plan .name { font-size: 15px; font-weight: 700; }
+  .plan .price { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin: 4px 0 2px; font-variant-numeric: tabular-nums; }
+  .plan .price small { font-size: 12px; font-weight: 500; color: var(--fg-muted); }
+  .plan .desc { font-size: 12px; color: var(--fg-muted); margin-bottom: 12px; }
+  .plan ul { list-style:none; padding:0; margin: 0 0 14px; font-size: 12px; }
+  .plan ul li {
+    padding: 4px 0; display: flex; align-items: center; gap: 8px; color: var(--fg);
+  }
+  .plan ul li::before {
+    content: '✓'; color: var(--good); font-weight: 700; font-size: 14px;
+  }
+  .plan .cta { width: 100%; height: 42px; border-radius: 12px; border: 0;
+    background: var(--fg); color: var(--surface); font-weight: 600; font-size: 13px; }
+  .plan.featured .cta { background: var(--accent); color: var(--accent-fg); }
+
+  .footer-link { text-align: center; font-size: 12px; color: var(--fg-muted); margin-top: 14px; }
+  .footer-link a { color: var(--accent); font-weight: 600; }
+</style>
+</head><body>
+<div class="stage">
+<div>
+<div class="phone">
+  <div class="screen">
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="right">●●● 📶 <span class="battery"><span class="fill"></span></span></span>
+    </div>
+    <div class="content">
+      <div class="head">
+        <h1>Pick your plan.</h1>
+        <p>Change or cancel any time from the app.</p>
+      </div>
+
+      <div class="plan">
+        <div class="name">Basic</div>
+        <div class="price tnum">₺499<small>/month</small></div>
+        <div class="desc">For walk-in members</div>
+        <ul>
+          <li>Open gym access</li>
+          <li>Locker room</li>
+          <li>Mobile QR check-in</li>
+        </ul>
+        <button class="cta">Choose Basic</button>
+      </div>
+
+      <div class="plan featured">
+        <span class="featured-pill">Most popular</span>
+        <div class="name">Premium</div>
+        <div class="price tnum">₺899<small>/month</small></div>
+        <div class="desc">Open gym + classes + sauna</div>
+        <ul>
+          <li>Everything in Basic</li>
+          <li>Unlimited group classes</li>
+          <li>Sauna + steam access</li>
+          <li>Towel service</li>
+        </ul>
+        <button class="cta">Choose Premium</button>
+      </div>
+
+      <div class="plan">
+        <div class="name">Performance</div>
+        <div class="price tnum">₺1,499<small>/month</small></div>
+        <div class="desc">+ 4 PT sessions / month</div>
+        <ul>
+          <li>Everything in Premium</li>
+          <li>4 personal training sessions</li>
+        </ul>
+        <button class="cta">Choose Performance</button>
+      </div>
+
+      <div class="footer-link">
+        Need something custom? <a>Contact us</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="caption"><b>A5 — Plan Picker.</b> 3 stacked plans · featured pill on Premium · soft amber border + glow signal recommendation.</div>
+</div>
+</div>
+</body></html>
