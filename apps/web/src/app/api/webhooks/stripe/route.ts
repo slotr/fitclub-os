@@ -7,6 +7,7 @@ import {
   memberships,
   payments,
 } from "@fitness/db";
+import { sendReceipt } from "@/lib/email";
 import { getStripe } from "@/lib/stripe";
 
 const dbUrl = process.env.DATABASE_URL ?? "";
@@ -81,6 +82,25 @@ export async function POST(req: Request) {
             : new Date(),
         })
         .onConflictDoNothing({ target: payments.stripeInvoiceId });
+      try {
+        const formatter = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: invoice.currency.toUpperCase(),
+        });
+        await sendReceipt(member.email, {
+          memberName: member.fullName,
+          amountFormatted: formatter.format(invoice.amount_paid / 100),
+          planName: "Membership",
+          paidAt: new Date(
+            (invoice.status_transitions.paid_at ??
+              Math.floor(Date.now() / 1000)) * 1000,
+          )
+            .toISOString()
+            .slice(0, 10),
+        });
+      } catch (err) {
+        console.error("Failed to send receipt", err);
+      }
       break;
     }
     case "invoice.payment_failed": {
