@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>B1 — Member Home</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --fg: #1a1a1a;
+    --fg-muted: #6b7280;
+    --border: #e7e5e4;
+    --accent: #f59e0b;
+    --good: #16a34a;
+    --warn: #ca8a04;
+    --bad: #dc2626;
+    --info: #2563eb;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  .stage {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 48px 16px;
+  }
+
+  /* ── iPhone-style frame ─────────────────────────────── */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: #0a0a0a;
+    border-radius: 56px;
+    padding: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.30), 0 8px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 50%;
+    transform: translateX(-50%);
+    width: 110px; height: 32px;
+    background: #0a0a0a;
+    border-radius: 22px;
+    z-index: 5;
+  }
+
+  .screen {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    border-radius: 44px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+
+  /* ── status bar ─────────────────────────────────────── */
+  .statusbar {
+    height: 54px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 28px 6px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .statusbar .right { display: flex; align-items: center; gap: 6px; }
+  .signal-dot {
+    width: 4px; height: 4px; border-radius: 50%; background: var(--fg);
+  }
+  .battery {
+    width: 26px; height: 12px; border: 1.5px solid var(--fg);
+    border-radius: 3px; padding: 1px; position: relative;
+  }
+  .battery::after {
+    content: '';
+    position: absolute; right: -3px; top: 3px;
+    width: 2px; height: 4px; background: var(--fg); border-radius: 0 1px 1px 0;
+  }
+  .battery .fill {
+    width: 80%; height: 100%; background: var(--fg); border-radius: 1px;
+  }
+
+  /* ── content scroll area ─────────────────────────────── */
+  .content {
+    flex: 1;
+    overflow: hidden;
+    padding: 8px 20px 0;
+  }
+
+  /* ── greeting block ──────────────────────────────────── */
+  .greeting {
+    margin-bottom: 18px;
+  }
+  .greeting h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .greeting .status {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+  .pulse {
+    width: 7px; height: 7px;
+    background: var(--good);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, .6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(22,163,74,.5); }
+    70%  { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
+    100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+  }
+
+  /* ── QR card (the money shot) ────────────────────────── */
+  .qr-card {
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 12px 32px rgba(0,0,0,.05);
+    margin-bottom: 14px;
+  }
+  .qr-card .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .qr-card .label .countdown {
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .qr-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qr-ring {
+    position: absolute; inset: 0;
+    transform: rotate(-90deg);
+  }
+  .qr-ring circle {
+    fill: none;
+    stroke-width: 4;
+  }
+  .qr-ring .track { stroke: #f3f1ee; }
+  .qr-ring .progress {
+    stroke: var(--accent);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+  }
+
+  .qr-img {
+    width: 78%;
+    aspect-ratio: 1;
+    background: var(--surface);
+    padding: 14px;
+    border-radius: 14px;
+    display: grid;
+    grid-template-columns: repeat(21, 1fr);
+    gap: 1px;
+  }
+  .qr-img > i {
+    background: transparent;
+    display: block;
+  }
+  .qr-img > i.on {
+    background: var(--fg);
+  }
+
+  .qr-card .footer {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  /* ── stat row ────────────────────────────────────────── */
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .stat {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .stat .l {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin-bottom: 4px;
+  }
+  .stat .v {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+  .stat .sub {
+    font-size: 11px;
+    color: var(--fg-muted);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .stat.next .v {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  /* ── activity card ───────────────────────────────────── */
+  .activity {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .activity h3 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .activity ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .activity li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f5f4f1;
+    font-size: 12px;
+  }
+  .activity li:last-child { border-bottom: 0; }
+  .activity .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .activity .dot.good { background: var(--good); }
+  .activity .dot.info { background: var(--info); }
+  .activity .dot.warn { background: var(--warn); }
+  .activity li .when {
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 64px;
+  }
+  .activity li .what {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  /* ── bottom tab bar ──────────────────────────────────── */
+  .tabbar {
+    flex-shrink: 0;
+    height: 80px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 8px 12px 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 3px;
+    padding: 6px;
+    color: var(--fg-muted);
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .tab.active { color: var(--fg); }
+  .tab svg {
+    width: 22px; height: 22px;
+    stroke-width: 2;
+  }
+
+  /* ── caption under phone ─────────────────────────────── */
+  .caption {
+    margin-top: 24px;
+    text-align: center;
+    color: #444;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .caption b {
+    color: #111;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div>
+    <div class="phone">
+      <div class="screen">
+        <!-- Status bar -->
+        <div class="statusbar">
+          <span>9:41</span>
+          <span class="right">
+            <span style="display:inline-block">●●●</span>
+            <span style="display:inline-block;margin-left:4px">📶</span>
+            <span class="battery"><span class="fill"></span></span>
+          </span>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+
+          <div class="greeting">
+            <h1>Hi Hakan</h1>
+            <div class="status">
+              <span class="pulse"></span>
+              Active membership · 23 days left
+            </div>
+          </div>
+
+          <!-- QR card -->
+          <div class="qr-card">
+            <div class="label">
+              <span>Check-in QR</span>
+              <span class="countdown">28s</span>
+            </div>
+
+            <div class="qr-wrap">
+              <!-- countdown ring -->
+              <svg class="qr-ring" viewBox="0 0 200 200">
+                <circle class="track" cx="100" cy="100" r="96" />
+                <circle class="progress" cx="100" cy="100" r="96"
+                        stroke-dasharray="603.18"
+                        stroke-dashoffset="60" />
+              </svg>
+
+              <!-- QR pattern (procedural, looks like a real QR) -->
+              <div class="qr-img" id="qr"></div>
+            </div>
+
+            <div class="footer">Show this at the door</div>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats">
+            <div class="stat">
+              <div class="l">This week</div>
+              <div class="v">4 visits</div>
+              <div class="sub">↑ 1 vs last week</div>
+            </div>
+            <div class="stat next">
+              <div class="l">Next class</div>
+              <div class="v">Yoga · 18:00</div>
+              <div class="sub">in 3 hours</div>
+            </div>
+          </div>
+
+          <!-- Activity -->
+          <div class="activity">
+            <h3>Recent activity</h3>
+            <ul>
+              <li>
+                <span class="dot good"></span>
+                <span class="when">Today</span>
+                <span class="what">Checked in at 09:12</span>
+              </li>
+              <li>
+                <span class="dot info"></span>
+                <span class="when">Yesterday</span>
+                <span class="what">Yoga Flow attended</span>
+              </li>
+              <li>
+                <span class="dot good"></span>
+                <span class="when">Sun</span>
+                <span class="what">Payment of ₺899 received</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Tab bar -->
+        <div class="tabbar">
+          <div class="tab active">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-7h6v7h3a1 1 0 001-1V10"/></svg>
+            <span>Home</span>
+          </div>
+          <div class="tab">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
+            <span>Classes</span>
+          </div>
+          <div class="tab">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg>
+            <span>Pay</span>
+          </div>
+          <div class="tab">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0M12 13a4 4 0 100-8 4 4 0 000 8z"/></svg>
+            <span>Profile</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="caption">
+      <b>B1 — Member Home.</b> Rotating QR refreshes every 30s · live status · today's activity.
+    </div>
+  </div>
+</div>
+
+<script>
+  // generate a deterministic 21x21 QR-like pattern with finder squares + module noise
+  (function () {
+    const N = 21;
+    const grid = Array.from({ length: N }, () => Array(N).fill(0));
+
+    // 3 finder patterns (top-left, top-right, bottom-left)
+    function placeFinder(r, c) {
+      for (let dr = 0; dr < 7; dr++) {
+        for (let dc = 0; dc < 7; dc++) {
+          const onRing  = dr === 0 || dr === 6 || dc === 0 || dc === 6;
+          const onInner = dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4;
+          grid[r + dr][c + dc] = (onRing || onInner) ? 1 : 0;
+        }
+      }
+    }
+    placeFinder(0, 0);
+    placeFinder(0, N - 7);
+    placeFinder(N - 7, 0);
+
+    // small alignment block bottom-right
+    for (let dr = 0; dr < 5; dr++) {
+      for (let dc = 0; dc < 5; dc++) {
+        const onRing  = dr === 0 || dr === 4 || dc === 0 || dc === 4;
+        const center  = dr === 2 && dc === 2;
+        grid[N - 9 + dr][N - 9 + dc] = (onRing || center) ? 1 : 0;
+      }
+    }
+
+    // timing patterns
+    for (let i = 8; i < N - 8; i++) {
+      grid[6][i] = i % 2 === 0 ? 1 : 0;
+      grid[i][6] = i % 2 === 0 ? 1 : 0;
+    }
+
+    // pseudo-random data fill, avoiding finder/timing reserved zones
+    function reserved(r, c) {
+      if (r < 8 && c < 8) return true;            // top-left finder + sep
+      if (r < 8 && c >= N - 8) return true;       // top-right
+      if (r >= N - 8 && c < 8) return true;       // bottom-left
+      if (r >= N - 9 && c >= N - 9 && r < N - 4 && c < N - 4) return true;
+      if (r === 6 || c === 6) return true;        // timing
+      return false;
+    }
+
+    let s = 0xcafe;
+    function rand() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+
+    for (let r = 0; r < N; r++) {
+      for (let c = 0; c < N; c++) {
+        if (!reserved(r, c)) grid[r][c] = rand() > 0.5 ? 1 : 0;
+      }
+    }
+
+    // render
+    const root = document.getElementById('qr');
+    const html = [];
+    for (let r = 0; r < N; r++) {
+      for (let c = 0; c < N; c++) {
+        html.push('<i class="' + (grid[r][c] ? 'on' : '') + '"></i>');
+      }
+    }
+    root.innerHTML = html.join('');
+  })();
+
+  // animated countdown
+  (function () {
+    const total = 30;
+    const circ = 603.18;
+    const ring = document.querySelector('.qr-ring .progress');
+    const label = document.querySelector('.qr-card .countdown');
+    let t = 28;
+    function tick() {
+      label.textContent = t + 's';
+      const offset = circ * (1 - t / total);
+      ring.setAttribute('stroke-dashoffset', offset);
+      t = t > 0 ? t - 1 : 30;
+      if (t === 0) {
+        // simulate refresh: recolor a few QR cells
+        document.querySelectorAll('.qr-img > i').forEach((cell, idx) => {
+          if (idx > 100 && idx < 380 && Math.random() > 0.6) {
+            cell.classList.toggle('on');
+          }
+        });
+      }
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>
