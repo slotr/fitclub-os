@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { inArray, sql } from "drizzle-orm";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { createDbClient } from "../client";
 import { members, tenants } from "../schema";
@@ -28,8 +28,10 @@ describe("RLS isolates tenants", () => {
   });
 
   afterAll(async () => {
-    await db.delete(members);
-    await db.delete(tenants);
+    if (tenantA && tenantB) {
+      await db.delete(members).where(inArray(members.tenantId, [tenantA, tenantB]));
+      await db.delete(tenants).where(inArray(tenants.id, [tenantA, tenantB]));
+    }
   });
 
   it("a tenant only sees its own members", async () => {
