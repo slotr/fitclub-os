@@ -4,3 +4,24 @@ node_modules/
 .env*
 .next/
 dist/
+
+# turbo
+.turbo
+
+# next
+.next/
+out/
+
+# pnpm
+.pnpm-store/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Build artifacts
+dist/
+*.tsbuildinfo
