@@ -2,21 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createMemberInput } from "@fitness/api";
 import { members } from "@fitness/db";
 import { logAudit } from "@/lib/audit";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
-
-export function parseCreateMember(formData: FormData) {
-  return createMemberInput.safeParse({
-    email: formData.get("email"),
-    fullName: formData.get("fullName"),
-    phone: formData.get("phone") || undefined,
-    birthdate: formData.get("birthdate") || undefined,
-    gender: formData.get("gender") || undefined,
-  });
-}
+import { parseCreateMember } from "./_parse";
 
 export async function createMemberAction(formData: FormData) {
   const parsed = parseCreateMember(formData);

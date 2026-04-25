@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseCreateMember } from "../_actions";
+import { parseCreateMember } from "../_parse";
 
 describe("parseCreateMember", () => {
   it("returns parsed data", () => {
