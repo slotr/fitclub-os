@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>M3 — Demo</title>
+<link rel="stylesheet" href="_tokens.css">
+<style>
+  body { background: var(--bg); }
+  .stage { padding: 0; min-height: auto; display: block; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+  /* Top nav */
+  .nav { display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 0; }
+  .logo { font-weight: 800; letter-spacing: -0.02em; font-size: 18px; }
+  .nav-links { display: flex; gap: 28px; font-size: 13px; font-weight: 500; color: var(--fg-muted); }
+  .nav-links a { color: inherit; cursor: pointer; }
+
+  /* Hero */
+  .hero { padding: 48px 0 48px; text-align: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; background: var(--accent-soft); color: #92400e;
+    border-radius: 999px; font-size: 12px; font-weight: 600; margin-bottom: 18px; letter-spacing: 0.06em; }
+  .hero h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.05; margin: 0 0 14px; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p { font-size: 17px; line-height: 1.5; color: var(--fg-muted); max-width: 560px; margin: 0 auto; font-weight: 400; }
+
+  /* Two columns */
+  .demo-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 8px 0 56px; }
+  .dcard {
+    background: var(--surface); border-radius: 16px; padding: 32px;
+    box-shadow: var(--sh-1); border: 1px solid var(--border-faint);
+    display: flex; flex-direction: column;
+  }
+  .dcard h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px; }
+  .dcard .lede { font-size: 14px; line-height: 1.55; color: var(--fg-muted); margin: 0 0 22px; }
+
+  /* Phone input */
+  .phone-row {
+    display: flex; gap: 8px; align-items: stretch;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 4px; margin-bottom: 14px;
+  }
+  .phone-prefix {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 0 12px; font-size: 14px; font-weight: 600; color: var(--fg);
+    border-right: 1px solid var(--border);
+  }
+  .phone-prefix .flag { font-size: 16px; }
+  .phone-input {
+    border: 0; background: transparent; outline: none; flex: 1;
+    font-size: 14px; font-family: inherit; padding: 10px 8px;
+    font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+  }
+  .bullets { display: flex; flex-wrap: wrap; gap: 14px; margin: 0 0 18px; padding: 0; list-style: none; }
+  .bullets li { font-size: 12px; color: var(--fg-muted); display: inline-flex; align-items: center; gap: 6px; }
+  .bullets li::before { content: '✓'; color: var(--good); font-weight: 700; }
+  .full-cta {
+    width: 100%; padding: 14px 18px; border-radius: 12px; font-size: 15px;
+    font-weight: 600; cursor: pointer; border: 0;
+    background: var(--fg); color: var(--surface);
+  }
+  .full-cta.ghost { background: var(--border); color: var(--fg-faint); cursor: not-allowed; }
+  .privacy-note { font-size: 11px; color: var(--fg-muted); margin: 12px 0 0; text-align: center; }
+
+  /* Calendar grid */
+  .cal { margin: 4px 0 12px; }
+  .cal-head { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 8px; }
+  .cal-head .d {
+    text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--fg-muted);
+    padding: 6px 0;
+  }
+  .cal-head .d .num { display: block; font-size: 18px; font-weight: 800; color: var(--fg); margin-top: 2px; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .cal-head .d.weekend .num { color: var(--fg-muted); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .slot {
+    height: 36px; display: flex; align-items: center; justify-content: center;
+    background: var(--fg); color: var(--surface); border-radius: 8px;
+    font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+    cursor: pointer; letter-spacing: 0.01em;
+    border: 1px solid var(--fg);
+    transition: transform 80ms ease;
+  }
+  .slot:hover { transform: translateY(-1px); }
+  .slot.taken {
+    background: var(--bg); color: var(--fg-faint); text-decoration: line-through;
+    border: 1px dashed var(--border); cursor: not-allowed;
+  }
+  .slot.taken:hover { transform: none; }
+  .tz-note { font-size: 11px; color: var(--fg-muted); text-align: center; margin: 0 0 16px; }
+
+  /* Testimonials */
+  .testimonials { padding: 24px 0 64px; }
+  .testimonials h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 24px; text-align: center; color: var(--fg-muted); font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .quote { background: var(--surface); border-radius: 14px; padding: 24px;
+    border: 1px solid var(--border-faint); box-shadow: var(--sh-1); }
+  .quote .mark { color: var(--accent); font-size: 36px; line-height: 1; font-weight: 800; margin-bottom: 6px; }
+  .quote p { font-size: 15px; line-height: 1.5; margin: 0 0 16px; font-weight: 500; }
+  .quote .who { font-size: 12px; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; }
+  .quote .who .av { width: 28px; height: 28px; border-radius: 999px; background: var(--accent-soft); color: #92400e; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; }
+
+  /* final cta */
+  .final { background: var(--fg); color: var(--surface); padding: 80px 0; text-align: center; }
+  .final h2 { font-size: 44px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 16px; line-height: 1.1; }
+  .final p { font-size: 17px; opacity: 0.75; margin: 0 auto 28px; max-width: 540px; }
+  .btn-lg { display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 22px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; border: 0; }
+  .final .btn-lg { background: var(--accent); color: var(--accent-fg); }
+
+  /* footer */
+  footer { padding: 32px 0; font-size: 12px; color: var(--fg-muted); text-align: center; border-top: 1px solid var(--border); }
+
+  .caption { margin: 24px 0 32px; text-align: center; color: #444; font-size: 13px; letter-spacing: 0.02em; }
+  .caption b { color: #111; font-weight: 700; }
+</style>
+</head><body>
+
+<!-- NAV -->
+<header class="container">
+  <div class="nav">
+    <div class="logo">FitClub<span style="color:var(--accent)">.</span></div>
+    <nav class="nav-links">
+      <a>Product</a><a>Pricing</a><a>Customers</a><a>Trust</a><a>Log in</a>
+    </nav>
+    <button class="btn" style="height:36px;font-size:13px">Book a demo</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="container">
+  <div class="hero">
+    <div class="eyebrow">DEMO</div>
+    <h1>See it in action<span class="accent">.</span></h1>
+    <p>Two ways to try FitClub before you commit.</p>
+  </div>
+</section>
+
+<!-- TWO COLUMNS -->
+<section class="container">
+  <div class="demo-cols">
+
+    <!-- LEFT: member demo -->
+    <div class="dcard">
+      <h3>Try it as a member</h3>
+      <p class="lede">Enter your phone, we send you a link to our demo gym. You'll see exactly what your members would see — including a working rotating QR check-in code. No download required.</p>
+
+      <label style="font-size:11px;font-weight:600;color:var(--fg-muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">Mobile number</label>
+      <div class="phone-row">
+        <span class="phone-prefix"><span class="flag">🇹🇷</span> +90</span>
+        <input class="phone-input" type="tel" inputmode="numeric" placeholder="5XX XXX XX XX" value="">
+      </div>
+
+      <ul class="bullets">
+        <li>No download</li>
+        <li>Real flow</li>
+        <li>Auto-deletes after 7 days</li>
+      </ul>
+
+      <button class="full-cta">Send me the demo link →</button>
+
+      <p class="privacy-note">We won't spam. Number used only to send the demo.</p>
+    </div>
+
+    <!-- RIGHT: walkthrough booking -->
+    <div class="dcard">
+      <h3>Book a 30-minute walkthrough</h3>
+      <p class="lede">Get a guided demo with the founder. We'll show you the admin panel, walk through the WhatsApp flow live, and answer your questions.</p>
+
+      <div class="cal">
+        <div class="cal-head">
+          <div class="d"><span>Tue</span><span class="num">28</span></div>
+          <div class="d"><span>Wed</span><span class="num">29</span></div>
+          <div class="d"><span>Thu</span><span class="num">30</span></div>
+          <div class="d"><span>Fri</span><span class="num">01</span></div>
+          <div class="d weekend"><span>Sat</span><span class="num">02</span></div>
+          <div class="d weekend"><span>Sun</span><span class="num">03</span></div>
+          <div class="d"><span>Mon</span><span class="num">04</span></div>
+        </div>
+
+        <div class="cal-grid">
+          <!-- Tue 28 -->
+          <div class="slot">10:00</div>
+          <!-- Wed 29 -->
+          <div class="slot taken">10:00</div>
+          <!-- Thu 30 -->
+          <div class="slot">10:00</div>
+          <!-- Fri 01 -->
+          <div class="slot taken">10:00</div>
+          <!-- Sat 02 -->
+          <div class="slot taken">10:00</div>
+          <!-- Sun 03 -->
+          <div class="slot taken">—</div>
+          <!-- Mon 04 -->
+          <div class="slot">10:00</div>
+
+          <div class="slot">11:30</div>
+          <div class="slot">11:30</div>
+          <div class="slot taken">11:30</div>
+          <div class="slot">11:30</div>
+          <div class="slot">11:30</div>
+          <div class="slot taken">—</div>
+          <div class="slot">11:30</div>
+
+          <div class="slot taken">14:00</div>
+          <div class="slot">14:00</div>
+          <div class="slot">14:00</div>
+          <div class="slot">14:00</div>
+          <div class="slot">14:00</div>
+          <div class="slot taken">—</div>
+          <div class="slot">14:00</div>
+
+          <div class="slot">16:30</div>
+          <div class="slot">16:30</div>
+          <div class="slot taken">16:30</div>
+          <div class="slot">16:30</div>
+          <div class="slot">16:30</div>
+          <div class="slot taken">—</div>
+          <div class="slot">16:30</div>
+        </div>
+      </div>
+
+      <p class="tz-note">All times in your local timezone (Europe/Istanbul · GMT+3)</p>
+
+      <button class="full-cta ghost" disabled>Book this slot</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="container testimonials">
+  <h2>What pilot operators say</h2>
+  <div class="quotes">
+    <div class="quote">
+      <div class="mark">“</div>
+      <p>We replaced 3 tools with one. Members opened the WhatsApp message we sent and just… worked.</p>
+      <div class="who"><span class="av">EÇ</span>Studio Owner · Founder, Eclipse Studio · Istanbul</div>
+    </div>
+    <div class="quote">
+      <div class="mark">“</div>
+      <p>Rotating QR ended a problem we couldn't even prove we had. Check-ins are honest now.</p>
+      <div class="who"><span class="av">RM</span>Gym Operator · Founder, Roca Madrid · Madrid</div>
+    </div>
+    <div class="quote">
+      <div class="mark">“</div>
+      <p>Onboarded 600 members in 12 days. We didn't have to translate one document.</p>
+      <div class="who"><span class="av">AK</span>Boutique Founder · Aerial Karama · Dubai</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="container">
+    <h2>Try us for 14 days.<br>We migrate your data this week.</h2>
+    <p>If after 14 days your team isn't happier and your member-app DAU isn't up, we hand back your data and walk. No charge.</p>
+    <button class="btn-lg">Book the call →</button>
+  </div>
+</section>
+
+<footer class="container">
+  © 2026 FitClub · Built in Türkiye for the world · Privacy · Terms · KVKK
+</footer>
+
+<div class="caption"><b>M3 — Demo.</b> Phone-based member demo · founder-led walkthrough · 28 slots.</div>
+
+</body></html>
