@@ -15,6 +15,13 @@
       "when": 1777123673827,
       "tag": "0001_little_timeslip",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777647906421,
+      "tag": "0002_fitclub_classes",
+      "breakpoints": true
     }
   ]
 }
