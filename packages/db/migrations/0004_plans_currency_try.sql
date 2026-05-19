@@ -1,0 +1,1 @@
+ALTER TABLE "plans" ALTER COLUMN "currency" SET DEFAULT 'TRY';
