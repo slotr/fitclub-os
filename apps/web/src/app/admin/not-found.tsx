@@ -11,7 +11,7 @@ export default function AdminNotFound() {
           Empty room.
         </h1>
         <p className="mt-2 text-[14px] text-fg-muted">
-          The page you tried to open doesn't exist — or got moved while you
+          The page you tried to open doesn&apos;t exist — or got moved while you
           were away. Try the dashboard.
         </p>
         <div className="mt-6 flex justify-center gap-2">
