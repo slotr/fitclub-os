@@ -1,8 +1,10 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { members, plans } from "@fitness/db";
+import { and, eq } from "drizzle-orm";
+import { members, memberships, plans } from "@fitness/db";
+import { logAudit } from "@/lib/audit";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
 import { getStripe } from "@/lib/stripe";
@@ -39,5 +41,67 @@ export async function createCheckoutSessionAction(
   });
 
   if (!session.url) throw new Error("no checkout url");
-  redirect(session.url);
+  redirect(session.url as Parameters<typeof redirect>[0]);
+}
+
+export async function activateMemberAction(memberId: string) {
+  const tenantId = await getCurrentTenantId();
+  await withTenantScope(tenantId, async (db) => {
+    await db
+      .update(members)
+      .set({ status: "active" })
+      .where(eq(members.id, memberId));
+  });
+  await logAudit("member.activate", "member", memberId, {});
+  revalidatePath(`/admin/members/${memberId}`);
+}
+
+export async function pauseMembershipAction(memberId: string) {
+  const tenantId = await getCurrentTenantId();
+  await withTenantScope(tenantId, async (db) => {
+    await db
+      .update(memberships)
+      .set({ status: "paused", pausedAt: new Date() })
+      .where(
+        and(
+          eq(memberships.memberId, memberId),
+          eq(memberships.status, "active"),
+        ),
+      );
+  });
+  await logAudit("membership.pause", "member", memberId, {});
+  revalidatePath(`/admin/members/${memberId}`);
+}
+
+export async function resumeMembershipAction(memberId: string) {
+  const tenantId = await getCurrentTenantId();
+  await withTenantScope(tenantId, async (db) => {
+    await db
+      .update(memberships)
+      .set({ status: "active", pausedAt: null })
+      .where(
+        and(
+          eq(memberships.memberId, memberId),
+          eq(memberships.status, "paused"),
+        ),
+      );
+  });
+  await logAudit("membership.resume", "member", memberId, {});
+  revalidatePath(`/admin/members/${memberId}`);
+}
+
+export async function cancelMembershipAction(memberId: string) {
+  const tenantId = await getCurrentTenantId();
+  await withTenantScope(tenantId, async (db) => {
+    await db
+      .update(memberships)
+      .set({ status: "cancelled" })
+      .where(eq(memberships.memberId, memberId));
+    await db
+      .update(members)
+      .set({ status: "inactive" })
+      .where(eq(members.id, memberId));
+  });
+  await logAudit("membership.cancel", "member", memberId, {});
+  revalidatePath(`/admin/members/${memberId}`);
 }

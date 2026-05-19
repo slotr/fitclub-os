@@ -5,14 +5,11 @@ import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
 import { PlusIcon } from "@/components/admin/icons";
 import { cn } from "@/lib/utils";
-
-function fmtMoney(minor: number, currency: string) {
-  const sign = currency === "TRY" ? "₺" : currency;
-  return `${sign}${(minor / 100).toLocaleString("en-US")}`;
-}
+import { formatMoney, getStudioCurrency } from "@/lib/money";
 
 export default async function PlansPage() {
   const tenantId = await getCurrentTenantId();
+  const studioCurrency = await getStudioCurrency();
 
   const { rows, totalMembers } = await withTenantScope(tenantId, async (db) => {
     const planRows = await db
@@ -96,7 +93,7 @@ export default async function PlansPage() {
               </div>
               <div className="mt-3 flex items-baseline gap-1.5">
                 <span className="text-[34px] font-extrabold tracking-tightest tnum">
-                  {fmtMoney(p.priceMinor, p.currency)}
+                  {formatMoney(p.priceMinor, studioCurrency)}
                 </span>
                 <span className="text-[13px] text-fg-muted">
                   /{p.durationDays >= 28 ? "month" : `${p.durationDays}d`}

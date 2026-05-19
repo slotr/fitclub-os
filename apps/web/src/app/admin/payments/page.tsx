@@ -1,4 +1,4 @@
-import { desc, eq, gte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, sql } from "drizzle-orm";
 import { members, memberships, payments, plans } from "@fitness/db";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
@@ -6,16 +6,8 @@ import { KpiCard } from "@/components/admin/kpi-card";
 import { Pill } from "@/components/admin/pill";
 import { DataTable, Td, Th, TrRow } from "@/components/admin/data-table";
 import { SearchIcon, MoreVerticalIcon, PlusIcon } from "@/components/admin/icons";
-import { Seg } from "@/components/admin/seg";
 import { retryPaymentAction, sendDunningAction } from "./_actions";
-
-function fmtMoney(minor: number, currency: string) {
-  const sign = currency === "TRY" ? "₺" : currency;
-  return `${sign}${(minor / 100).toLocaleString("en-US", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  })}`;
-}
+import { formatMoney, getStudioCurrency } from "@/lib/money";
 
 function fmtDay(d: Date) {
   return new Date(d).toLocaleDateString("en-GB", {
@@ -27,10 +19,12 @@ function fmtDay(d: Date) {
 export default async function PaymentsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filter?: string }>;
+  searchParams: Promise<{ filter?: string; method?: string }>;
 }) {
   const sp = await searchParams;
   const filter = sp.filter ?? "all";
+  const methodFilter = sp.method ?? "all";
+  const studioCurrency = await getStudioCurrency();
 
   const tenantId = await getCurrentTenantId();
   const startOf30 = new Date();
@@ -40,7 +34,7 @@ export default async function PaymentsPage({
   startOfMonth.setHours(0, 0, 0, 0);
 
   const data = await withTenantScope(tenantId, async (db) => {
-    const list = await db
+    const raw = await db
       .select({
         id: payments.id,
         amount: payments.amountMinor,
@@ -48,24 +42,36 @@ export default async function PaymentsPage({
         status: payments.status,
         attemptCount: payments.attemptCount,
         stripeInvoiceId: payments.stripeInvoiceId,
+        method: payments.method,
+        cryptoChain: payments.cryptoChain,
+        cryptoTxHash: payments.cryptoTxHash,
         createdAt: payments.createdAt,
         memberName: members.fullName,
         memberId: members.id,
         planName: plans.name,
+        membershipCreatedAt: memberships.createdAt,
       })
       .from(payments)
       .innerJoin(members, eq(members.id, payments.memberId))
       .leftJoin(memberships, eq(memberships.memberId, members.id))
       .leftJoin(plans, eq(plans.id, memberships.planId))
-      .orderBy(desc(payments.createdAt))
-      .limit(60);
+      .orderBy(desc(payments.createdAt), desc(memberships.createdAt))
+      .limit(180);
+    // A member can have multiple memberships; collapse to one row per payment
+    // (keeping the most recent membership/plan link).
+    const dedup = new Map<string, (typeof raw)[number]>();
+    for (const r of raw) if (!dedup.has(r.id)) dedup.set(r.id, r);
+    const list = Array.from(dedup.values()).slice(0, 60);
     const [mtdAgg] = await db
       .select({
         amount: sql<number>`coalesce(sum(${payments.amountMinor}),0)::int`,
       })
       .from(payments)
       .where(
-        sql`${payments.status} = 'paid' and ${payments.createdAt} >= ${startOfMonth}`,
+        and(
+          eq(payments.status, "paid"),
+          gte(payments.createdAt, startOfMonth),
+        ),
       );
     const [mrrAgg] = await db
       .select({
@@ -78,7 +84,10 @@ export default async function PaymentsPage({
       .select({ count: sql<number>`count(*)::int` })
       .from(payments)
       .where(
-        sql`${payments.status} = 'failed' and ${payments.createdAt} >= ${startOf30}`,
+        and(
+          eq(payments.status, "failed"),
+          gte(payments.createdAt, startOf30),
+        ),
       );
     const [refundsAgg] = await db
       .select({
@@ -87,7 +96,10 @@ export default async function PaymentsPage({
       })
       .from(payments)
       .where(
-        sql`${payments.status} = 'refunded' and ${payments.createdAt} >= ${startOf30}`,
+        and(
+          eq(payments.status, "refunded"),
+          gte(payments.createdAt, startOf30),
+        ),
       );
 
     return {
@@ -100,10 +112,9 @@ export default async function PaymentsPage({
     };
   });
 
-  const filtered =
-    filter === "all"
-      ? data.list
-      : data.list.filter((r) => r.status === filter);
+  const filtered = data.list
+    .filter((r) => filter === "all" || r.status === filter)
+    .filter((r) => methodFilter === "all" || r.method === methodFilter);
 
   const counts = {
     all: data.list.length,
@@ -133,15 +144,11 @@ export default async function PaymentsPage({
       <div className="grid grid-cols-4 gap-3">
         <KpiCard
           label="MRR"
-          value={fmtMoney(data.mrr, "TRY")}
-          delta="↑ 4.2% vs last month"
-          deltaTone="up"
+          value={formatMoney(data.mrr, studioCurrency)}
         />
         <KpiCard
           label="MTD revenue"
-          value={fmtMoney(data.mtd, "TRY")}
-          delta="↑ 12.1% vs last month"
-          deltaTone="up"
+          value={formatMoney(data.mtd, studioCurrency)}
         />
         <KpiCard
           label="Failed · last 30d"
@@ -151,7 +158,7 @@ export default async function PaymentsPage({
         />
         <KpiCard
           label="Refunds · last 30d"
-          value={fmtMoney(data.refundsAmount, "TRY")}
+          value={formatMoney(data.refundsAmount, studioCurrency)}
           delta={`${data.refundsCount} refund${data.refundsCount === 1 ? "" : "s"}`}
         />
       </div>
@@ -190,7 +197,31 @@ export default async function PaymentsPage({
           />
         </label>
         <FilterChip>Plan: All ▾</FilterChip>
-        <FilterChip>Status: All ▾</FilterChip>
+        <div className="inline-flex h-9 items-center rounded-sm bg-bg p-0.5 text-xs">
+          {[
+            { value: "all", label: "All" },
+            { value: "card", label: "Card" },
+            { value: "crypto", label: "Crypto" },
+          ].map((m) => {
+            const active = methodFilter === m.value;
+            const params = new URLSearchParams();
+            if (filter !== "all") params.set("filter", filter);
+            if (m.value !== "all") params.set("method", m.value);
+            return (
+              <a
+                key={m.value}
+                href={`/admin/payments?${params.toString()}`}
+                className={`inline-flex h-8 items-center rounded-[6px] px-2.5 font-semibold transition-colors ${
+                  active
+                    ? "bg-fg text-surface"
+                    : "text-fg-muted hover:text-fg"
+                }`}
+              >
+                {m.label}
+              </a>
+            );
+          })}
+        </div>
         <button className="ml-auto h-8 rounded-sm border border-[var(--border-color)] bg-surface px-3 text-xs font-semibold hover:bg-[#faf9f7]">
           Export CSV
         </button>
@@ -203,8 +234,9 @@ export default async function PaymentsPage({
             <Th>Member</Th>
             <Th>Plan</Th>
             <Th className="w-24 text-right">Amount</Th>
+            <Th className="w-24">Method</Th>
             <Th className="w-28">Status</Th>
-            <Th className="w-28">Stripe</Th>
+            <Th className="w-32">Reference</Th>
             <Th className="w-24">Attempt</Th>
             <Th className="w-56 text-right">Actions</Th>
           </tr>
@@ -212,7 +244,7 @@ export default async function PaymentsPage({
         <tbody>
           {filtered.length === 0 && (
             <TrRow>
-              <Td colSpan={8} className="py-12 text-center text-fg-muted">
+              <Td colSpan={9} className="py-12 text-center text-fg-muted">
                 No payments match this filter.
               </Td>
             </TrRow>
@@ -223,7 +255,16 @@ export default async function PaymentsPage({
               <Td>{r.memberName}</Td>
               <Td>{r.planName ?? "—"}</Td>
               <Td className="text-right font-semibold tnum">
-                {fmtMoney(r.amount, r.currency)}
+                {formatMoney(r.amount, studioCurrency)}
+              </Td>
+              <Td>
+                <Pill
+                  variant={r.method === "crypto" ? "info" : "outline"}
+                >
+                  {r.method === "crypto"
+                    ? cryptoLabel(r.cryptoChain)
+                    : "Card"}
+                </Pill>
               </Td>
               <Td>
                 <Pill
@@ -232,18 +273,26 @@ export default async function PaymentsPage({
                       ? "good"
                       : r.status === "failed"
                         ? "bad"
-                        : "info"
+                        : r.status === "pending"
+                          ? "warn"
+                          : "info"
                   }
                 >
                   {r.status === "paid"
                     ? "Paid"
                     : r.status === "failed"
                       ? "Failed"
-                      : "Refunded"}
+                      : r.status === "pending"
+                        ? "Pending"
+                        : "Refunded"}
                 </Pill>
               </Td>
               <Td>
-                {r.stripeInvoiceId ? (
+                {r.method === "crypto" && r.cryptoTxHash ? (
+                  <a className="font-mono text-[11px] text-info hover:underline">
+                    {r.cryptoTxHash.slice(0, 6)}…{r.cryptoTxHash.slice(-4)}
+                  </a>
+                ) : r.stripeInvoiceId ? (
                   <a className="font-mono text-[12px] text-info hover:underline">
                     {r.stripeInvoiceId.slice(0, 11)}
                   </a>
@@ -272,12 +321,27 @@ export default async function PaymentsPage({
 
       <div className="flex items-center justify-between text-xs text-fg-muted">
         <span>
-          Showing 1–{filtered.length} of {data.list.length} payments
+          Showing {filtered.length} of {data.list.length} payments
         </span>
-        <Seg options={["1", "2", "3", "…"] as const} value="1" size="sm" />
       </div>
     </div>
   );
+}
+
+function cryptoLabel(chain: string | null): string {
+  switch (chain) {
+    case "btc":
+      return "BTC";
+    case "eth":
+      return "ETH";
+    case "usdt_trc20":
+      return "USDT";
+    case "usdc_eth":
+    case "usdc_base":
+      return "USDC";
+    default:
+      return "Crypto";
+  }
 }
 
 function FilterChip({ children }: { children: React.ReactNode }) {

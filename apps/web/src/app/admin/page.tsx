@@ -9,6 +9,7 @@ import { Heatmap } from "@/components/admin/heatmap";
 import { AreaChart } from "@/components/admin/area-chart";
 import { Seg } from "@/components/admin/seg";
 import { ChevronRightIcon } from "@/components/admin/icons";
+import { formatMoneyShort, getStudioCurrency } from "@/lib/money";
 
 function formatDate() {
   const today = new Date();
@@ -24,12 +25,6 @@ function formatTime(d: Date) {
     hour: "2-digit",
     minute: "2-digit",
   });
-}
-
-function formatTry(minor: number) {
-  const value = minor / 100;
-  if (value >= 1000) return `₺${(value / 1000).toFixed(1)}k`;
-  return `₺${value.toFixed(0)}`;
 }
 
 const MOCK_MRR_SERIES = [
@@ -49,6 +44,7 @@ const MOCK_HOURS = [4, 6, 10, 14, 18, 20, 18, 15, 11, 8, 6, 4];
 
 export default async function DashboardPage() {
   const tenantId = await getCurrentTenantId();
+  const studioCurrency = await getStudioCurrency();
 
   const data = await withTenantScope(tenantId, async (db) => {
     const startOfDay = new Date();
@@ -153,22 +149,16 @@ export default async function DashboardPage() {
         <KpiCard
           label="Active members"
           value={data.activeMembers.toLocaleString("en-US")}
-          delta="↑ 12 vs last week"
-          deltaTone="up"
           spark={<Sparkline values={MOCK_MRR_SERIES} stroke="var(--good)" />}
         />
         <KpiCard
           label="MRR"
-          value={formatTry(data.mrr)}
-          delta="↑ 4.2% vs last month"
-          deltaTone="up"
+          value={formatMoneyShort(data.mrr, studioCurrency)}
           spark={<Sparkline values={MOCK_MRR_SERIES} stroke="var(--good)" />}
         />
         <KpiCard
           label="Today check-ins"
           value={data.todayCheckins.toLocaleString("en-US")}
-          delta="peak 18:00–20:00"
-          deltaTone="flat"
           spark={<SparkBars values={MOCK_HOURS} highlight={5} />}
         />
         <KpiCard

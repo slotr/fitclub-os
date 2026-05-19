@@ -24,7 +24,7 @@ export default async function MembersPage({
           ilike(members.phone, `%${q}%`),
         )
       : undefined;
-    const list = await db
+    const raw = await db
       .select({
         id: members.id,
         fullName: members.fullName,
@@ -34,13 +34,18 @@ export default async function MembersPage({
         joinedAt: members.joinedAt,
         planName: plans.name,
         membershipStatus: memberships.status,
+        membershipCreatedAt: memberships.createdAt,
       })
       .from(members)
       .leftJoin(memberships, eq(memberships.memberId, members.id))
       .leftJoin(plans, eq(plans.id, memberships.planId))
       .where(filters)
-      .orderBy(desc(members.joinedAt))
-      .limit(50);
+      .orderBy(desc(members.joinedAt), desc(memberships.createdAt))
+      .limit(150);
+    // Each member can have multiple memberships; keep the most recent one.
+    const dedup = new Map<string, (typeof raw)[number]>();
+    for (const r of raw) if (!dedup.has(r.id)) dedup.set(r.id, r);
+    const list = Array.from(dedup.values()).slice(0, 50);
     const [agg] = await db
       .select({ count: sql<number>`count(*)::int` })
       .from(members)
@@ -89,13 +94,19 @@ export default async function MembersPage({
           members
         </span>
         <Seg
-          options={["1", "2", "3", "…", String(Math.max(1, Math.ceil(total / 50)))] as const}
+          options={buildPager(total, 50)}
           value="1"
           size="sm"
         />
       </div>
     </div>
   );
+}
+
+function buildPager(total: number, pageSize: number): readonly string[] {
+  const pages = Math.max(1, Math.ceil(total / pageSize));
+  if (pages <= 4) return Array.from({ length: pages }, (_, i) => String(i + 1));
+  return ["1", "2", "3", "…", String(pages)];
 }
 
 function FilterChip({ children }: { children: React.ReactNode }) {

@@ -1,15 +1,15 @@
-import type { SVGProps } from "react";
+import type { ComponentProps } from "react";
 
-type Props = SVGProps<SVGSVGElement>;
+type Props = ComponentProps<"svg">;
 
 const stroke = {
   fill: "none",
   viewBox: "0 0 24 24",
   stroke: "currentColor",
   strokeWidth: 2,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-};
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+} satisfies Props;
 
 export function HomeIcon(p: Props) {
   return (

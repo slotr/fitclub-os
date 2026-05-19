@@ -1,4 +1,4 @@
-import { desc, eq, gte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, sql } from "drizzle-orm";
 import {
   bookings,
   checkins,
@@ -15,12 +15,7 @@ import { AreaChart } from "@/components/admin/area-chart";
 import { Sparkline } from "@/components/admin/sparkline";
 import { Seg } from "@/components/admin/seg";
 import { DataTable, Td, Th, TrRow } from "@/components/admin/data-table";
-
-function fmtMoney(minor: number, currency = "TRY") {
-  const sign = currency === "TRY" ? "₺" : currency;
-  if (minor / 100 >= 1000) return `${sign}${(minor / 100 / 1000).toFixed(1)}k`;
-  return `${sign}${(minor / 100).toFixed(0)}`;
-}
+import { formatMoneyShort, getStudioCurrency } from "@/lib/money";
 
 const MOCK_MRR = [
   300, 305, 312, 318, 322, 328, 335, 340, 348, 355, 362, 368, 375, 380, 388,
@@ -35,6 +30,7 @@ const COHORTS = [
 ];
 
 export default async function ReportsPage() {
+  const studioCurrency = await getStudioCurrency();
   const tenantId = await getCurrentTenantId();
   const start30 = new Date();
   start30.setDate(start30.getDate() - 30);
@@ -50,7 +46,7 @@ export default async function ReportsPage() {
       })
       .from(payments)
       .where(
-        sql`${payments.status} = 'paid' and ${payments.createdAt} >= ${start30}`,
+        and(eq(payments.status, "paid"), gte(payments.createdAt, start30)),
       );
     const [checkinAgg] = await db
       .select({ count: sql<number>`count(*)::int` })
@@ -108,7 +104,7 @@ export default async function ReportsPage() {
             Reports
           </h1>
           <p className="mt-1 text-[12px] text-fg-muted">
-            Last 30 days · all locations · TRY
+            Last 30 days · all locations · {studioCurrency}
           </p>
         </div>
         <Seg
@@ -121,28 +117,20 @@ export default async function ReportsPage() {
         <KpiCard
           label="Active members"
           value={data.activeCount.toLocaleString("en-US")}
-          delta="↑ 12 vs prior 30d"
-          deltaTone="up"
           spark={<Sparkline values={MOCK_MRR.slice(8)} stroke="var(--good)" />}
         />
         <KpiCard
           label="Revenue · 30d"
-          value={fmtMoney(data.revenue30)}
-          delta="↑ 8.4% vs prior 30d"
-          deltaTone="up"
+          value={formatMoneyShort(data.revenue30, studioCurrency)}
           spark={<Sparkline values={MOCK_MRR} stroke="var(--good)" />}
         />
         <KpiCard
           label="Check-ins"
           value={data.checkins30.toLocaleString("en-US")}
-          delta="peak 18:00"
-          deltaTone="flat"
         />
         <KpiCard
           label="Class bookings"
           value={data.bookings30.toLocaleString("en-US")}
-          delta="↑ 6.1%"
-          deltaTone="up"
         />
       </div>
 

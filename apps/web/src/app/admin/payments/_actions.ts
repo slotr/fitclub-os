@@ -8,14 +8,7 @@ import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
 import { getStripe } from "@/lib/stripe";
 import { sendDunning } from "@/lib/email";
-
-function fmtMoney(minor: number, currency: string) {
-  const sign = currency === "TRY" ? "₺" : currency;
-  return `${sign}${(minor / 100).toLocaleString("en-US", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  })}`;
-}
+import { formatMoney, getStudioCurrency } from "@/lib/money";
 
 export async function retryPaymentAction(paymentId: string) {
   const tenantId = await getCurrentTenantId();
@@ -81,12 +74,13 @@ export async function sendDunningAction(paymentId: string) {
   });
   if (!ctx) throw new Error("payment not found");
 
+  const studioCurrency = await getStudioCurrency();
   const updateUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? ""}/m/billing`;
   let dispatched = false;
   try {
     await sendDunning(ctx.memberEmail, {
       memberName: ctx.memberName,
-      amountFormatted: fmtMoney(ctx.amount, ctx.currency),
+      amountFormatted: formatMoney(ctx.amount, studioCurrency),
       planName: "your membership",
       attemptCount: ctx.attemptCount,
       updatePaymentUrl: updateUrl,

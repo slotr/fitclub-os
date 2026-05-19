@@ -12,6 +12,9 @@ import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
 import { Pill } from "@/components/admin/pill";
 import { Avatar } from "@/components/admin/avatar";
+import { DetailTabs } from "./_components/detail-tabs";
+import { DetailActions } from "./_components/detail-actions";
+import { formatMoney, getStudioCurrency } from "@/lib/money";
 
 type Params = { id: string };
 
@@ -23,19 +26,6 @@ function fmtDate(d: Date | null | undefined) {
     year: "numeric",
   });
 }
-function fmtTime(d: Date) {
-  return new Date(d).toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-function fmtMoney(minor: number, currency: string) {
-  const sign = currency === "TRY" ? "₺" : currency;
-  return `${sign}${(minor / 100).toLocaleString("en-US", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  })}`;
-}
 
 export default async function MemberDetailPage({
   params,
@@ -44,6 +34,7 @@ export default async function MemberDetailPage({
 }) {
   const { id } = await params;
   const tenantId = await getCurrentTenantId();
+  const studioCurrency = await getStudioCurrency();
 
   const data = await withTenantScope(tenantId, async (db) => {
     const [m] = await db
@@ -52,7 +43,7 @@ export default async function MemberDetailPage({
       .where(eq(members.id, id))
       .limit(1);
     if (!m) return null;
-    const [ms] = await db
+    const allMemberships = await db
       .select({
         id: memberships.id,
         status: memberships.status,
@@ -66,8 +57,8 @@ export default async function MemberDetailPage({
       .from(memberships)
       .leftJoin(plans, eq(plans.id, memberships.planId))
       .where(eq(memberships.memberId, id))
-      .orderBy(desc(memberships.createdAt))
-      .limit(1);
+      .orderBy(desc(memberships.createdAt));
+    const ms = allMemberships[0];
     const recentCheckins = await db
       .select({
         id: checkins.id,
@@ -108,6 +99,7 @@ export default async function MemberDetailPage({
     return {
       member: m,
       membership: ms,
+      memberships: allMemberships,
       checkins: recentCheckins,
       payments: recentPayments,
       totalCheckins: stats?.totalCheckins ?? 0,
@@ -119,14 +111,34 @@ export default async function MemberDetailPage({
   const m = data.member;
   const ms = data.membership;
 
-  const churnRisk: { variant: "good" | "warn" | "bad"; label: string; reason: string } =
+  const pastDueDays =
+    ms?.status === "past_due" && ms.endsAt
+      ? Math.max(
+          0,
+          Math.floor(
+            (Date.now() - new Date(ms.endsAt).getTime()) / 86_400_000,
+          ),
+        )
+      : 0;
+  const churnRisk: {
+    variant: "good" | "warn" | "bad";
+    label: string;
+    reason: string;
+  } =
     ms?.status === "past_due"
-      ? { variant: "bad", label: "High risk", reason: "Past-due 8 days" }
+      ? {
+          variant: "bad",
+          label: "High risk",
+          reason:
+            pastDueDays > 0
+              ? `Past-due ${pastDueDays} day${pastDueDays === 1 ? "" : "s"}`
+              : "Past-due",
+        }
       : data.totalCheckins < 4
         ? {
             variant: "warn",
             label: "Medium risk",
-            reason: "Few visits in last 30 days",
+            reason: `Only ${data.totalCheckins} lifetime visits`,
           }
         : { variant: "good", label: "Low risk", reason: "Healthy attendance" };
 
@@ -152,14 +164,18 @@ export default async function MemberDetailPage({
           ? ("amber" as const)
           : p.status === "failed"
             ? ("gray" as const)
-            : ("blue" as const),
+            : p.status === "pending"
+              ? ("blue" as const)
+              : ("purple" as const),
       title:
         p.status === "paid"
           ? "Payment received"
           : p.status === "failed"
             ? "Payment failed"
-            : "Refund issued",
-      detail: fmtMoney(p.amount, p.currency),
+            : p.status === "pending"
+              ? "Payment pending"
+              : "Refund issued",
+      detail: formatMoney(p.amount, studioCurrency),
       when: new Date(p.createdAt),
     })),
   ].sort((a, b) => b.when.getTime() - a.when.getTime());
@@ -200,78 +216,44 @@ export default async function MemberDetailPage({
             />
           </div>
 
-          <div className="mt-4 flex w-full flex-col gap-2">
-            <button className="h-9 rounded-sm border border-[var(--border-color)] bg-surface text-xs font-semibold hover:bg-[#faf9f7]">
-              Send message
-            </button>
-            <button className="h-9 rounded-sm border border-[var(--border-color)] bg-surface text-xs font-semibold hover:bg-[#faf9f7]">
-              Pause membership
-            </button>
-            <button className="h-9 rounded-sm border border-[var(--border-color)] bg-surface text-xs font-semibold text-bad hover:bg-bad-soft/40">
-              Cancel membership
-            </button>
-          </div>
+          <DetailActions
+            memberId={m.id}
+            memberStatus={m.status}
+            membershipStatus={ms?.status ?? null}
+            email={m.email}
+          />
         </div>
       </aside>
 
       {/* CENTER */}
       <section className="rounded-md bg-surface p-4 shadow-fc-1">
-        <nav className="mb-4 flex border-b border-[var(--border-color)]">
-          {[
-            { label: "Activity", active: true },
-            { label: "Memberships" },
-            { label: "Payments" },
-            { label: "Check-ins" },
-            { label: "Notes" },
-          ].map((t) => (
-            <span
-              key={t.label}
-              className={`-mb-px cursor-pointer border-b-2 px-3.5 py-2.5 text-[13px] ${t.active ? "border-fg font-semibold text-fg" : "border-transparent font-medium text-fg-muted hover:text-fg"}`}
-            >
-              {t.label}
-            </span>
-          ))}
-        </nav>
-        <div>
-          {events.length === 0 && (
-            <p className="py-8 text-center text-sm text-fg-muted">
-              No activity yet.
-            </p>
-          )}
-          {events.slice(0, 12).map((e) => (
-            <div
-              key={e.key}
-              className="grid grid-cols-[12px_1fr_auto] items-start gap-3 border-b border-[var(--border-faint)] py-2.5 last:border-0"
-            >
-              <span
-                className="mt-1.5 h-2 w-2 rounded-full"
-                style={{
-                  background:
-                    e.dot === "green"
-                      ? "var(--good)"
-                      : e.dot === "amber"
-                        ? "var(--accent-amber)"
-                        : e.dot === "blue"
-                          ? "var(--info)"
-                          : e.dot === "purple"
-                            ? "#7c3aed"
-                            : "var(--fg-faint)",
-                }}
-              />
-              <div className="text-[13px]">
-                <div className="font-semibold">{e.title}</div>
-                {e.detail && (
-                  <div className="mt-0.5 text-[12px] text-fg-muted">
-                    {e.detail}
-                  </div>
-                )}
-              </div>
-              <span className="whitespace-nowrap text-[12px] text-fg-muted tnum">
-                {fmtDate(e.when)} · {fmtTime(e.when)}
-              </span>
-            </div>
-          ))}
-        </div>
+        <DetailTabs
+          memberId={m.id}
+          notes={null}
+          memberships={data.memberships.map((r) => ({
+            id: r.id,
+            status: r.status,
+            startedAt: new Date(r.startedAt),
+            endsAt: r.endsAt ? new Date(r.endsAt) : null,
+            plan: r.plan,
+            priceMinor: r.priceMinor,
+            currency: studioCurrency,
+          }))}
+          payments={data.payments.map((p) => ({
+            id: p.id,
+            amount: p.amount,
+            currency: studioCurrency,
+            status: p.status,
+            createdAt: new Date(p.createdAt),
+          }))}
+          checkins={data.checkins.map((c) => ({
+            id: c.id,
+            at: new Date(c.at),
+            source: c.source,
+            gateId: c.gateId,
+          }))}
+          events={events}
+        />
       </section>
 
       {/* RIGHT */}
@@ -287,7 +269,7 @@ export default async function MemberDetailPage({
                 label="Price"
                 value={
                   ms.priceMinor != null && ms.currency
-                    ? fmtMoney(ms.priceMinor, ms.currency)
+                    ? formatMoney(ms.priceMinor, studioCurrency)
                     : "—"
                 }
               />
@@ -341,7 +323,7 @@ export default async function MemberDetailPage({
             Lifetime
           </h4>
           <Stat label="Total visits" value={data.totalCheckins} />
-          <Stat label="Lifetime paid" value={fmtMoney(data.lifetimePaid, "TRY")} />
+          <Stat label="Lifetime paid" value={formatMoney(data.lifetimePaid, studioCurrency)} />
         </div>
       </aside>
     </div>
