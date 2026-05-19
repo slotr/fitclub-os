@@ -11,6 +11,10 @@ export type Member = {
   visitsThisWeek: number;
   visitsLastWeek: number;
   nextRenewalDate: string; // ISO
+  membershipState: 'active' | 'paused' | 'cancelled';
+  cardLast4: string | null;
+  cardBrand: string | null;
+  photoUri: string | null;
 };
 
 export const member: Member = {
@@ -26,4 +30,8 @@ export const member: Member = {
   visitsThisWeek: 4,
   visitsLastWeek: 3,
   nextRenewalDate: '2026-05-15',
+  membershipState: 'active',
+  cardLast4: '4242',
+  cardBrand: 'Visa',
+  photoUri: null,
 };

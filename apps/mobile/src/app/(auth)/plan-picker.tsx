@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { tokens } from '../../theme/tokens';
+import { fetchPlans, type LivePlan } from '../../lib/api';
 
 type Plan = {
   id: 'basic' | 'premium' | 'performance';
@@ -13,7 +14,7 @@ type Plan = {
   featured?: boolean;
 };
 
-const PLANS: Plan[] = [
+const FALLBACK_PLANS: Plan[] = [
   {
     id: 'basic',
     name: 'Basic',
@@ -43,9 +44,38 @@ const PLANS: Plan[] = [
   },
 ];
 
+function descFor(short: LivePlan['shortName']): string {
+  if (short === 'Basic') return 'For walk-in members';
+  if (short === 'Performance') return '+ 4 PT sessions / month';
+  return 'Open gym + classes + sauna';
+}
+
+function shapePlan(p: LivePlan): Plan {
+  return {
+    id: p.shortName.toLowerCase() as Plan['id'],
+    name: p.shortName,
+    monthlyTry: Math.round(p.priceMinor / 100),
+    desc: descFor(p.shortName),
+    features: p.features.length > 0 ? p.features : ['—'],
+    featured: p.highlight,
+  };
+}
+
 export default function PlanPickerScreen() {
   const router = useRouter();
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
+  const [plans, setPlans] = useState<Plan[]>(FALLBACK_PLANS);
+
+  useEffect(() => {
+    let active = true;
+    fetchPlans().then((rows) => {
+      if (!active || rows.length === 0) return;
+      setPlans(rows.map(shapePlan));
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const formatPrice = useMemo(
     () => (monthly: number) => {
@@ -78,7 +108,7 @@ export default function PlanPickerScreen() {
         })}
       </View>
 
-      {PLANS.map((p) => {
+      {plans.map((p) => {
         const featured = !!p.featured;
         return (
           <View
@@ -108,7 +138,21 @@ export default function PlanPickerScreen() {
               ))}
             </View>
             <Pressable
-              onPress={() => router.push('/permissions')}
+              onPress={() =>
+                router.push({
+                  pathname: '/billing/checkout',
+                  params: {
+                    plan: p.id,
+                    price: String(
+                      billing === 'monthly'
+                        ? p.monthlyTry
+                        : Math.round(p.monthlyTry * 10),
+                    ),
+                    cycle: billing,
+                    next: '/permissions',
+                  },
+                })
+              }
               style={[
                 styles.cta,
                 featured ? styles.ctaAccent : styles.ctaDark,

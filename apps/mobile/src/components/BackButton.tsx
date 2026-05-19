@@ -3,11 +3,24 @@ import { useRouter } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
 import { tokens } from '../theme/tokens';
 
-export function BackButton({ onPress }: { onPress?: () => void }) {
+export function BackButton({
+  onPress,
+  fallback = '/(tabs)',
+}: {
+  onPress?: () => void;
+  fallback?: string;
+}) {
   const router = useRouter();
+  const goBack = () => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace(fallback as Parameters<typeof router.replace>[0]);
+    }
+  };
   return (
     <Pressable
-      onPress={onPress ?? (() => router.back())}
+      onPress={onPress ?? goBack}
       style={({ pressed }) => [styles.btn, pressed && { opacity: 0.6 }]}
       hitSlop={8}
       accessibilityRole="button"
@@ -26,10 +39,10 @@ export function BackButton({ onPress }: { onPress?: () => void }) {
   );
 }
 
-export function BackButtonRow() {
+export function BackButtonRow({ fallback }: { fallback?: string } = {}) {
   return (
     <View style={styles.row}>
-      <BackButton />
+      <BackButton fallback={fallback} />
     </View>
   );
 }

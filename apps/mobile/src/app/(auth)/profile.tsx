@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useRouter } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { BackButtonRow } from '../../components/BackButton';
 import { CalendarIcon, PlusIcon } from '../../components/Icons';
@@ -12,11 +13,30 @@ const GENDERS = ['Male', 'Female', 'Other', 'Prefer not'] as const;
 
 export default function ProfileSetupScreen() {
   const router = useRouter();
-  const { completeOnboarding } = useAuth();
+  const { member, completeOnboarding, setPhoto } = useAuth();
   const [name, setName] = useState('Hakan Karaca');
   const [birthdate, setBirthdate] = useState('14.05.1992');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState<(typeof GENDERS)[number]>('Female');
+  const [localPhoto, setLocalPhoto] = useState<string | null>(member?.photoUri ?? null);
+
+  const pickPhoto = async () => {
+    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!perm.granted) {
+      Alert.alert('Permission needed', 'Allow photo library access in Settings to add a profile photo.');
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.7,
+    });
+    if (!result.canceled && result.assets[0]) {
+      setLocalPhoto(result.assets[0].uri);
+      setPhoto(result.assets[0].uri);
+    }
+  };
 
   return (
     <ScreenContainer>
@@ -94,17 +114,28 @@ export default function ProfileSetupScreen() {
           Photo{' '}
           <Text style={styles.optional}>(optional)</Text>
         </Text>
-        <View style={styles.photoRow}>
-          <Pressable style={styles.avatar} accessibilityLabel="Add a profile photo">
-            <PlusIcon size={22} color={tokens.color.fgFaint} />
-          </Pressable>
+        <Pressable
+          style={styles.photoRow}
+          onPress={pickPhoto}
+          accessibilityRole="button"
+          accessibilityLabel="Add a profile photo"
+        >
+          <View style={styles.avatar}>
+            {localPhoto ? (
+              <Image source={{ uri: localPhoto }} style={styles.avatarImg} />
+            ) : (
+              <PlusIcon size={22} color={tokens.color.fgFaint} />
+            )}
+          </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.photoTitle}>Add a photo</Text>
+            <Text style={styles.photoTitle}>
+              {localPhoto ? 'Change photo' : 'Add a photo'}
+            </Text>
             <Text style={styles.photoBody}>
               Helps the front desk recognise you.
             </Text>
           </View>
-        </View>
+        </Pressable>
       </View>
 
       <View style={{ height: 8 }} />
@@ -216,6 +247,11 @@ const styles = StyleSheet.create({
     backgroundColor: tokens.color.surface,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  avatarImg: {
+    width: 64,
+    height: 64,
   },
   photoTitle: {
     fontFamily: tokens.font.sansSemibold,

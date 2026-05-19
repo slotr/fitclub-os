@@ -18,7 +18,8 @@
       "expo-router",
       "expo-font",
       "expo-notifications",
-      "expo-camera"
+      "expo-camera",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": false

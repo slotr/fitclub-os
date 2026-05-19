@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
@@ -12,6 +12,7 @@ import {
 } from '../../components/Icons';
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
+import { formatMoney } from '../../lib/money';
 
 type Toggles = {
   push: boolean;
@@ -20,16 +21,52 @@ type Toggles = {
   marketing: boolean;
 };
 
+const TELEGRAM_BOT =
+  process.env.EXPO_PUBLIC_TELEGRAM_BOT ?? 'FitClubDemoBot';
+
 export default function ProfileTabScreen() {
   const router = useRouter();
-  const { member, signOut } = useAuth();
+  const { member, signOut, currency } = useAuth();
   const [t, setT] = useState<Toggles>({
     push: true,
     email: true,
     whatsapp: true,
     marketing: false,
   });
+  const [telegramConnected, setTelegramConnected] = useState(false);
   const flip = (k: keyof Toggles) => setT((p) => ({ ...p, [k]: !p[k] }));
+
+  const onTelegramConnect = async () => {
+    if (telegramConnected) {
+      Alert.alert('Disconnect Telegram?', 'Reminders will stop arriving in Telegram.', [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Disconnect',
+          style: 'destructive',
+          onPress: () => setTelegramConnected(false),
+        },
+      ]);
+      return;
+    }
+    const memberToken = member?.id ?? 'demo';
+    const url = `https://t.me/${TELEGRAM_BOT}?start=${memberToken}`;
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (!supported) {
+        Alert.alert(
+          'Telegram not installed',
+          'Install Telegram and try again, or scan our bot QR at the front desk.',
+        );
+        return;
+      }
+      await Linking.openURL(url);
+      // Optimistic: assume the bot exchange succeeds. Real wiring will
+      // confirm via webhook + push notification.
+      setTimeout(() => setTelegramConnected(true), 500);
+    } catch {
+      Alert.alert('Could not open Telegram', 'Try again, or contact support.');
+    }
+  };
 
   return (
     <ScreenContainer padding={20}>
@@ -37,7 +74,10 @@ export default function ProfileTabScreen() {
 
       <Text style={styles.sectionLabel}>Profile</Text>
       <View style={styles.group}>
-        <View style={[styles.row, styles.rowProfile]}>
+        <Pressable
+          style={[styles.row, styles.rowProfile]}
+          onPress={() => router.push('/profile/edit')}
+        >
           <LinearGradient
             colors={['#fef3c7', '#f59e0b']}
             style={styles.avatar}
@@ -51,7 +91,7 @@ export default function ProfileTabScreen() {
             <Text style={styles.email}>{member?.email ?? 'hakan@example.com'}</Text>
           </View>
           <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
-        </View>
+        </Pressable>
       </View>
 
       <Text style={styles.sectionLabel}>Notifications</Text>
@@ -65,9 +105,27 @@ export default function ProfileTabScreen() {
           onPress={() => flip('whatsapp')}
         />
         <View style={styles.row}>
-          <Text style={[styles.rowLabel, { flex: 1 }]}>Telegram</Text>
-          <Pressable style={styles.connectBtn}>
-            <Text style={styles.connectBtnLabel}>Connect</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.rowLabel}>Telegram</Text>
+            {telegramConnected ? (
+              <Text style={styles.rowSub}>Connected via @{TELEGRAM_BOT}</Text>
+            ) : null}
+          </View>
+          <Pressable
+            style={[
+              styles.connectBtn,
+              telegramConnected && styles.connectBtnConnected,
+            ]}
+            onPress={onTelegramConnect}
+          >
+            <Text
+              style={[
+                styles.connectBtnLabel,
+                telegramConnected && styles.connectBtnLabelConnected,
+              ]}
+            >
+              {telegramConnected ? 'Disconnect' : 'Connect'}
+            </Text>
           </Pressable>
         </View>
         <SwitchRow
@@ -91,7 +149,7 @@ export default function ProfileTabScreen() {
         <Pressable style={[styles.row, styles.rowLast]} onPress={() => router.push('/(tabs)/membership')}>
           <Text style={[styles.rowLabel, { flex: 1 }]}>Manage membership</Text>
           <Text style={styles.value}>
-            {member?.plan ?? 'Premium'} · ₺{member?.planPriceTry ?? 899}/mo
+            {member?.plan ?? 'Premium'} · {formatMoney(member?.planPriceTry ?? 899, currency)}/mo
           </Text>
           <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
         </Pressable>
@@ -110,14 +168,47 @@ export default function ProfileTabScreen() {
         <Pressable
           style={styles.row}
           onPress={() => {
-            signOut();
-            router.replace('/');
+            Alert.alert(
+              'Sign out?',
+              'You will need to verify your phone again to come back.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Sign out',
+                  style: 'destructive',
+                  onPress: () => {
+                    signOut();
+                    router.replace('/(auth)/otp-request');
+                  },
+                },
+              ],
+            );
           }}
         >
           <Text style={[styles.rowLabel, { flex: 1 }]}>Sign out</Text>
           <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
         </Pressable>
-        <Pressable style={[styles.row, styles.rowLast]}>
+        <Pressable
+          style={[styles.row, styles.rowLast]}
+          onPress={() => {
+            Alert.alert(
+              'Delete account?',
+              'This permanently removes your profile, history, and access. Cannot be undone.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Delete',
+                  style: 'destructive',
+                  onPress: () => {
+                    // TODO: hit DELETE /me once backend wired.
+                    signOut();
+                    router.replace('/(auth)/otp-request');
+                  },
+                },
+              ],
+            );
+          }}
+        >
           <Text style={[styles.rowLabel, { flex: 1, color: tokens.color.bad }]}>Delete account</Text>
           <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
         </Pressable>
@@ -281,6 +372,14 @@ const styles = StyleSheet.create({
     fontFamily: tokens.font.sansSemibold,
     fontSize: 12,
     color: tokens.color.surface,
+  },
+  connectBtnConnected: {
+    backgroundColor: tokens.color.surface,
+    borderWidth: 1,
+    borderColor: tokens.color.border,
+  },
+  connectBtnLabelConnected: {
+    color: tokens.color.fgMuted,
   },
 
   kvkk: {

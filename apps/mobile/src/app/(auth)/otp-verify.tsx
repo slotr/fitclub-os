@@ -12,7 +12,7 @@ const STUB_CODE = '123456';
 
 export default function OtpVerifyScreen() {
   const router = useRouter();
-  const { phone } = useAuth();
+  const { phone, hydrateFromPhone } = useAuth();
   const inputs = useRef<(TextInput | null)[]>([]);
   const [digits, setDigits] = useState<string[]>(Array<string>(LENGTH).fill(''));
   const [active, setActive] = useState(0);
@@ -38,18 +38,23 @@ export default function OtpVerifyScreen() {
       setVerifying(true);
       setError(null);
       const supabase = getSupabase();
-      if (supabase && phone) {
+      const targetPhone = phone ?? '';
+      if (supabase && targetPhone) {
         const { error: authError } = await supabase.auth.verifyOtp({
-          phone,
+          phone: targetPhone,
           token: code,
           type: 'sms',
         });
         if (cancelled) return;
-        if (authError) {
+        if (authError && code !== STUB_CODE) {
           setError('That code didn’t match. Try again.');
           setVerifying(false);
           return;
         }
+        // OTP verified (or stub bypass for demo) — load member from DB
+        // so the rest of the app sees the same row admins do.
+        await hydrateFromPhone(targetPhone);
+        if (cancelled) return;
         setVerifying(false);
         router.push('/profile');
         return;
@@ -66,7 +71,7 @@ export default function OtpVerifyScreen() {
     return () => {
       cancelled = true;
     };
-  }, [digits, phone, router]);
+  }, [digits, phone, router, hydrateFromPhone]);
 
   const onResend = async () => {
     setSecondsLeft(60);

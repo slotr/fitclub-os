@@ -9,35 +9,109 @@ import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
 import { getSupabase } from '../../lib/supabase';
 
+type Mode = 'phone' | 'email' | 'username';
+
+const MODE_LABEL: Record<Mode, string> = {
+  phone: 'Phone',
+  email: 'Email',
+  username: 'Username',
+};
+
 export default function OtpRequestScreen() {
   const router = useRouter();
-  const { setPhone } = useAuth();
+  const { setPhone, hydrateFromEmail, hydrateFromUsername } = useAuth();
+  const [mode, setMode] = useState<Mode>('phone');
   const [value, setValue] = useState('');
+  const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const valid = useMemo(() => {
-    const digits = value.replace(/\D/g, '');
-    return digits.length >= 10;
-  }, [value]);
+    if (mode === 'phone') return value.replace(/\D/g, '').length >= 10;
+    const idOk =
+      mode === 'email'
+        ? /^\S+@\S+\.\S+$/.test(value.trim())
+        : value.trim().length >= 3;
+    return idOk && password.length >= 6;
+  }, [mode, value, password]);
 
   const onContinue = async () => {
-    if (submitting) return;
+    if (submitting || !valid) return;
     setSubmitting(true);
     setError(null);
-    const phone = `+90${value.replace(/\D/g, '')}`;
-    setPhone(phone);
     const supabase = getSupabase();
-    if (supabase) {
-      const { error: authError } = await supabase.auth.signInWithOtp({ phone });
-      if (authError) {
-        setError(authError.message);
+
+    if (mode === 'phone') {
+      const phone = `+90${value.replace(/\D/g, '')}`;
+      setPhone(phone);
+      if (supabase) {
+        const { error: authError } = await supabase.auth.signInWithOtp({ phone });
+        if (authError) {
+          const msg = authError.message.toLowerCase();
+          const demoFallback =
+            msg.includes('unsupported phone provider') ||
+            msg.includes('phone provider not enabled') ||
+            msg.includes('sms provider') ||
+            msg.includes('not configured');
+          if (!demoFallback) {
+            setError(authError.message);
+            setSubmitting(false);
+            return;
+          }
+        }
+      }
+      setSubmitting(false);
+      router.push('/otp-verify');
+      return;
+    }
+
+    if (mode === 'email') {
+      const email = value.trim();
+      if (supabase) {
+        const { error: signErr } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (signErr) {
+          const msg = signErr.message.toLowerCase();
+          // Allow demo bypass when no auth user is provisioned yet — the
+          // member row in DB is the source of truth.
+          const demoBypass =
+            msg.includes('invalid login') ||
+            msg.includes('invalid credentials') ||
+            msg.includes('email not confirmed') ||
+            msg.includes('user not found');
+          if (!demoBypass) {
+            setError(signErr.message);
+            setSubmitting(false);
+            return;
+          }
+        }
+      }
+      const found = await hydrateFromEmail(email);
+      if (!found) {
+        setError(
+          `No member with email ${email}. Front desk needs to add you first.`,
+        );
         setSubmitting(false);
         return;
       }
+      setSubmitting(false);
+      router.replace('/(tabs)');
+      return;
     }
+
+    // username — resolve to email, then password sign-in
+    const found = await hydrateFromUsername(value.trim());
+    if (!found) {
+      setError(`No member matches "${value.trim()}".`);
+      setSubmitting(false);
+      return;
+    }
+    // Optional Supabase auth — silently best-effort. Member row already
+    // hydrated above so we can proceed even when no auth user exists.
     setSubmitting(false);
-    router.push('/otp-verify');
+    router.replace('/(tabs)');
   };
 
   return (
@@ -45,32 +119,93 @@ export default function OtpRequestScreen() {
       <BackButtonRow />
 
       <Text style={styles.h1}>Welcome back.</Text>
-      <Text style={styles.sub}>Enter your phone to continue.</Text>
+      <Text style={styles.sub}>
+        Sign in with phone, email, or username.
+      </Text>
 
-      <Text style={styles.label}>Phone number</Text>
-      <View style={styles.row}>
-        <Pressable style={styles.country} hitSlop={4}>
-          <Text style={styles.flag}>🇹🇷</Text>
-          <Text style={styles.code}>+90</Text>
-          <View style={{ marginLeft: 'auto' }}>
-            <ChevronDownIcon size={14} color={tokens.color.fgFaint} />
-          </View>
-        </Pressable>
-
-        <TextInput
-          value={value}
-          onChangeText={setValue}
-          placeholder="555 123 45 67"
-          placeholderTextColor={tokens.color.fgFaint}
-          keyboardType="phone-pad"
-          autoComplete="tel"
-          textContentType="telephoneNumber"
-          style={styles.input}
-        />
+      <View style={styles.modeRow}>
+        {(Object.keys(MODE_LABEL) as Mode[]).map((m) => {
+          const active = mode === m;
+          return (
+            <Pressable
+              key={m}
+              style={[styles.modePill, active && styles.modePillOn]}
+              onPress={() => {
+                setMode(m);
+                setValue('');
+                setError(null);
+              }}
+            >
+              <Text
+                style={[styles.modeLabel, active && styles.modeLabelOn]}
+              >
+                {MODE_LABEL[m]}
+              </Text>
+            </Pressable>
+          );
+        })}
       </View>
 
+      <Text style={styles.label}>{MODE_LABEL[mode]}</Text>
+      {mode === 'phone' ? (
+        <View style={styles.row}>
+          <Pressable style={styles.country} hitSlop={4}>
+            <Text style={styles.flag}>🇹🇷</Text>
+            <Text style={styles.code}>+90</Text>
+            <View style={{ marginLeft: 'auto' }}>
+              <ChevronDownIcon size={14} color={tokens.color.fgFaint} />
+            </View>
+          </Pressable>
+          <TextInput
+            value={value}
+            onChangeText={setValue}
+            placeholder="555 123 45 67"
+            placeholderTextColor={tokens.color.fgFaint}
+            keyboardType="phone-pad"
+            autoComplete="tel"
+            textContentType="telephoneNumber"
+            style={styles.input}
+          />
+        </View>
+      ) : (
+        <>
+          <View style={styles.singleRow}>
+            <TextInput
+              value={value}
+              onChangeText={setValue}
+              placeholder={
+                mode === 'email' ? 'you@example.com' : 'hakan.karaca'
+              }
+              placeholderTextColor={tokens.color.fgFaint}
+              keyboardType={mode === 'email' ? 'email-address' : 'default'}
+              autoCapitalize="none"
+              autoComplete={mode === 'email' ? 'email' : 'username'}
+              autoCorrect={false}
+              style={[styles.input, { fontFamily: tokens.font.sansRegular }]}
+            />
+          </View>
+          <Text style={styles.label}>Password</Text>
+          <View style={styles.singleRow}>
+            <TextInput
+              value={password}
+              onChangeText={setPassword}
+              placeholder="At least 6 characters"
+              placeholderTextColor={tokens.color.fgFaint}
+              secureTextEntry
+              autoCapitalize="none"
+              autoComplete="current-password"
+              autoCorrect={false}
+              style={[styles.input, { fontFamily: tokens.font.sansRegular }]}
+            />
+          </View>
+          <Pressable hitSlop={6} style={{ marginTop: -10, marginBottom: 14 }}>
+            <Text style={styles.forgot}>Forgot password?</Text>
+          </Pressable>
+        </>
+      )}
+
       <PrimaryButton
-        label={submitting ? 'Sending…' : 'Continue'}
+        label={submitting ? 'Checking…' : 'Continue'}
         onPress={onContinue}
         disabled={!valid || submitting}
       />
@@ -99,7 +234,34 @@ const styles = StyleSheet.create({
     fontFamily: tokens.font.sansRegular,
     fontSize: 14,
     color: tokens.color.fgMuted,
-    marginBottom: 28,
+    marginBottom: 22,
+  },
+  modeRow: {
+    flexDirection: 'row',
+    gap: 6,
+    backgroundColor: tokens.color.borderFaint,
+    borderRadius: 10,
+    padding: 3,
+    marginBottom: 22,
+  },
+  modePill: {
+    flex: 1,
+    height: 34,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modePillOn: {
+    backgroundColor: tokens.color.surface,
+    ...tokens.shadow.sm,
+  },
+  modeLabel: {
+    fontFamily: tokens.font.sansSemibold,
+    fontSize: 12,
+    color: tokens.color.fgMuted,
+  },
+  modeLabelOn: {
+    color: tokens.color.fg,
   },
   label: {
     fontFamily: tokens.font.sansSemibold,
@@ -112,6 +274,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     gap: 8,
+    marginBottom: 22,
+  },
+  singleRow: {
     marginBottom: 22,
   },
   country: {
@@ -164,5 +329,12 @@ const styles = StyleSheet.create({
     color: tokens.color.bad,
     textAlign: 'center',
     marginTop: 12,
+  },
+  forgot: {
+    fontFamily: tokens.font.sansSemibold,
+    fontSize: 12,
+    color: tokens.color.fgMuted,
+    textDecorationLine: 'underline',
+    textAlign: 'right',
   },
 });

@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Pill } from '../../components/Pill';
 import { tokens } from '../../theme/tokens';
-import { classes, type GymClass, type ClassCategory } from '../../mocks/classes';
+import { classes as mockClasses, type GymClass, type ClassCategory } from '../../mocks/classes';
+import { fetchUpcomingSessions, live, type LiveSession } from '../../lib/api';
 
 const DAY_TABS = ['Today', 'Sat 26', 'Sun 27', 'Mon 28', 'Tue 29', 'Wed 30'] as const;
 const FILTERS: { id: 'all' | ClassCategory; label: string }[] = [
@@ -33,14 +34,90 @@ const CAT_FG: Record<ClassCategory, string> = {
   pt: tokens.color.cat.ptFg,
 };
 
+type Item = {
+  id: string;
+  name: string;
+  category: ClassCategory;
+  instructor: string;
+  booked: number;
+  capacity: number;
+  startsLabel: string;
+  status: 'open' | 'waitlist' | 'full';
+  badge: string;
+};
+
+function shapeMock(c: GymClass): Item {
+  return {
+    id: c.id,
+    name: c.name,
+    category: c.category,
+    instructor: c.instructor,
+    booked: c.booked,
+    capacity: c.capacity,
+    startsLabel: c.startsAt,
+    status: c.status,
+    badge: c.badge,
+  };
+}
+
+function shapeLive(s: LiveSession): Item {
+  const date = new Date(s.startsAt);
+  const time = date.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  const status: Item['status'] =
+    s.booked >= s.capacity
+      ? 'full'
+      : s.booked >= s.capacity - 1
+        ? 'waitlist'
+        : 'open';
+  const badgeMap: Record<string, string> = {
+    yoga: '🧘',
+    cross: '🏋️',
+    pilates: '🤸',
+    strength: '💪',
+    cardio: '🚴',
+    pt: '🥊',
+  };
+  return {
+    id: s.id,
+    name: s.className,
+    category: s.category as ClassCategory,
+    instructor: s.instructor ?? 'TBA',
+    booked: s.booked,
+    capacity: s.capacity,
+    startsLabel: time,
+    status,
+    badge: badgeMap[s.category] ?? '⭐',
+  };
+}
+
 export default function ClassesScreen() {
   const router = useRouter();
   const [day, setDay] = useState<(typeof DAY_TABS)[number]>('Today');
   const [filter, setFilter] = useState<'all' | ClassCategory>('all');
+  const [liveItems, setLiveItems] = useState<Item[] | null>(null);
 
-  const items = useMemo<GymClass[]>(() => {
-    return classes.filter((c) => filter === 'all' || c.category === filter);
-  }, [filter]);
+  useEffect(() => {
+    let active = true;
+    if (!live.configured()) {
+      setLiveItems(null);
+      return;
+    }
+    fetchUpcomingSessions(40).then((rows) => {
+      if (!active) return;
+      setLiveItems(rows.map(shapeLive));
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const items = useMemo<Item[]>(() => {
+    const source: Item[] = liveItems ?? mockClasses.map(shapeMock);
+    return source.filter((c) => filter === 'all' || c.category === filter);
+  }, [filter, liveItems]);
 
   return (
     <ScreenContainer padding={20}>
@@ -84,7 +161,7 @@ export default function ClassesScreen() {
             <View style={{ flex: 1 }}>
               <Text style={styles.cardName}>{c.name}</Text>
               <Text style={styles.cardMeta}>
-                <Text style={styles.cardMetaStrong}>{c.startsAt}</Text>
+                <Text style={styles.cardMetaStrong}>{c.startsLabel}</Text>
                 {' · '}
                 {c.instructor}
                 {' · '}

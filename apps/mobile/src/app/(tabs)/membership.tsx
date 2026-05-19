@@ -1,13 +1,95 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { CardIcon } from '../../components/Icons';
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
-import { paymentHistory } from '../../mocks/activity';
+import { paymentHistory as mockPayments } from '../../mocks/activity';
+import { fetchPaymentHistory, type LivePayment } from '../../lib/api';
+import { formatMoney } from '../../lib/money';
+
+type PayRow = { id: string; date: string; what: string; amount: number; pending?: boolean };
+
+function fmtDate(iso: string): string {
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+}
 
 export default function MembershipScreen() {
-  const { member } = useAuth();
+  const router = useRouter();
+  const { member, setMembershipState, currency } = useAuth();
+  const state = member?.membershipState ?? 'active';
+  const [history, setHistory] = useState<PayRow[]>(
+    mockPayments.map((p) => ({ id: p.id, date: p.date, what: p.what, amount: p.amount })),
+  );
+
+  useEffect(() => {
+    if (!member?.dbId) return;
+    let active = true;
+    fetchPaymentHistory(member.dbId).then((rows: LivePayment[]) => {
+      if (!active) return;
+      if (rows.length === 0) return;
+      setHistory(
+        rows.map((p) => ({
+          id: p.id,
+          date: fmtDate(p.createdAt),
+          what:
+            p.method === 'crypto'
+              ? `Crypto · ${p.status === 'pending' ? 'awaiting confirmation' : p.status}`
+              : `Card · ${p.status}`,
+          amount: p.amount,
+          pending: p.status === 'pending',
+        })),
+      );
+    });
+    return () => {
+      active = false;
+    };
+  }, [member?.dbId]);
+
+  const onPause = () => {
+    Alert.alert(
+      state === 'paused' ? 'Resume membership?' : 'Pause membership?',
+      state === 'paused'
+        ? 'Your monthly payments will resume on the next billing date.'
+        : 'You can resume anytime. Billing pauses immediately.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: state === 'paused' ? 'Resume' : 'Pause',
+          onPress: () => setMembershipState(state === 'paused' ? 'active' : 'paused'),
+        },
+      ],
+    );
+  };
+
+  const onCancel = () => {
+    Alert.alert(
+      'Cancel membership?',
+      'Access stays active until the end of your current billing cycle. This action cannot be undone.',
+      [
+        { text: 'Keep membership', style: 'cancel' },
+        {
+          text: 'Cancel anyway',
+          style: 'destructive',
+          onPress: () => setMembershipState('cancelled'),
+        },
+      ],
+    );
+  };
+
+  const onActions = () => {
+    Alert.alert('Manage membership', undefined, [
+      { text: state === 'paused' ? 'Resume' : 'Pause', onPress: onPause },
+      { text: 'Cancel', style: 'destructive', onPress: onCancel },
+      { text: 'Close', style: 'cancel' },
+    ]);
+  };
 
   return (
     <ScreenContainer padding={20}>
@@ -23,43 +105,70 @@ export default function MembershipScreen() {
           <View style={styles.glow} pointerEvents="none" />
           <Text style={styles.planLabel}>{member?.plan ?? 'Premium'} plan</Text>
           <Text style={styles.planPrice}>
-            ₺{(member?.planPriceTry ?? 899).toLocaleString('en-US')}
+            {formatMoney(member?.planPriceTry ?? 899, currency)}
             <Text style={styles.planPriceSmall}>/month</Text>
           </Text>
-          <Text style={styles.planNext}>Next payment: 15 May 2026</Text>
-          <View style={styles.manage}>
+          <Text style={styles.planNext}>
+            {state === 'cancelled'
+              ? 'Cancelled — access until 15 May 2026'
+              : state === 'paused'
+                ? 'Paused — resume anytime'
+                : 'Next payment: 15 May 2026'}
+            {member?.cardLast4 ? ` · ${member.cardBrand} •••• ${member.cardLast4}` : ''}
+          </Text>
+          <Pressable
+            style={styles.manage}
+            onPress={() => router.push('/billing/payment-method')}
+          >
             <CardIcon size={14} color="#fff" strokeWidth={2} />
             <Text style={styles.manageText}>Update card</Text>
-          </View>
+          </Pressable>
         </LinearGradient>
       </View>
 
       <Text style={styles.sectionLabel}>Payment history</Text>
 
       <View style={styles.payList}>
-        {paymentHistory.map((row, idx) => (
+        {history.map((row, idx) => (
           <View
             key={row.id}
             style={[
               styles.payRow,
-              idx === paymentHistory.length - 1 && { borderBottomWidth: 0 },
+              idx === history.length - 1 && { borderBottomWidth: 0 },
             ]}
           >
             <View style={{ flex: 1 }}>
               <Text style={styles.payWhen}>{row.date}</Text>
               <Text style={styles.payWhat}>{row.what}</Text>
             </View>
-            <Text style={styles.payAmount}>₺{row.amount.toLocaleString('en-US')}</Text>
+            <Text
+              style={[
+                styles.payAmount,
+                row.pending && { color: tokens.color.warnFg },
+              ]}
+            >
+              {formatMoney(row.amount, currency)}
+            </Text>
           </View>
         ))}
+        {history.length === 0 && (
+          <View style={styles.payRow}>
+            <Text style={styles.payWhat}>No payments yet.</Text>
+          </View>
+        )}
       </View>
 
       <View style={styles.actions}>
-        <Pressable style={styles.ghost}>
+        <Pressable
+          style={styles.ghost}
+          onPress={() => router.push('/billing/change-plan')}
+        >
           <Text style={styles.ghostLabel}>Change plan</Text>
         </Pressable>
-        <Pressable style={styles.ghost}>
-          <Text style={[styles.ghostLabel, { color: tokens.color.bad }]}>Pause / Cancel</Text>
+        <Pressable style={styles.ghost} onPress={onActions}>
+          <Text style={[styles.ghostLabel, { color: tokens.color.bad }]}>
+            {state === 'paused' ? 'Resume / Cancel' : 'Pause / Cancel'}
+          </Text>
         </Pressable>
       </View>
     </ScreenContainer>
