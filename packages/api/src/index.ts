@@ -5,4 +5,5 @@ export * from "./schemas/instructor";
 export * from "./schemas/session";
 export * from "./schemas/booking";
 export * from "./schemas/notification";
+export * from "./schemas/payment";
 export * from "./schemas/studioSettings";
