@@ -4,24 +4,114 @@
 
 @layer base {
   :root {
+    /* shadcn HSL bridge — keeps existing primitives working */
     --background: 60 9% 98%;
     --foreground: 0 0% 10%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
     --primary: 0 0% 10%;
     --primary-foreground: 0 0% 98%;
+    --secondary: 60 4% 95%;
+    --secondary-foreground: 0 0% 10%;
     --muted: 60 4% 95%;
     --muted-foreground: 0 0% 45%;
     --accent: 38 92% 50%;
     --accent-foreground: 0 0% 10%;
-    --border: 0 0% 91%;
-    --input: 0 0% 91%;
+    --destructive: 0 84% 47%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 24 6% 90%;
+    --input: 24 6% 90%;
     --ring: 38 92% 50%;
     --radius: 0.75rem;
+
+    /* FitClub design tokens (mirror _tokens.css) */
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --fg: #1a1a1a;
+    --fg-muted: #6b7280;
+    --fg-faint: #9ca3af;
+    --border-color: #e7e5e4;
+    --border-faint: #f3f1ee;
+    --accent-amber: #f59e0b;
+    --accent-fg: #1a1a1a;
+    --accent-soft: #fef3c7;
+    --good: #16a34a;
+    --good-soft: #dcfce7;
+    --warn: #ca8a04;
+    --warn-soft: #fef3c7;
+    --bad: #dc2626;
+    --bad-soft: #fee2e2;
+    --info: #2563eb;
+    --info-soft: #dbeafe;
+
+    --cat-yoga: #fef3c7;
+    --cat-cross: #fee2e2;
+    --cat-pilates: #dbeafe;
+    --cat-strength: #ede9fe;
+    --cat-cardio: #d1fae5;
+    --cat-pt: #fce7f3;
+
+    --sh-1: 0 1px 3px rgba(0, 0, 0, 0.04);
+    --sh-2: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --sh-3: 0 12px 32px rgba(0, 0, 0, 0.08);
+    --sh-float: 0 30px 80px rgba(0, 0, 0, 0.2), 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    background: linear-gradient(180deg, #ece9e2 0%, #d8d4cc 100%);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  /* Tabular numbers utility used across KPIs, dates, amounts */
+  .tnum {
+    font-variant-numeric: tabular-nums;
   }
 }
 
-html, body {
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
+@layer components {
+  /* Shared semantic pill — small, dense, used in tables and KPIs */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .pill-good {
+    background: var(--good-soft);
+    color: #166534;
+  }
+  .pill-warn {
+    background: var(--warn-soft);
+    color: #92400e;
+  }
+  .pill-bad {
+    background: var(--bad-soft);
+    color: #991b1b;
+  }
+  .pill-info {
+    background: var(--info-soft);
+    color: #1e40af;
+  }
+  .pill-dark {
+    background: var(--fg);
+    color: var(--surface);
+  }
+  .pill-outline {
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    color: var(--fg-muted);
+  }
 }

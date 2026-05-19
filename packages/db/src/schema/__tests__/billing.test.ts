@@ -66,6 +66,11 @@ describe("payments schema", () => {
   });
 
   it("exposes the status enum", () => {
-    expect(paymentStatusEnum.enumValues).toEqual(["paid", "failed", "refunded"]);
+    expect(paymentStatusEnum.enumValues).toEqual([
+      "paid",
+      "failed",
+      "refunded",
+      "pending",
+    ]);
   });
 });

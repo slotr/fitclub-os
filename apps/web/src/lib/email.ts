@@ -1,5 +1,10 @@
 import { render } from "@react-email/render";
-import { Receipt, type ReceiptProps } from "@fitness/emails";
+import {
+  Receipt,
+  type ReceiptProps,
+  Dunning,
+  type DunningProps,
+} from "@fitness/emails";
 import { Resend } from "resend";
 import { createElement } from "react";
 
@@ -18,6 +23,16 @@ export async function sendReceipt(to: string, props: ReceiptProps) {
     from: "FitClub <noreply@fitclub.local>",
     to,
     subject: "Payment received",
+    html,
+  });
+}
+
+export async function sendDunning(to: string, props: DunningProps) {
+  const html = await render(createElement(Dunning, props));
+  await getResend().emails.send({
+    from: "FitClub <billing@fitclub.local>",
+    to,
+    subject: `Payment failed — please update your card`,
     html,
   });
 }

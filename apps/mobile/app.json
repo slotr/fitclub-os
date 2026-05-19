@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "FitClub",
+    "slug": "fitclub-mobile",
+    "scheme": "fitclub",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.fitclub.app",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.fitclub.app"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-notifications",
+      "expo-camera",
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}

@@ -17,7 +17,7 @@ export const plans = pgTable("plans", {
     .references(() => tenants.id, { onDelete: "restrict" }),
   name: text("name").notNull(),
   priceMinor: integer("price_minor").notNull(),
-  currency: varchar("currency", { length: 3 }).notNull().default("USD"),
+  currency: varchar("currency", { length: 3 }).notNull().default("TRY"),
   durationDays: integer("duration_days").notNull(),
   features: jsonb("features").$type<string[]>().notNull().default([]),
   active: boolean("active").notNull().default(true),

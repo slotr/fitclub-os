@@ -11,6 +11,10 @@ function getDb() {
   return cached;
 }
 
+export function getDbClient(): DbClient {
+  return getDb();
+}
+
 export async function withTenantScope<T>(
   tenantId: string | null,
   fn: (db: DbClient) => Promise<T>,

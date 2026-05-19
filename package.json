@@ -19,5 +19,14 @@
   "engines": {
     "node": ">=20",
     "pnpm": ">=9"
+  },
+  "pnpm": {
+    "overrides": {
+      "drizzle-orm": "0.36.4",
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
+      "@types/react": "19.1.10",
+      "@types/react-dom": "19.1.4"
+    }
   }
 }

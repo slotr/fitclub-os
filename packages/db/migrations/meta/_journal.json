@@ -15,6 +15,27 @@
       "when": 1777123673827,
       "tag": "0001_little_timeslip",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777647906421,
+      "tag": "0002_fitclub_classes",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777652311246,
+      "tag": "0003_jittery_colossus",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1779201753533,
+      "tag": "0004_plans_currency_try",
+      "breakpoints": true
     }
   ]
 }
