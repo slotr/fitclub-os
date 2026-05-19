@@ -1,0 +1,14 @@
+**/node_modules
+**/.next
+**/.turbo
+**/.cache
+**/dist
+**/.git
+**/.vercel
+**/.DS_Store
+**/*.log
+**/coverage
+**/.env*
+**/Dockerfile*
+**/.dockerignore
+**/README*.md
