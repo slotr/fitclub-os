@@ -123,7 +123,9 @@ export default async function PlansPage() {
                   active members
                 </span>
                 <Link
-                  href={"/admin/plans" as Parameters<typeof Link>[0]["href"]}
+                  href={
+                    `/admin/plans/${p.id}` as Parameters<typeof Link>[0]["href"]
+                  }
                   className="font-semibold hover:underline"
                 >
                   Edit →
