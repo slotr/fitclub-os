@@ -1,7 +1,11 @@
-# FitClub web + reverse proxy.
-# Runs alongside the Supabase self-hosted stack (separate compose file —
-# see infra/vps/README.md). Both stacks share the supabase_network_<dir>
-# Docker network so the web app can reach the internal Supabase URL.
+# FitClub web container.
+#
+# TLS + routing are handled by the host's system nginx (a vhost for the
+# domain proxies / to this container and the Supabase paths to Kong) —
+# see infra/vps/nginx-fms.conf and infra/vps/README.md.
+#
+# The container joins the Supabase stack's network so it can reach the
+# database and Kong by service name (db:5432, kong:8000).
 
 name: fitclub
 
@@ -11,41 +15,23 @@ services:
     build:
       context: ../..
       dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
     restart: unless-stopped
     env_file:
       - .env.production
-    expose:
-      - "3000"
-    depends_on:
-      - caddy
-    networks:
-      - default
-      - supabase_default
-
-  caddy:
-    container_name: fitclub-caddy
-    image: caddy:2-alpine
-    restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    environment:
-      DOMAIN: ${DOMAIN:?DOMAIN env var is required}
-      WEB_HOST: web:3000
+      - "127.0.0.1:3002:3000"
     networks:
       - default
-
-volumes:
-  caddy_data:
-  caddy_config:
+      - supabase
 
 networks:
   default:
   # External network created by the Supabase docker-compose stack.
-  # Name follows Docker Compose convention: <project_name>_default.
-  supabase_default:
+  # Set the real name with: docker network ls | grep supabase
+  supabase:
     external: true
+    name: ${SUPABASE_NETWORK:-supabase_default}
