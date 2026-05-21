@@ -1,8 +1,10 @@
-import { eq } from "drizzle-orm";
-import { studioSettings } from "@fitness/db";
+import { and, asc, eq, isNull } from "drizzle-orm";
+import { instructors, studioSettings } from "@fitness/db";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
+import { Avatar } from "@/components/admin/avatar";
 import { Pill } from "@/components/admin/pill";
+import { SettingsNav } from "./_nav";
 import { stubSaveSettingsAction } from "./_actions";
 
 const integrations = [
@@ -13,16 +15,40 @@ const integrations = [
   { key: "posthog", label: "PostHog", desc: "Product analytics" },
 ];
 
+const DAYS = [
+  { key: "mon", label: "Monday" },
+  { key: "tue", label: "Tuesday" },
+  { key: "wed", label: "Wednesday" },
+  { key: "thu", label: "Thursday" },
+  { key: "fri", label: "Friday" },
+  { key: "sat", label: "Saturday" },
+  { key: "sun", label: "Sunday" },
+];
+
 export default async function SettingsPage() {
   const tenantId = await getCurrentTenantId();
-  const settings = await withTenantScope(tenantId, async (db) => {
+  const { settings, team } = await withTenantScope(tenantId, async (db) => {
     const [row] = await db
       .select()
       .from(studioSettings)
       .where(eq(studioSettings.tenantId, tenantId!))
       .limit(1);
-    return row ?? null;
+    const staff = await db
+      .select()
+      .from(instructors)
+      .where(
+        and(
+          eq(instructors.tenantId, tenantId!),
+          isNull(instructors.archivedAt),
+        ),
+      )
+      .orderBy(asc(instructors.name));
+    return { settings: row ?? null, team: staff };
   });
+
+  const hoursByDay = new Map(
+    (settings?.hours ?? []).map((h) => [h.day, h]),
+  );
 
   return (
     <div className="space-y-4">
@@ -42,21 +68,14 @@ export default async function SettingsPage() {
         }}
         className="grid grid-cols-[180px_1fr] gap-6"
       >
-        <aside className="text-[13px] font-medium text-fg-muted">
-          <ul className="sticky top-4 space-y-1.5">
-            <li className="rounded-sm bg-[#faf9f7] px-3 py-1.5 font-semibold text-fg">
-              Studio
-            </li>
-            <li className="px-3 py-1.5">Branding</li>
-            <li className="px-3 py-1.5">Hours</li>
-            <li className="px-3 py-1.5">Integrations</li>
-            <li className="px-3 py-1.5">Team</li>
-            <li className="px-3 py-1.5">Security</li>
-          </ul>
-        </aside>
+        <SettingsNav />
 
         <div className="space-y-4">
-          <Section title="Studio" hint="Identity used on receipts and reminders.">
+          <Section
+            id="studio"
+            title="Studio"
+            hint="Identity used on receipts and reminders."
+          >
             <Field
               label="Studio name"
               name="name"
@@ -79,7 +98,11 @@ export default async function SettingsPage() {
             />
           </Section>
 
-          <Section title="Branding" hint="Affects member app + email templates.">
+          <Section
+            id="branding"
+            title="Branding"
+            hint="Affects member app + email templates."
+          >
             <Field
               label="Accent color"
               name="accentColor"
@@ -98,7 +121,53 @@ export default async function SettingsPage() {
             </div>
           </Section>
 
-          <Section title="Integrations" hint="Toggle channels and review connection status.">
+          <Section
+            id="hours"
+            title="Hours"
+            hint="Shown in the member app and booking flow."
+          >
+            <div className="col-span-2 grid gap-2">
+              <div className="grid grid-cols-[120px_1fr_1fr] gap-3 px-1 text-[11px] font-semibold uppercase tracking-wider2 text-fg-muted">
+                <span>Day</span>
+                <span>Open</span>
+                <span>Close</span>
+              </div>
+              {DAYS.map((d) => {
+                const row = hoursByDay.get(d.key);
+                return (
+                  <div
+                    key={d.key}
+                    className="grid grid-cols-[120px_1fr_1fr] items-center gap-3"
+                  >
+                    <span className="text-[13px] font-semibold">
+                      {d.label}
+                    </span>
+                    <input
+                      type="time"
+                      name={`hours_${d.key}_open`}
+                      defaultValue={row?.open ?? ""}
+                      className="block h-10 w-full rounded-sm border border-[var(--border-color)] bg-bg px-3 text-[13px] text-fg outline-none focus:border-fg"
+                    />
+                    <input
+                      type="time"
+                      name={`hours_${d.key}_close`}
+                      defaultValue={row?.close ?? ""}
+                      className="block h-10 w-full rounded-sm border border-[var(--border-color)] bg-bg px-3 text-[13px] text-fg outline-none focus:border-fg"
+                    />
+                  </div>
+                );
+              })}
+              <p className="px-1 text-[12px] text-fg-muted">
+                Leave both fields empty to mark a day as closed.
+              </p>
+            </div>
+          </Section>
+
+          <Section
+            id="integrations"
+            title="Integrations"
+            hint="Toggle channels and review connection status."
+          >
             <div className="col-span-2 grid gap-2">
               {integrations.map((i) => (
                 <div
@@ -134,6 +203,41 @@ export default async function SettingsPage() {
           </Section>
 
           <Section
+            id="team"
+            title="Team"
+            hint="Instructors with studio access."
+          >
+            <div className="col-span-2 grid gap-2">
+              {team.length === 0 ? (
+                <p className="px-1 text-[13px] text-fg-muted">
+                  No instructors yet. Add them from the Classes area.
+                </p>
+              ) : (
+                team.map((m) => (
+                  <div
+                    key={m.id}
+                    className="flex items-center justify-between rounded-sm border border-[var(--border-faint)] bg-bg px-4 py-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Avatar name={m.name} size={36} />
+                      <div>
+                        <div className="text-[14px] font-semibold">
+                          {m.name}
+                        </div>
+                        <div className="text-[12px] text-fg-muted">
+                          {m.email ?? m.phone ?? "—"}
+                        </div>
+                      </div>
+                    </div>
+                    <Pill variant="outline">Instructor</Pill>
+                  </div>
+                ))
+              )}
+            </div>
+          </Section>
+
+          <Section
+            id="security"
             title="Security"
             hint="Owner-only. Changes audit-logged."
           >
@@ -180,16 +284,21 @@ export default async function SettingsPage() {
 }
 
 function Section({
+  id,
   title,
   hint,
   children,
 }: {
+  id: string;
   title: string;
   hint?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-md bg-surface p-5 shadow-fc-1">
+    <section
+      id={id}
+      className="scroll-mt-20 rounded-md bg-surface p-5 shadow-fc-1"
+    >
       <div className="mb-4 flex items-baseline justify-between gap-4">
         <h2 className="text-[15px] font-bold tracking-tightish">{title}</h2>
         {hint && <span className="text-[12px] text-fg-muted">{hint}</span>}

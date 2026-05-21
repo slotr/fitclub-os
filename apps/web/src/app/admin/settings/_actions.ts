@@ -8,13 +8,21 @@ import { logAudit } from "@/lib/audit";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
 
+const DAY_KEYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
 export async function stubSaveSettingsAction(formData: FormData) {
+  const hours = DAY_KEYS.flatMap((d) => {
+    const open = String(formData.get(`hours_${d}_open`) ?? "").trim();
+    const close = String(formData.get(`hours_${d}_close`) ?? "").trim();
+    return open && close ? [{ day: d, open, close }] : [];
+  });
   const parsed = studioSettingsInsertSchema.safeParse({
     name: String(formData.get("name") ?? ""),
     timezone: String(formData.get("timezone") ?? "Europe/Istanbul"),
     locale: String(formData.get("locale") ?? "en"),
     currency: String(formData.get("currency") ?? "TRY"),
     accentColor: formData.get("accentColor") || null,
+    hours,
   });
   if (!parsed.success) {
     return { error: parsed.error.flatten() };
@@ -32,6 +40,7 @@ export async function stubSaveSettingsAction(formData: FormData) {
         locale: parsed.data.locale,
         currency: parsed.data.currency,
         accentColor: parsed.data.accentColor ?? null,
+        hours: parsed.data.hours,
       })
       .onConflictDoUpdate({
         target: studioSettings.tenantId,
@@ -41,6 +50,7 @@ export async function stubSaveSettingsAction(formData: FormData) {
           locale: parsed.data.locale,
           currency: parsed.data.currency,
           accentColor: parsed.data.accentColor ?? null,
+          hours: parsed.data.hours,
           updatedAt: sql`now()`,
         },
       });
