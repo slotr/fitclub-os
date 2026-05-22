@@ -285,3 +285,17 @@ export function ShareIcon({ size = 16, color = 'currentColor', strokeWidth = 2, 
     </Svg>
   );
 }
+
+export function DumbbellIcon({ size = 22, color = 'currentColor', strokeWidth = 2, ...rest }: IconProps) {
+  return (
+    <Svg {...base(size)} {...rest}>
+      <Path
+        d="M6 4v16M18 4v16M6 8H4a1 1 0 00-1 1v6a1 1 0 001 1h2M18 8h2a1 1 0 011 1v6a1 1 0 01-1 1h-2M6 12h12"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}

@@ -21,6 +21,9 @@ import {
 import { View } from 'react-native';
 import { tokens } from '../theme/tokens';
 import { AuthProvider } from '../lib/store';
+import { runMigrations } from '../db/client';
+import { WorkoutSessionProvider } from '../workout/session-store';
+import { SyncProvider } from '../workout/use-sync';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +51,10 @@ export default function RootLayout() {
     // No-op; fonts will hydrate the UI on next render once loaded.
   }, [fontsLoaded]);
 
+  useEffect(() => {
+    runMigrations();
+  }, []);
+
   if (!fontsLoaded) {
     return <View style={{ flex: 1, backgroundColor: tokens.color.bg }} />;
   }
@@ -57,32 +64,42 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <StatusBar style="dark" />
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                contentStyle: { backgroundColor: tokens.color.bg },
-              }}
-            >
-              <Stack.Screen name="index" />
-              <Stack.Screen name="(auth)" />
-              <Stack.Screen name="(tabs)" />
-              <Stack.Screen
-                name="qr"
-                options={{
-                  presentation: 'modal',
-                  animation: 'fade',
-                }}
-              />
-              <Stack.Screen name="class/[id]/index" />
-              <Stack.Screen
-                name="class/[id]/confirm"
-                options={{
-                  presentation: 'transparentModal',
-                  animation: 'fade',
-                }}
-              />
-            </Stack>
+            <WorkoutSessionProvider>
+              <SyncProvider>
+                <StatusBar style="dark" />
+                <Stack
+                  screenOptions={{
+                    headerShown: false,
+                    contentStyle: { backgroundColor: tokens.color.bg },
+                  }}
+                >
+                  <Stack.Screen name="index" />
+                  <Stack.Screen name="(auth)" />
+                  <Stack.Screen name="(tabs)" />
+                  <Stack.Screen
+                    name="qr"
+                    options={{
+                      presentation: 'modal',
+                      animation: 'fade',
+                    }}
+                  />
+                  <Stack.Screen name="class/[id]/index" />
+                  <Stack.Screen
+                    name="class/[id]/confirm"
+                    options={{
+                      presentation: 'transparentModal',
+                      animation: 'fade',
+                    }}
+                  />
+                  <Stack.Screen name="train/active" options={{ animation: 'slide_from_bottom' }} />
+                  <Stack.Screen name="train/exercises" />
+                  <Stack.Screen name="train/exercise/[id]" />
+                  <Stack.Screen name="train/exercise/new" />
+                  <Stack.Screen name="train/workout/[id]" />
+                  <Stack.Screen name="profile/backup" />
+                </Stack>
+              </SyncProvider>
+            </WorkoutSessionProvider>
           </AuthProvider>
         </QueryClientProvider>
       </SafeAreaProvider>
