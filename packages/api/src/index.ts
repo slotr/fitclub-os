@@ -12,3 +12,4 @@ export * from "./workout/schemas";
 export * from "./workout/oneRepMax";
 export * from "./workout/volume";
 export * from "./workout/backup";
+export * from "./workout/sync";
