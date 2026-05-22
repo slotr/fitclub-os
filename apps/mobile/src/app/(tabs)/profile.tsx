@@ -163,6 +163,14 @@ export default function ProfileTabScreen() {
         <IconRow icon={<LockIcon size={20} color={tokens.color.fgMuted} />} label="Privacy" last />
       </View>
 
+      <Text style={styles.sectionLabel}>Data</Text>
+      <View style={[styles.group, { marginBottom: 0 }]}>
+        <Pressable style={[styles.row, styles.rowLast]} onPress={() => router.push('/profile/backup')}>
+          <Text style={[styles.rowLabel, { flex: 1 }]}>Workout backup</Text>
+          <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
+        </Pressable>
+      </View>
+
       <Text style={styles.sectionLabel}>Account</Text>
       <View style={[styles.group, { marginBottom: 18 }]}>
         <Pressable
