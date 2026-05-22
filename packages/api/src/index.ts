@@ -10,3 +10,4 @@ export * from "./schemas/studioSettings";
 export * from "./workout/types";
 export * from "./workout/schemas";
 export * from "./workout/oneRepMax";
+export * from "./workout/volume";
