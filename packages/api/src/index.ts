@@ -7,3 +7,5 @@ export * from "./schemas/booking";
 export * from "./schemas/notification";
 export * from "./schemas/payment";
 export * from "./schemas/studioSettings";
+export * from "./workout/types";
+export * from "./workout/schemas";
