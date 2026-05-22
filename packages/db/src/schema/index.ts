@@ -13,3 +13,8 @@ export * from "./waitlist";
 export * from "./notificationTemplates";
 export * from "./notificationSends";
 export * from "./studioSettings";
+export * from "./workoutEnums";
+export * from "./exercises";
+export * from "./memberExercisePrefs";
+export * from "./workouts";
+export * from "./workoutSets";
