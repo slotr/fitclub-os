@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import {
+  FlatList,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -212,37 +214,52 @@ export default function ExercisesScreen() {
       </Text>
 
       {/* Exercise list */}
-      <View style={styles.list}>
-        {filtered.length === 0 ? (
+      <FlatList
+        data={filtered}
+        keyExtractor={(ex) => ex.id}
+        style={styles.list}
+        scrollEnabled={false}
+        ListEmptyComponent={
           <View style={styles.empty}>
             <Text style={styles.emptyTitle}>No exercises found</Text>
             <Text style={styles.emptyBody}>
               Try adjusting your search or filters.
             </Text>
           </View>
-        ) : (
-          filtered.map((ex, idx) => (
-            <Pressable
-              key={ex.id}
-              style={[
-                styles.row,
-                idx === filtered.length - 1 && { borderBottomWidth: 0 },
-              ]}
-              onPress={() => handleSelect(ex)}
-            >
-              <View style={styles.rowLeft}>
-                <Text style={styles.rowName} numberOfLines={1}>
-                  {ex.name}
-                </Text>
-                <Text style={styles.rowMeta}>
-                  {capitalise(ex.primaryMuscle)} · {capitalise(ex.equipment)}
+        }
+        renderItem={({ item: ex, index: idx }) => (
+          <Pressable
+            style={[
+              styles.row,
+              idx === filtered.length - 1 && { borderBottomWidth: 0 },
+            ]}
+            onPress={() => handleSelect(ex)}
+          >
+            {ex.imageUrl ? (
+              <Image
+                source={{ uri: ex.imageUrl }}
+                style={styles.rowThumb}
+                accessibilityIgnoresInvertColors
+              />
+            ) : (
+              <View style={[styles.rowThumb, styles.rowThumbPlaceholder]}>
+                <Text style={styles.rowThumbInitial}>
+                  {(ex.primaryMuscle ?? '?').slice(0, 1).toUpperCase()}
                 </Text>
               </View>
-              <Text style={styles.rowChevron}>›</Text>
-            </Pressable>
-          ))
+            )}
+            <View style={styles.rowLeft}>
+              <Text style={styles.rowName} numberOfLines={1}>
+                {ex.name}
+              </Text>
+              <Text style={styles.rowMeta}>
+                {capitalise(ex.primaryMuscle)} · {capitalise(ex.equipment)}
+              </Text>
+            </View>
+            <Text style={styles.rowChevron}>›</Text>
+          </Pressable>
         )}
-      </View>
+      />
 
       {/* Create custom */}
       <PrimaryButton
@@ -366,10 +383,27 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
     paddingHorizontal: 14,
     paddingVertical: 13,
     borderBottomWidth: 1,
     borderBottomColor: tokens.color.borderFaint,
+  },
+  rowThumb: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: tokens.color.bg,
+  },
+  rowThumbPlaceholder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: tokens.color.borderFaint,
+  },
+  rowThumbInitial: {
+    fontFamily: tokens.font.sansBold,
+    fontSize: 14,
+    color: tokens.color.fgMuted,
   },
   rowLeft: {
     flex: 1,
