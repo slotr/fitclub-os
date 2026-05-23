@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { mapEquipment, mapMuscle, slugify } from "../mappings";
+import { mapEquipment, mapMuscle, slugify, transformExercise } from "../mappings";
+import type { RawExercise } from "../types";
 
 describe("slugify", () => {
   it("lowercases and turns underscores into dashes", () => {
@@ -55,5 +56,38 @@ describe("mapEquipment", () => {
     expect(mapEquipment("other")).toBe("other");
     expect(mapEquipment(null)).toBe("other");
     expect(mapEquipment(undefined)).toBe("other");
+  });
+});
+
+describe("transformExercise", () => {
+  const raw: RawExercise = {
+    id: "Barbell_Bench_Press_-_Medium_Grip",
+    name: "Barbell Bench Press - Medium Grip",
+    force: "push",
+    level: "intermediate",
+    mechanic: "compound",
+    equipment: "barbell",
+    primaryMuscles: ["chest"],
+    secondaryMuscles: ["triceps", "shoulders"],
+    instructions: ["Lie down.", "Lower the bar.", "Press up."],
+    category: "strength",
+    images: ["Barbell_Bench_Press_-_Medium_Grip/0.jpg"],
+  };
+
+  it("maps every field shapeward", () => {
+    const out = transformExercise(raw, "https://x.test/storage/v1/object/public/exercise-images/barbell-bench-press-medium-grip.webp");
+    expect(out.slug).toBe("barbell-bench-press-medium-grip");
+    expect(out.name).toBe("Barbell Bench Press - Medium Grip");
+    expect(out.primaryMuscle).toBe("chest");
+    expect(out.equipment).toBe("barbell");
+    expect(out.metric).toBe("weight_reps");
+    expect(out.defaultRestSec).toBe(150); // compound strength
+    expect(out.instructions).toBe("Lie down.\n\nLower the bar.\n\nPress up.");
+    expect(out.imageUrl).toMatch(/barbell-bench-press-medium-grip\.webp$/);
+  });
+
+  it("passes a null imageUrl through when no image was uploaded", () => {
+    const out = transformExercise(raw, null);
+    expect(out.imageUrl).toBeNull();
   });
 });

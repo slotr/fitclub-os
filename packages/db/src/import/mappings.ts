@@ -1,3 +1,6 @@
+import { deriveDefaultRest, deriveMetric } from "./heuristics";
+import type { MappedExercise, RawExercise } from "./types";
+
 export type MuscleEnum =
   | "chest" | "back" | "shoulders" | "biceps" | "triceps"
   | "legs" | "glutes" | "core" | "fullBody";
@@ -55,4 +58,27 @@ export function mapEquipment(
 ): EquipmentEnum {
   if (!raw) return "other";
   return EQUIPMENT_MAP[raw] ?? "other";
+}
+
+export function transformExercise(
+  raw: RawExercise,
+  imageUrl: string | null,
+): MappedExercise {
+  return {
+    slug: slugify(raw.id),
+    name: raw.name,
+    primaryMuscle: mapMuscle(raw.primaryMuscles?.[0]),
+    equipment: mapEquipment(raw.equipment),
+    metric: deriveMetric({
+      category: raw.category,
+      equipment: raw.equipment,
+      name: raw.name,
+    }),
+    defaultRestSec: deriveDefaultRest({
+      category: raw.category,
+      mechanic: raw.mechanic,
+    }),
+    instructions: (raw.instructions ?? []).join("\n\n"),
+    imageUrl,
+  };
 }
