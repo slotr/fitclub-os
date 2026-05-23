@@ -54,16 +54,24 @@ export async function importExercises(
     }
 
     // Soft-delete obsolete global rows that have no workout_sets reference.
-    const result = await tx.execute(sql`
-      update public.exercises
-      set deleted_at = now(), updated_at = now()
-      where tenant_id is null
-        and member_id is null
-        and deleted_at is null
-        and slug <> all(${slugs}::text[])
-        and id not in (select distinct exercise_id from public.workout_sets)
-    `);
-    softDeleted = (result as { rowCount?: number }).rowCount ?? 0;
+    // Bind the slug list as an inline IN-list (postgres-js binds each
+    // value as its own parameter — no array cast needed).
+    if (slugs.length > 0) {
+      const slugList = sql.join(
+        slugs.map((s) => sql`${s}`),
+        sql`, `,
+      );
+      const result = await tx.execute(sql`
+        update public.exercises
+        set deleted_at = now(), updated_at = now()
+        where tenant_id is null
+          and member_id is null
+          and deleted_at is null
+          and slug not in (${slugList})
+          and id not in (select distinct exercise_id from public.workout_sets)
+      `);
+      softDeleted = (result as { rowCount?: number }).rowCount ?? 0;
+    }
   });
 
   return { upserted: rows.length, softDeleted };
