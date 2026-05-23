@@ -12,7 +12,6 @@
     "studio": "drizzle-kit studio",
     "seed": "tsx src/seed.ts",
     "seed:realistic": "tsx src/seed-realistic.ts",
-    "seed:exercises": "tsx src/seed-exercises.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
