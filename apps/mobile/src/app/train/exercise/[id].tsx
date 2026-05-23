@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ScreenContainer } from '../../../components/ScreenContainer';
 import { BackButton } from '../../../components/BackButton';
@@ -121,7 +122,7 @@ export default function ExerciseDetailScreen() {
         <Image
           source={{ uri: exercise.imageUrl }}
           style={styles.image}
-          resizeMode="cover"
+          contentFit="cover"
         />
       ) : (
         <View style={[styles.imagePlaceholder, { backgroundColor: placeholderBg }]}>
