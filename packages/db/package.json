@@ -15,7 +15,8 @@
     "seed:exercises": "tsx src/seed-exercises.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "import:free-exercise-db": "tsx src/import-free-exercise-db.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
