@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -6,9 +6,15 @@ import { ScreenContainer } from '../../../components/ScreenContainer';
 import { BackButton } from '../../../components/BackButton';
 import { Pill } from '../../../components/Pill';
 import { tokens } from '../../../theme/tokens';
-import { getExercise, getPref, setPref } from '../../../db/repo';
+import { getExercise, getPref, setPref, listAllSetsForMember } from '../../../db/repo';
 import { REST_STEP } from '../../../workout/use-rest-timer';
 import { useAuth } from '../../../lib/store';
+import {
+  computeOneRepMaxSeries,
+  filterByRange,
+  type RangeKey,
+} from '@fitness/api';
+import { LineChart } from '../../../components/chart/LineChart';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -79,6 +85,27 @@ export default function ExerciseDetailScreen() {
 
   const [restSec, setRestSec] = useState<number>(initialRest);
 
+  const [range, setRange] = useState<RangeKey>('3m');
+  const trendSeries = useMemo(() => {
+    if (!member?.dbId) return [];
+    if (exercise?.metric !== 'weight_reps') return [];
+    const all = listAllSetsForMember(member.dbId);
+    const full = computeOneRepMaxSeries(
+      all.map((s) => ({
+        ...s,
+        isWarmup: s.isWarmup === 1,
+        isPr: s.isPr === 1,
+      })),
+      exercise.id,
+    );
+    return filterByRange(full, range);
+  }, [member?.dbId, exercise?.id, exercise?.metric, range]);
+  const latest = trendSeries.at(-1);
+  const delta =
+    trendSeries.length >= 2
+      ? Math.round(latest!.estOneRepMax - trendSeries[0]!.estOneRepMax)
+      : null;
+
   if (!exercise) {
     return (
       <ScreenContainer padding={20}>
@@ -141,6 +168,69 @@ export default function ExerciseDetailScreen() {
         <Pill label={capitalise(exercise.equipment)} tone="outline" />
         <Pill label={metricLabel(exercise.metric)} tone="outline" />
       </View>
+
+      {/* 1RM Trend */}
+      {exercise?.metric === 'weight_reps' ? (
+        <View style={oneRmStyles.section}>
+          <View style={oneRmStyles.headerRow}>
+            <Text style={oneRmStyles.title}>Your 1RM trend</Text>
+            <View style={oneRmStyles.chips}>
+              {(['1m', '3m', '6m', 'all'] as const).map((r) => (
+                <Pressable
+                  key={r}
+                  onPress={() => setRange(r)}
+                  style={[oneRmStyles.chip, range === r && oneRmStyles.chipOn]}
+                >
+                  <Text
+                    style={[
+                      oneRmStyles.chipLabel,
+                      range === r && oneRmStyles.chipLabelOn,
+                    ]}
+                  >
+                    {r}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+          {trendSeries.length === 0 ? (
+            <Text style={oneRmStyles.empty}>
+              No data in this range — log this exercise to see your trend.
+            </Text>
+          ) : trendSeries.length === 1 ? (
+            <Text style={oneRmStyles.empty}>
+              est 1RM {Math.round(latest!.estOneRepMax)} kg · need one more
+              session to see a trend
+            </Text>
+          ) : (
+            <>
+              <LineChart
+                data={trendSeries.map((p) => ({ x: p.date, y: p.estOneRepMax }))}
+                height={120}
+              />
+              <View style={oneRmStyles.footerRow}>
+                <Text style={oneRmStyles.footerLatest}>
+                  est 1RM <Text style={oneRmStyles.footerLatestVal}>
+                    {Math.round(latest!.estOneRepMax)} kg
+                  </Text>
+                </Text>
+                {delta !== null ? (
+                  <Text
+                    style={[
+                      oneRmStyles.footerDelta,
+                      delta >= 0
+                        ? oneRmStyles.footerDeltaUp
+                        : oneRmStyles.footerDeltaDown,
+                    ]}
+                  >
+                    {delta >= 0 ? '+' : ''}{delta} kg / {range}
+                  </Text>
+                ) : null}
+              </View>
+            </>
+          )}
+        </View>
+      ) : null}
 
       {/* Instructions */}
       {exercise.instructions ? (
@@ -326,4 +416,40 @@ const styles = StyleSheet.create({
     color: tokens.color.fgMuted,
     textAlign: 'center',
   },
+});
+
+const oneRmStyles = StyleSheet.create({
+  section: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: tokens.color.border,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+  },
+  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  title: { fontFamily: tokens.font.sansBold, fontSize: 13, color: tokens.color.fg },
+  chips: { flexDirection: 'row', gap: 4 },
+  chip: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 14,
+    backgroundColor: tokens.color.borderFaint,
+    borderWidth: 1,
+    borderColor: tokens.color.border,
+  },
+  chipOn: { backgroundColor: tokens.color.fg, borderColor: tokens.color.fg },
+  chipLabel: { fontFamily: tokens.font.sansBold, fontSize: 10, color: tokens.color.fgMuted },
+  chipLabelOn: { color: '#fff' },
+  empty: { fontFamily: tokens.font.sansMedium, fontSize: 12, color: tokens.color.fgMuted, marginTop: 8 },
+  footerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 6,
+  },
+  footerLatest: { fontFamily: tokens.font.sansMedium, fontSize: 12, color: tokens.color.fgMuted },
+  footerLatestVal: { fontFamily: tokens.font.sansExtrabold, color: tokens.color.fg },
+  footerDelta: { fontFamily: tokens.font.sansBold, fontSize: 12 },
+  footerDeltaUp: { color: '#4a8c3a' },
+  footerDeltaDown: { color: tokens.color.fgMuted },
 });
