@@ -137,3 +137,80 @@ export function listPbHistory(
   out.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   return typeof limit === "number" ? out.slice(0, limit) : out;
 }
+
+export type Streak = { currentWeeks: number; longestWeeks: number };
+
+export function computeStreak(
+  workouts: WorkoutRow[],
+  now: Date = new Date(),
+): Streak {
+  const weeks = new Set<string>();
+  for (const w of workouts) {
+    if (!w.finishedAt || w.deletedAt) continue;
+    weeks.add(isoMonday(w.startedAt));
+  }
+  if (weeks.size === 0) return { currentWeeks: 0, longestWeeks: 0 };
+
+  const sorted = [...weeks].sort();
+  let longest = 1;
+  let run = 1;
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = new Date(`${sorted[i - 1]!}T00:00:00Z`);
+    const cur = new Date(`${sorted[i]!}T00:00:00Z`);
+    const diffWeeks = Math.round(
+      (cur.getTime() - prev.getTime()) / (7 * 24 * 60 * 60 * 1000),
+    );
+    if (diffWeeks === 1) {
+      run += 1;
+      if (run > longest) longest = run;
+    } else {
+      run = 1;
+    }
+  }
+
+  const thisWeek = isoMonday(now);
+  let anchor = weeks.has(thisWeek) ? thisWeek : null;
+  if (!anchor) {
+    const last = new Date(`${thisWeek}T00:00:00Z`);
+    last.setUTCDate(last.getUTCDate() - 7);
+    const lastStr = last.toISOString().slice(0, 10);
+    anchor = weeks.has(lastStr) ? lastStr : null;
+  }
+  let current = 0;
+  if (anchor) {
+    const cursor = new Date(`${anchor}T00:00:00Z`);
+    while (weeks.has(cursor.toISOString().slice(0, 10))) {
+      current += 1;
+      cursor.setUTCDate(cursor.getUTCDate() - 7);
+    }
+  }
+
+  return { currentWeeks: current, longestWeeks: longest };
+}
+
+export type Totals = {
+  workouts: number;
+  sets: number;
+  volume: number;
+  durationSec: number;
+};
+
+export function computeTotals(
+  workouts: WorkoutRow[],
+  sets: WorkoutSetRow[],
+): Totals {
+  let workoutCount = 0;
+  let volume = 0;
+  let durationSec = 0;
+  for (const w of workouts) {
+    if (!w.finishedAt || w.deletedAt) continue;
+    workoutCount += 1;
+    volume += Number(w.totalVolume ?? 0);
+    durationSec += Number(w.durationSec ?? 0);
+  }
+  let nonWarmup = 0;
+  for (const s of sets) {
+    if (!s.isWarmup) nonWarmup += 1;
+  }
+  return { workouts: workoutCount, sets: nonWarmup, volume, durationSec };
+}

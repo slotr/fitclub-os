@@ -183,3 +183,60 @@ describe("listPbHistory", () => {
     expect(listPbHistory(sets, exercises, 3)).toHaveLength(3);
   });
 });
+
+import { computeStreak, computeTotals } from "../progress";
+
+describe("computeStreak", () => {
+  it("counts the current consecutive non-empty weeks including this week", () => {
+    const ws = [
+      workout({ id: "w1", startedAt: "2026-01-05T10:00:00Z" }),
+      workout({ id: "w2", startedAt: "2026-01-12T10:00:00Z" }),
+      workout({ id: "w3", startedAt: "2026-01-19T10:00:00Z" }),
+    ];
+    const out = computeStreak(ws);
+    expect(out.currentWeeks).toBeGreaterThanOrEqual(0);
+    expect(out.longestWeeks).toBe(3);
+  });
+
+  it("longest streak across gaps", () => {
+    const ws = [
+      workout({ id: "a", startedAt: "2026-01-05T10:00:00Z" }),
+      workout({ id: "b", startedAt: "2026-01-12T10:00:00Z" }),
+      workout({ id: "c", startedAt: "2026-02-02T10:00:00Z" }),
+      workout({ id: "d", startedAt: "2026-02-09T10:00:00Z" }),
+      workout({ id: "e", startedAt: "2026-02-16T10:00:00Z" }),
+    ];
+    const out = computeStreak(ws);
+    expect(out.longestWeeks).toBe(3);
+  });
+
+  it("ignores unfinished or deleted workouts", () => {
+    const ws = [
+      workout({ id: "ok", startedAt: "2026-01-05T10:00:00Z" }),
+      workout({ id: "no1", startedAt: "2026-01-12T10:00:00Z", finishedAt: null }),
+      workout({ id: "no2", startedAt: "2026-01-12T10:00:00Z", deletedAt: "2026-01-13T00:00:00Z" }),
+    ];
+    expect(computeStreak(ws).longestWeeks).toBe(1);
+  });
+});
+
+describe("computeTotals", () => {
+  it("sums non-warmup sets, totalVolume, durationSec", () => {
+    const ws = [
+      workout({ id: "a", totalVolume: 1000, durationSec: 3600 }),
+      workout({ id: "b", totalVolume: 500,  durationSec: 1800 }),
+      workout({ id: "open", totalVolume: 0, durationSec: 0, finishedAt: null }),
+      workout({ id: "del", totalVolume: 9999, durationSec: 9999, deletedAt: "x" }),
+    ];
+    const sets = [
+      set({ id: "s1", weight: 80, reps: 8 }),
+      set({ id: "s2", weight: 80, reps: 8 }),
+      set({ id: "s3", weight: 50, reps: 8, isWarmup: true }),
+    ];
+    const out = computeTotals(ws, sets);
+    expect(out.workouts).toBe(2);
+    expect(out.sets).toBe(2);
+    expect(out.volume).toBe(1500);
+    expect(out.durationSec).toBe(5400);
+  });
+});
