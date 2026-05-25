@@ -14,6 +14,7 @@ import {
   ChartBarIcon,
   FileIcon,
   GearIcon,
+  TrophyIcon,
 } from "./icons";
 
 type NavItem = {
@@ -28,6 +29,7 @@ const items: NavItem[] = [
   { href: "/admin/members", label: "Members", icon: UsersIcon },
   { href: "/admin/plans", label: "Plans", icon: CheckCircleIcon },
   { href: "/admin/classes", label: "Classes", icon: CalendarIcon },
+  { href: "/admin/challenges", label: "Challenges", icon: TrophyIcon },
   { href: "/admin/checkins", label: "Check-ins", icon: ActivityIcon },
   { href: "/admin/payments", label: "Payments", icon: CardIcon },
   { href: "/admin/notifications", label: "Notifications", icon: BellIcon },
