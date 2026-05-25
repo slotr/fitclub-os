@@ -18,3 +18,6 @@ export * from "./exercises";
 export * from "./memberExercisePrefs";
 export * from "./workouts";
 export * from "./workoutSets";
+export * from "./challengeEnums";
+export * from "./challenges";
+export * from "./challengeParticipants";

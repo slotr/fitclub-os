@@ -43,6 +43,13 @@
       "when": 1779385945865,
       "tag": "0005_oval_harrier",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1779732891227,
+      "tag": "0006_exotic_zzzax",
+      "breakpoints": true
     }
   ]
 }
