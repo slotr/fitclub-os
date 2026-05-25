@@ -68,3 +68,36 @@ export function computeWeeklyVolume(
     a.weekStart.localeCompare(b.weekStart),
   );
 }
+
+export type MuscleEnum =
+  | "chest" | "back" | "shoulders" | "biceps" | "triceps"
+  | "legs" | "glutes" | "core" | "fullBody";
+
+export type MuscleSlice = { muscle: MuscleEnum; sets: number; pct: number };
+
+export function computeMuscleSplit(
+  sets: WorkoutSetRow[],
+  exercises: { id: string; primaryMuscle: MuscleEnum }[],
+  weeks: number = 4,
+  now: Date = new Date(),
+): MuscleSlice[] {
+  const since = now.getTime() - weeks * 7 * 24 * 60 * 60 * 1000;
+  const lookup = new Map(exercises.map((e) => [e.id, e.primaryMuscle]));
+  const counts = new Map<MuscleEnum, number>();
+  let total = 0;
+  for (const s of sets) {
+    if (s.isWarmup) continue;
+    if (new Date(s.createdAt).getTime() < since) continue;
+    const m = lookup.get(s.exerciseId) ?? "fullBody";
+    counts.set(m, (counts.get(m) ?? 0) + 1);
+    total += 1;
+  }
+  if (total === 0) return [];
+  return [...counts.entries()]
+    .map(([muscle, count]) => ({
+      muscle,
+      sets: count,
+      pct: Math.round((count / total) * 1000) / 10,
+    }))
+    .sort((a, b) => b.pct - a.pct);
+}

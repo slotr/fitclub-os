@@ -91,3 +91,52 @@ describe("computeWeeklyVolume", () => {
     expect(slot.workoutCount).toBe(1);
   });
 });
+
+import { computeMuscleSplit } from "../progress";
+
+describe("computeMuscleSplit", () => {
+  const exercises = [
+    { id: "e1", primaryMuscle: "chest" as const },
+    { id: "e2", primaryMuscle: "back" as const },
+    { id: "e3", primaryMuscle: "legs" as const },
+  ];
+
+  it("counts non-warmup sets per muscle, sorted desc", () => {
+    const sets = [
+      set({ exerciseId: "e1", weight: 80, reps: 8, createdAt: new Date().toISOString() }),
+      set({ exerciseId: "e1", weight: 80, reps: 8, createdAt: new Date().toISOString() }),
+      set({ exerciseId: "e1", weight: 80, reps: 8, createdAt: new Date().toISOString() }),
+      set({ exerciseId: "e2", weight: 80, reps: 8, createdAt: new Date().toISOString() }),
+      set({ exerciseId: "e3", weight: 80, reps: 8, createdAt: new Date().toISOString(), isWarmup: true }),
+    ];
+    const out = computeMuscleSplit(sets, exercises, 4);
+    expect(out.map((s) => s.muscle)).toEqual(["chest", "back"]);
+    const top = out[0]!;
+    expect(top.sets).toBe(3);
+    expect(top.pct).toBeCloseTo(75, 0);
+    expect(out[1]!.pct).toBeCloseTo(25, 0);
+  });
+
+  it("excludes sets older than the window", () => {
+    const old = new Date(Date.now() - 60 * 24 * 3600 * 1000).toISOString();
+    const recent = new Date().toISOString();
+    const sets = [
+      set({ exerciseId: "e1", weight: 80, reps: 8, createdAt: old }),
+      set({ exerciseId: "e2", weight: 80, reps: 8, createdAt: recent }),
+    ];
+    const out = computeMuscleSplit(sets, exercises, 4);
+    expect(out).toEqual([{ muscle: "back", sets: 1, pct: 100 }]);
+  });
+
+  it("buckets unknown exercise ids into fullBody", () => {
+    const sets = [
+      set({ exerciseId: "missing", weight: 80, reps: 8, createdAt: new Date().toISOString() }),
+    ];
+    const out = computeMuscleSplit(sets, exercises, 4);
+    expect(out).toEqual([{ muscle: "fullBody", sets: 1, pct: 100 }]);
+  });
+
+  it("returns empty when there are no qualifying sets", () => {
+    expect(computeMuscleSplit([], exercises, 4)).toEqual([]);
+  });
+});
