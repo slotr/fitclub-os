@@ -13,3 +13,4 @@ export * from "./workout/oneRepMax";
 export * from "./workout/volume";
 export * from "./workout/backup";
 export * from "./workout/sync";
+export * from "./workout/progress";
