@@ -140,3 +140,46 @@ describe("computeMuscleSplit", () => {
     expect(computeMuscleSplit([], exercises, 4)).toEqual([]);
   });
 });
+
+import { listPbHistory } from "../progress";
+
+describe("listPbHistory", () => {
+  const exercises = [
+    { id: "e1", name: "Bench Press" },
+    { id: "e2", name: "Deadlift" },
+  ];
+
+  it("returns only PR sets, newest first, with name + 1RM", () => {
+    const sets = [
+      set({ id: "a", exerciseId: "e1", weight: 100, reps: 5, isPr: true, createdAt: "2026-01-10T10:00:00Z" }),
+      set({ id: "b", exerciseId: "e2", weight: 140, reps: 3, isPr: true, createdAt: "2026-01-15T10:00:00Z" }),
+      set({ id: "c", exerciseId: "e1", weight: 80,  reps: 5, isPr: false, createdAt: "2026-01-20T10:00:00Z" }),
+    ];
+    const out = listPbHistory(sets, exercises);
+    expect(out).toHaveLength(2);
+    expect(out[0]!.setId).toBe("b");
+    expect(out[0]!.exerciseName).toBe("Deadlift");
+    expect(out[0]!.weight).toBe(140);
+    expect(out[0]!.estOneRepMax).toBeGreaterThan(140);
+    expect(out[1]!.setId).toBe("a");
+  });
+
+  it("falls back to a placeholder name for unknown exercise ids", () => {
+    const sets = [
+      set({ id: "x", exerciseId: "ghost", weight: 50, reps: 5, isPr: true, createdAt: "2026-01-10T10:00:00Z" }),
+    ];
+    const out = listPbHistory(sets, exercises);
+    expect(out[0]!.exerciseName).toBe("Exercise");
+  });
+
+  it("respects limit", () => {
+    const sets = Array.from({ length: 5 }, (_, i) =>
+      set({
+        id: `s${i}`, exerciseId: "e1",
+        weight: 50 + i, reps: 5, isPr: true,
+        createdAt: `2026-01-1${i}T10:00:00Z`,
+      }),
+    );
+    expect(listPbHistory(sets, exercises, 3)).toHaveLength(3);
+  });
+});

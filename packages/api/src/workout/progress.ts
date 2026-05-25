@@ -101,3 +101,39 @@ export function computeMuscleSplit(
     }))
     .sort((a, b) => b.pct - a.pct);
 }
+
+export type PbEntry = {
+  setId: string;
+  workoutId: string;
+  exerciseId: string;
+  exerciseName: string;
+  weight: number;
+  reps: number;
+  estOneRepMax: number;
+  createdAt: string;
+};
+
+export function listPbHistory(
+  sets: WorkoutSetRow[],
+  exercises: { id: string; name: string }[],
+  limit?: number,
+): PbEntry[] {
+  const nameOf = new Map(exercises.map((e) => [e.id, e.name]));
+  const out: PbEntry[] = [];
+  for (const s of sets) {
+    if (!s.isPr) continue;
+    if (!s.weight || !s.reps) continue;
+    out.push({
+      setId: s.id,
+      workoutId: s.workoutId,
+      exerciseId: s.exerciseId,
+      exerciseName: nameOf.get(s.exerciseId) ?? "Exercise",
+      weight: s.weight,
+      reps: s.reps,
+      estOneRepMax: estimateOneRepMax(s.weight, s.reps),
+      createdAt: s.createdAt,
+    });
+  }
+  out.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return typeof limit === "number" ? out.slice(0, limit) : out;
+}
