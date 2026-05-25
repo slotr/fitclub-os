@@ -94,6 +94,15 @@ export default function TrainScreen() {
         <Text style={styles.chevron}>›</Text>
       </Pressable>
 
+      {/* Progress card */}
+      <Pressable
+        onPress={() => router.push('/train/progress')}
+        style={styles.progressCard}
+      >
+        <Text style={styles.progressTitle}>📊 Progress</Text>
+        <Text style={styles.progressSub}>1RM trends, PBs, weekly volume →</Text>
+      </Pressable>
+
       {/* History section */}
       <Text style={styles.sectionLabel}>Recent workouts</Text>
 
@@ -232,6 +241,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: tokens.color.fgMuted,
     lineHeight: 22,
+  },
+
+  progressCard: {
+    backgroundColor: tokens.color.accentSoft ?? '#fff4d6',
+    borderWidth: 1,
+    borderColor: tokens.color.accent,
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 12,
+  },
+  progressTitle: {
+    fontFamily: tokens.font.sansExtrabold,
+    fontSize: 14,
+    color: tokens.color.accent,
+  },
+  progressSub: {
+    fontFamily: tokens.font.sansMedium,
+    fontSize: 12,
+    color: tokens.color.fgMuted,
+    marginTop: 2,
   },
 
   sectionLabel: {
