@@ -103,6 +103,15 @@ export default function TrainScreen() {
         <Text style={styles.progressSub}>1RM trends, PBs, weekly volume →</Text>
       </Pressable>
 
+      {/* Challenges card */}
+      <Pressable
+        onPress={() => router.push('/train/challenges')}
+        style={styles.challengesCard}
+      >
+        <Text style={styles.challengesTitle}>🏆 Challenges</Text>
+        <Text style={styles.challengesSub}>Join leaderboards →</Text>
+      </Pressable>
+
       {/* History section */}
       <Text style={styles.sectionLabel}>Recent workouts</Text>
 
@@ -257,6 +266,26 @@ const styles = StyleSheet.create({
     color: tokens.color.accent,
   },
   progressSub: {
+    fontFamily: tokens.font.sansMedium,
+    fontSize: 12,
+    color: tokens.color.fgMuted,
+    marginTop: 2,
+  },
+
+  challengesCard: {
+    backgroundColor: '#e7eef9',
+    borderWidth: 1,
+    borderColor: '#aac4ec',
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 12,
+  },
+  challengesTitle: {
+    fontFamily: tokens.font.sansExtrabold,
+    fontSize: 14,
+    color: '#2f5596',
+  },
+  challengesSub: {
     fontFamily: tokens.font.sansMedium,
     fontSize: 12,
     color: tokens.color.fgMuted,

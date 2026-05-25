@@ -97,6 +97,8 @@ export default function RootLayout() {
                   <Stack.Screen name="train/exercise/new" />
                   <Stack.Screen name="train/workout/[id]" />
                   <Stack.Screen name="train/progress" />
+                  <Stack.Screen name="train/challenges" />
+                  <Stack.Screen name="train/challenge/[id]" />
                   <Stack.Screen name="profile/backup" />
                 </Stack>
               </SyncProvider>
