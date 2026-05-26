@@ -24,3 +24,4 @@ export * from "./challengeParticipants";
 export * from "./programStatus";
 export * from "./workoutTemplates";
 export * from "./workoutTemplateExercises";
+export * from "./programs";
