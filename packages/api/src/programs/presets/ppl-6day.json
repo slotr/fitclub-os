@@ -1,0 +1,1933 @@
+{
+  "slug": "ppl-6day",
+  "name": "Push / Pull / Legs 6-Day",
+  "description": "High-volume hypertrophy split. Train each muscle group twice per week across six dedicated sessions. Push (chest/shoulders/triceps), Pull (back/biceps), Legs (quads/hamstrings/core).",
+  "authorCredit": null,
+  "weeks": 6,
+  "daysPerWeek": 6,
+  "level": "intermediate",
+  "goal": "hypertrophy",
+  "tags": [
+    "hypertrophy",
+    "intermediate",
+    "split",
+    "6-day"
+  ],
+  "equipmentNeeded": [
+    "barbell",
+    "dumbbell",
+    "rack",
+    "bench",
+    "pull-up-bar"
+  ],
+  "days": [
+    {
+      "week": 1,
+      "day": 1,
+      "title": "Push A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "title": "Pull A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 1,
+      "day": 3,
+      "title": "Legs A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 1,
+      "day": 4,
+      "title": "Push B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 1,
+      "day": 5,
+      "title": "Pull B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 1,
+      "day": 6,
+      "title": "Legs B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 1,
+      "title": "Push A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 2,
+      "title": "Pull A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 3,
+      "title": "Legs A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 4,
+      "title": "Push B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 5,
+      "title": "Pull B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 6,
+      "title": "Legs B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 1,
+      "title": "Push A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 2,
+      "title": "Pull A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 3,
+      "title": "Legs A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 4,
+      "title": "Push B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 5,
+      "title": "Pull B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 6,
+      "title": "Legs B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 1,
+      "title": "Push A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 2,
+      "title": "Pull A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 3,
+      "title": "Legs A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 4,
+      "title": "Push B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 5,
+      "title": "Pull B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 6,
+      "title": "Legs B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 1,
+      "title": "Push A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 2,
+      "title": "Pull A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 3,
+      "title": "Legs A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 4,
+      "title": "Push B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 5,
+      "title": "Pull B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 6,
+      "title": "Legs B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 1,
+      "title": "Push A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 2,
+      "title": "Pull A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 3,
+      "title": "Legs A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 4,
+      "title": "Push B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "tricep-pushdown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 5,
+      "title": "Pull B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 3,
+          "repMin": 5,
+          "repMax": 6,
+          "restSeconds": 240,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-curl",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 6,
+      "title": "Legs B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 4,
+          "repMin": 6,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 3,
+          "repMin": 8,
+          "repMax": 10,
+          "restSeconds": 120,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 45,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ],
+      "notes": null
+    }
+  ]
+}

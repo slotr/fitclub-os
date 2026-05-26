@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { presetProgramSchema, PRESET_LEVELS, PRESET_GOALS } from "../preset-schema";
+import { PRESETS, PRESETS_BY_SLUG, getPreset } from "../preset-loader";
 
 describe("preset-schema", () => {
   it("PRESET_LEVELS = 3 values", () => {
@@ -62,5 +63,20 @@ describe("preset-schema", () => {
       tags: [], equipmentNeeded: [],
       days: [{ week: 1, day: 1, title: "A", isRest: true, exercises: [] }],
     })).toThrow();
+  });
+});
+
+describe("preset-loader integration (first 5)", () => {
+  it("loads exactly 5 presets", () => {
+    expect(PRESETS).toHaveLength(5);
+  });
+  it("indexes by slug", () => {
+    expect(getPreset("stronglifts-5x5")?.name).toBe("StrongLifts 5×5");
+    expect(getPreset("ppl-6day")?.daysPerWeek).toBe(6);
+  });
+  it("all preset days arrays match weeks*daysPerWeek", () => {
+    for (const p of PRESETS) {
+      expect(p.days.length).toBe(p.weeks * p.daysPerWeek);
+    }
   });
 });

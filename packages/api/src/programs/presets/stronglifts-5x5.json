@@ -1,0 +1,1643 @@
+{
+  "slug": "stronglifts-5x5",
+  "name": "StrongLifts 5×5",
+  "description": "Classic linear progression for beginners. 5 sets of 5 reps on big compound lifts. Add weight every workout. 3 sessions per week, alternating Workout A and Workout B.",
+  "authorCredit": "Mehdi (StrongLifts.com)",
+  "weeks": 12,
+  "daysPerWeek": 3,
+  "level": "beginner",
+  "goal": "strength",
+  "tags": [
+    "strength",
+    "beginner",
+    "barbell",
+    "linear-progression"
+  ],
+  "equipmentNeeded": [
+    "barbell",
+    "rack",
+    "bench"
+  ],
+  "days": [
+    {
+      "week": 1,
+      "day": 1,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 1,
+      "day": 3,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 1,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 2,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 2,
+      "day": 3,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 1,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 2,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 3,
+      "day": 3,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 1,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 2,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 4,
+      "day": 3,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 1,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 2,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 5,
+      "day": 3,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 1,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 2,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 6,
+      "day": 3,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 7,
+      "day": 1,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 7,
+      "day": 2,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 7,
+      "day": 3,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 8,
+      "day": 1,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 8,
+      "day": 2,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 8,
+      "day": 3,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 9,
+      "day": 1,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 9,
+      "day": 2,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 9,
+      "day": 3,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 10,
+      "day": 1,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 10,
+      "day": 2,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 10,
+      "day": 3,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 11,
+      "day": 1,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 11,
+      "day": 2,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 11,
+      "day": 3,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 12,
+      "day": 1,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 12,
+      "day": 2,
+      "title": "Workout A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-bent-over-row",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    },
+    {
+      "week": 12,
+      "day": 3,
+      "title": "Workout B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 5,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 1,
+          "repMin": 5,
+          "repMax": 5,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ],
+      "notes": null
+    }
+  ]
+}
