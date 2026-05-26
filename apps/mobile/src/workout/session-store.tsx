@@ -105,6 +105,8 @@ export function WorkoutSessionProvider({
         deletedAt: null,
         syncStatus: "pending",
         isActive: 1,
+        templateId: null,
+        programDayId: null,
       };
       insertWorkout(row);
       if (sourceWorkoutId) {
@@ -151,6 +153,13 @@ export function WorkoutSessionProvider({
         isWarmup: 0,
         isPr: 0,
         createdAt: now(),
+        plannedRepMin: null,
+        plannedRepMax: null,
+        plannedRestSec: null,
+        plannedRpe: null,
+        planned1rmPct: null,
+        supersetGroup: null,
+        isComplete: 0,
       };
       upsertSet(row);
       reload(workout.id);
