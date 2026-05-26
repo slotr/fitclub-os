@@ -79,11 +79,6 @@ export default function TrainScreen() {
     }, [memberId]),
   );
 
-  const onStart = () => {
-    if (!workout) startWorkout();
-    router.push('/train/active');
-  };
-
   const onRepeat = () => {
     if (last && !workout) startWorkout({ sourceWorkoutId: last.id });
     router.push('/train/active');
@@ -176,16 +171,15 @@ export default function TrainScreen() {
         </Pressable>
       </View>
 
-      {/* Quick workout */}
-      <Text style={styles.sectionLabel}>Quick workout</Text>
-
-      {/* Primary CTA */}
-      <PrimaryButton
-        label={workout ? 'Resume workout' : 'Start workout'}
-        onPress={onStart}
-        variant="primary"
-        style={styles.cta}
-      />
+      {/* Resume active workout if one is in progress */}
+      {workout && (
+        <PrimaryButton
+          label="Resume workout"
+          onPress={() => router.push('/train/active')}
+          variant="primary"
+          style={styles.cta}
+        />
+      )}
 
       {/* Repeat last workout */}
       {last && (
@@ -233,7 +227,7 @@ export default function TrainScreen() {
           <Text style={styles.emptyIcon}>🏋️</Text>
           <Text style={styles.emptyTitle}>No workouts yet</Text>
           <Text style={styles.emptyBody}>
-            Hit "Start workout" to log your first session.
+            Pick a template or program above to log your first session.
           </Text>
         </View>
       ) : (
