@@ -55,7 +55,6 @@ export default function TrainScreen() {
 
   const memberId = member?.dbId;
   const history = memberId ? listWorkouts(memberId, 10) : [];
-  const last = history[0];
 
   const [today, setToday] = useState<{ program: LocalProgram; day: LocalProgramDay } | null>(null);
   const [templates, setTemplates] = useState<LocalWorkoutTemplate[]>([]);
@@ -78,11 +77,6 @@ export default function TrainScreen() {
       }
     }, [memberId]),
   );
-
-  const onRepeat = () => {
-    if (last && !workout) startWorkout({ sourceWorkoutId: last.id });
-    router.push('/train/active');
-  };
 
   return (
     <ScreenContainer padding={20} contentStyle={{ paddingTop: 8 }}>
@@ -179,17 +173,6 @@ export default function TrainScreen() {
           variant="primary"
           style={styles.cta}
         />
-      )}
-
-      {/* Repeat last workout */}
-      {last && (
-        <Pressable style={styles.repeatCard} onPress={onRepeat}>
-          <View style={styles.repeatLeft}>
-            <Text style={styles.repeatLabel}>Repeat last workout</Text>
-            <Text style={styles.repeatTitle} numberOfLines={1}>{last.title}</Text>
-          </View>
-          <Text style={styles.repeatDate}>{relativeDate(last.startedAt)}</Text>
-        </Pressable>
       )}
 
       {/* Exercise library */}
@@ -301,39 +284,6 @@ const styles = StyleSheet.create({
 
   cta: {
     marginBottom: 12,
-  },
-
-  repeatCard: {
-    backgroundColor: tokens.color.surface,
-    borderRadius: 14,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-    ...tokens.shadow.sm,
-  },
-  repeatLeft: {
-    flex: 1,
-    marginRight: 12,
-  },
-  repeatLabel: {
-    fontFamily: tokens.font.sansSemibold,
-    fontSize: 10,
-    color: tokens.color.fgMuted,
-    letterSpacing: 0.6,
-    textTransform: 'uppercase',
-    marginBottom: 3,
-  },
-  repeatTitle: {
-    fontFamily: tokens.font.sansBold,
-    fontSize: 14,
-    color: tokens.color.fg,
-  },
-  repeatDate: {
-    fontFamily: tokens.font.sansMedium,
-    fontSize: 12,
-    color: tokens.color.fgMuted,
   },
 
   libraryRow: {
