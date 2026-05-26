@@ -25,3 +25,5 @@ export * from "./programStatus";
 export * from "./workoutTemplates";
 export * from "./workoutTemplateExercises";
 export * from "./programs";
+export * from "./programDays";
+export * from "./programDayCompletions";
