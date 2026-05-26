@@ -15,6 +15,7 @@ import { useRestTimer } from '../../workout/use-rest-timer';
 import { useSync } from '../../workout/use-sync';
 import { getExercise } from '../../db/repo';
 import { RestTimerGauge } from '../../components/RestTimerGauge';
+import { SupersetGroupBadge } from '../../components/SupersetGroupBadge';
 import { tokens } from '../../theme/tokens';
 import type { LocalWorkoutSet } from '../../db/schema';
 
@@ -106,7 +107,17 @@ function SetRow({
   const isRepsOnly = metric === 'reps_only';
 
   return (
-    <View style={[styles.setRow, done && styles.setRowDone]}>
+    <>
+      {(set.plannedRepMin != null || set.plannedRepMax != null) && (
+        <Text style={styles.targetHint}>
+          Target {set.plannedRepMin === set.plannedRepMax
+            ? (set.plannedRepMin ?? '')
+            : `${set.plannedRepMin ?? '?'}-${set.plannedRepMax ?? '?'}`}
+          {set.planned1rmPct ? ` @ ${set.planned1rmPct}%` : ''}
+          {set.plannedRpe ? ` · RPE ${set.plannedRpe}` : ''}
+        </Text>
+      )}
+      <View style={[styles.setRow, done && styles.setRowDone]}>
       {/* Set number */}
       <Text style={styles.setIndex}>{set.setIndex + 1}</Text>
 
@@ -187,6 +198,7 @@ function SetRow({
         {done && <Text style={styles.doneBtnCheck}>✓</Text>}
       </Pressable>
     </View>
+    </>
   );
 }
 
@@ -219,6 +231,9 @@ function ExerciseCard({
         <Text style={styles.cardTitle} numberOfLines={1}>
           {exercise?.name ?? 'Unknown exercise'}
         </Text>
+        {sets[0]?.supersetGroup != null && (
+          <SupersetGroupBadge group={sets[0].supersetGroup} />
+        )}
         {metric !== 'weight_reps' && (
           <View style={styles.metricBadge}>
             <Text style={styles.metricBadgeText}>
@@ -390,6 +405,9 @@ export default function ActiveWorkoutScreen() {
         </View>
         <View style={styles.timerWrap}>
           <Text style={styles.timerText}>{fmtElapsed(elapsed)}</Text>
+          {workout?.programDayId && (
+            <Text style={styles.programSubtitle}>From program</Text>
+          )}
         </View>
         <View style={styles.headerRight}>
           <Pressable style={styles.finishBtn} onPress={handleFinish}>
@@ -803,5 +821,21 @@ const styles = StyleSheet.create({
     color: tokens.color.fgMuted,
     textAlign: 'center',
     lineHeight: 18,
+  },
+
+  targetHint: {
+    fontFamily: tokens.font.sansRegular,
+    fontSize: 12,
+    color: tokens.color.fgMuted,
+    fontStyle: 'italic',
+    marginBottom: 4,
+    paddingHorizontal: 14,
+  },
+  programSubtitle: {
+    fontFamily: tokens.font.sansMedium,
+    fontSize: 12,
+    color: tokens.color.fgMuted,
+    marginTop: 2,
+    textAlign: 'center',
   },
 });

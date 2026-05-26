@@ -99,6 +99,15 @@ export default function RootLayout() {
                   <Stack.Screen name="train/progress" />
                   <Stack.Screen name="train/challenges" />
                   <Stack.Screen name="train/challenge/[id]" />
+                  <Stack.Screen name="train/templates" />
+                  <Stack.Screen name="train/templates/new" />
+                  <Stack.Screen name="train/templates/[id]" />
+                  <Stack.Screen name="train/programs" />
+                  <Stack.Screen name="train/programs/new" />
+                  <Stack.Screen name="train/programs/[id]" />
+                  <Stack.Screen name="train/programs/[id]/edit" />
+                  <Stack.Screen name="train/programs/presets" />
+                  <Stack.Screen name="train/programs/presets/[slug]" />
                   <Stack.Screen name="profile/backup" />
                 </Stack>
               </SyncProvider>

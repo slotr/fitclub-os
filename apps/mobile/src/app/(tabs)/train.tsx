@@ -1,5 +1,8 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { eq } from 'drizzle-orm';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { PrimaryButton } from '../../components/PrimaryButton';
 import { Pill } from '../../components/Pill';
@@ -8,6 +11,13 @@ import { useAuth } from '../../lib/store';
 import { useWorkoutSession } from '../../workout/session-store';
 import { useSync } from '../../workout/use-sync';
 import { listWorkouts, listSets } from '../../db/repo';
+import { db } from '../../db/client';
+import { getTodayDay, listPrograms, completeProgramDay } from '../../db/api/programs';
+import { listTemplates } from '../../db/api/templates';
+import { workoutTemplateExercises, type LocalProgram, type LocalWorkoutTemplate, type LocalProgramDay } from '../../db/schema';
+import { TemplateCard } from '../../components/TemplateCard';
+import { ProgramCard } from '../../components/ProgramCard';
+import { TodayCard } from '../../components/TodayCard';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -43,8 +53,31 @@ export default function TrainScreen() {
   const { workout, startWorkout } = useWorkoutSession();
   const { pending } = useSync();
 
-  const history = member?.dbId ? listWorkouts(member.dbId, 10) : [];
+  const memberId = member?.dbId;
+  const history = memberId ? listWorkouts(memberId, 10) : [];
   const last = history[0];
+
+  const [today, setToday] = useState<{ program: LocalProgram; day: LocalProgramDay } | null>(null);
+  const [templates, setTemplates] = useState<LocalWorkoutTemplate[]>([]);
+  const [programs, setPrograms] = useState<LocalProgram[]>([]);
+  const [templateExCounts, setTemplateExCounts] = useState<Record<string, number>>({});
+
+  useFocusEffect(
+    useCallback(() => {
+      if (memberId) {
+        const tplList = listTemplates(memberId).slice(0, 8);
+        setTemplates(tplList);
+        const counts: Record<string, number> = {};
+        for (const t of tplList) {
+          counts[t.id] = db.select().from(workoutTemplateExercises)
+            .where(eq(workoutTemplateExercises.templateId, t.id)).all().length;
+        }
+        setTemplateExCounts(counts);
+        setPrograms(listPrograms(memberId).slice(0, 3));
+        setToday(getTodayDay(memberId));
+      }
+    }, [memberId]),
+  );
 
   const onStart = () => {
     if (!workout) startWorkout();
@@ -65,6 +98,86 @@ export default function TrainScreen() {
           <Pill label="Session active" tone="good" />
         )}
       </View>
+
+      {/* Today card */}
+      {today && (
+        <TodayCard
+          program={today.program}
+          day={today.day}
+          exerciseCount={
+            today.day.templateId
+              ? (templateExCounts[today.day.templateId] ?? 0)
+              : 0
+          }
+          onStart={() => {
+            startWorkout({ programDayId: today.day.id });
+            router.push('/train/active' as Parameters<typeof router.push>[0]);
+          }}
+          onMarkRest={() => {
+            if (memberId) {
+              completeProgramDay(today.program.id, today.day.id, memberId, null);
+              setToday(getTodayDay(memberId));
+            }
+          }}
+        />
+      )}
+
+      {/* Templates section */}
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionHeaderLabel}>Templates</Text>
+        <Pressable onPress={() => router.push('/train/templates' as Parameters<typeof router.push>[0])}>
+          <Text style={styles.seeAll}>See all →</Text>
+        </Pressable>
+      </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.templateScroll}>
+        {templates.map((t) => (
+          <TemplateCard
+            key={t.id}
+            template={t}
+            exerciseCount={templateExCounts[t.id] ?? 0}
+            onPress={() => router.push(`/train/templates/${t.id}` as Parameters<typeof router.push>[0])}
+          />
+        ))}
+        <Pressable
+          style={styles.createTplCard}
+          onPress={() => router.push('/train/templates/new' as Parameters<typeof router.push>[0])}
+        >
+          <Text style={styles.createTplText}>+ Create</Text>
+        </Pressable>
+      </ScrollView>
+
+      {/* Programs section */}
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionHeaderLabel}>Programs</Text>
+        <Pressable onPress={() => router.push('/train/programs' as Parameters<typeof router.push>[0])}>
+          <Text style={styles.seeAll}>See all →</Text>
+        </Pressable>
+      </View>
+      {programs.map((p) => (
+        <ProgramCard
+          key={p.id}
+          program={p}
+          completedCount={0}
+          onPress={() => router.push(`/train/programs/${p.id}` as Parameters<typeof router.push>[0])}
+        />
+      ))}
+      <View style={styles.programActions}>
+        <Pressable
+          style={styles.smallBtn}
+          onPress={() => router.push('/train/programs/presets' as Parameters<typeof router.push>[0])}
+        >
+          <Text style={styles.smallBtnText}>📚 Browse presets</Text>
+        </Pressable>
+        <Pressable
+          style={styles.smallBtn}
+          onPress={() => router.push('/train/programs/new' as Parameters<typeof router.push>[0])}
+        >
+          <Text style={styles.smallBtnText}>+ Create</Text>
+        </Pressable>
+      </View>
+
+      {/* Quick workout */}
+      <Text style={styles.sectionLabel}>Quick workout</Text>
 
       {/* Primary CTA */}
       <PrimaryButton
@@ -389,5 +502,59 @@ const styles = StyleSheet.create({
   },
   syncPending: {
     color: tokens.color.warnFg,
+  },
+
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 24,
+    marginBottom: 8,
+  },
+  sectionHeaderLabel: {
+    fontFamily: tokens.font.sansExtrabold,
+    fontSize: 13,
+    color: tokens.color.fg,
+  },
+  seeAll: {
+    fontFamily: tokens.font.sansMedium,
+    fontSize: 12,
+    color: tokens.color.fgMuted,
+  },
+  templateScroll: {
+    marginVertical: 8,
+  },
+  createTplCard: {
+    width: 100,
+    padding: 12,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: tokens.color.border,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  createTplText: {
+    fontFamily: tokens.font.sansBold,
+    fontSize: 13,
+    color: tokens.color.fgMuted,
+  },
+  programActions: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 8,
+  },
+  smallBtn: {
+    flex: 1,
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    backgroundColor: tokens.color.surface,
+    borderWidth: 1,
+    borderColor: tokens.color.border,
+  },
+  smallBtnText: {
+    fontFamily: tokens.font.sansBold,
+    fontSize: 12,
   },
 });
