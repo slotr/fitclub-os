@@ -21,3 +21,5 @@ export * from "./workoutSets";
 export * from "./challengeEnums";
 export * from "./challenges";
 export * from "./challengeParticipants";
+export * from "./programStatus";
+export * from "./workoutTemplates";
