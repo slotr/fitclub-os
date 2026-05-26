@@ -1,0 +1,1303 @@
+{
+  "slug": "nsuns-531",
+  "name": "nSuns 5/3/1 LP",
+  "description": "Reddit-popular 5/3/1 derivative with linear progression and a 9-set pyramid loading scheme on the main lift, plus an 8-set secondary lift. 10 weeks across 4 sessions per week.",
+  "authorCredit": "nSuns (Reddit r/nSuns)",
+  "weeks": 10,
+  "daysPerWeek": 4,
+  "level": "advanced",
+  "goal": "strength",
+  "tags": [
+    "strength",
+    "advanced",
+    "barbell",
+    "pyramid"
+  ],
+  "equipmentNeeded": [
+    "barbell",
+    "rack",
+    "bench"
+  ],
+  "days": [
+    {
+      "week": 1,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "day": 1,
+      "title": "Bench Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns 9-set pyramid"
+        },
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary 8-set"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "day": 2,
+      "title": "Squat Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "romanian-deadlift",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "day": 3,
+      "title": "OHP Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-overhead-press",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 180,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-bench-press",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "day": 4,
+      "title": "Deadlift Day",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "barbell-deadlift",
+          "sets": 9,
+          "repMin": 1,
+          "repMax": 8,
+          "restSeconds": 240,
+          "targetRpe": null,
+          "target1rmPct": 75,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "nSuns"
+        },
+        {
+          "exerciseSlug": "barbell-squat",
+          "sets": 8,
+          "repMin": 1,
+          "repMax": 6,
+          "restSeconds": 120,
+          "targetRpe": null,
+          "target1rmPct": 50,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "secondary"
+        }
+      ]
+    }
+  ]
+}

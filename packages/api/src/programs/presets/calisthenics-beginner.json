@@ -1,0 +1,788 @@
+{
+  "slug": "calisthenics-beginner",
+  "name": "Calisthenics Beginner",
+  "description": "Bodyweight foundation program for new lifters with access to a pull-up bar. Three sessions per week building upper-body pulling, pushing, and core strength.",
+  "authorCredit": null,
+  "weeks": 8,
+  "daysPerWeek": 3,
+  "level": "beginner",
+  "goal": "bodyweight",
+  "tags": [
+    "bodyweight",
+    "beginner",
+    "calisthenics"
+  ],
+  "equipmentNeeded": [
+    "pull-up-bar"
+  ],
+  "days": [
+    {
+      "week": 1,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 1,
+      "title": "Push",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 8,
+          "repMax": 15,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 2,
+      "title": "Pull",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 120,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "scale with assist band or negatives"
+        },
+        {
+          "exerciseSlug": "lat-pulldown",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 12,
+          "restSeconds": 90,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "optional — accessory"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 3,
+      "title": "Legs/Core",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 45,
+          "repMax": 90,
+          "restSeconds": 60,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 60,
+          "targetRpe": 8,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "incline ok"
+        }
+      ]
+    }
+  ]
+}

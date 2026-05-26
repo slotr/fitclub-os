@@ -66,10 +66,16 @@ describe("preset-schema", () => {
   });
 });
 
-describe("preset-loader integration (first 5)", () => {
-  it("loads exactly 5 presets", () => {
-    expect(PRESETS).toHaveLength(5);
+describe("preset-loader integration", () => {
+  it("loads exactly 10 presets", () => {
+    expect(PRESETS).toHaveLength(10);
   });
+
+  it("all 10 slugs are unique", () => {
+    const slugs = PRESETS.map(p => p.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+  });
+
   it("indexes by slug", () => {
     expect(getPreset("stronglifts-5x5")?.name).toBe("StrongLifts 5×5");
     expect(getPreset("ppl-6day")?.daysPerWeek).toBe(6);

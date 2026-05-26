@@ -1,0 +1,559 @@
+{
+  "slug": "couch-to-5k",
+  "name": "Couch to 5K",
+  "description": "Progressive walk/jog program taking complete beginners from sedentary to running a continuous 5 kilometers in 9 weeks. Three sessions per week with increasing jog intervals.",
+  "authorCredit": "Josh Clark / Cool Running",
+  "weeks": 9,
+  "daysPerWeek": 3,
+  "level": "beginner",
+  "goal": "cardio",
+  "tags": [
+    "cardio",
+    "beginner",
+    "running",
+    "intervals"
+  ],
+  "equipmentNeeded": [],
+  "days": [
+    {
+      "week": 1,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 8,
+          "repMin": 30,
+          "repMax": 30,
+          "restSeconds": 90,
+          "targetRpe": 6,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Walk 5 min warmup, then alternate 60s jog / 90s walk × 8"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 8,
+          "repMin": 30,
+          "repMax": 30,
+          "restSeconds": 90,
+          "targetRpe": 6,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Walk 5 min warmup, then alternate 60s jog / 90s walk × 8"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 8,
+          "repMin": 30,
+          "repMax": 30,
+          "restSeconds": 90,
+          "targetRpe": 6,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Walk 5 min warmup, then alternate 60s jog / 90s walk × 8"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 6,
+          "repMin": 90,
+          "repMax": 90,
+          "restSeconds": 120,
+          "targetRpe": 6,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Alternate 90s jog / 2min walk × 6"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 6,
+          "repMin": 90,
+          "repMax": 90,
+          "restSeconds": 120,
+          "targetRpe": 6,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Alternate 90s jog / 2min walk × 6"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 6,
+          "repMin": 90,
+          "repMax": 90,
+          "restSeconds": 120,
+          "targetRpe": 6,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Alternate 90s jog / 2min walk × 6"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 180,
+          "repMax": 180,
+          "restSeconds": 90,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Alternate 3min jog / 90s walk × 4"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 180,
+          "repMax": 180,
+          "restSeconds": 90,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Alternate 3min jog / 90s walk × 4"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 180,
+          "repMax": 180,
+          "restSeconds": 90,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "Alternate 3min jog / 90s walk × 4"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 300,
+          "repMax": 300,
+          "restSeconds": 180,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "5min jog / 3min walk × 3"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 300,
+          "repMax": 300,
+          "restSeconds": 180,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "5min jog / 3min walk × 3"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 3,
+          "repMin": 300,
+          "repMax": 300,
+          "restSeconds": 180,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "5min jog / 3min walk × 3"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 2,
+          "repMin": 480,
+          "repMax": 480,
+          "restSeconds": 300,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "8min jog / 5min walk × 2"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 2,
+          "repMin": 480,
+          "repMax": 480,
+          "restSeconds": 300,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "8min jog / 5min walk × 2"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 2,
+          "repMin": 480,
+          "repMax": 480,
+          "restSeconds": 300,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "8min jog / 5min walk × 2"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 2,
+          "repMin": 600,
+          "repMax": 600,
+          "restSeconds": 180,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "10min jog / 3min walk × 2"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 2,
+          "repMin": 600,
+          "repMax": 600,
+          "restSeconds": 180,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "10min jog / 3min walk × 2"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 2,
+          "repMin": 600,
+          "repMax": 600,
+          "restSeconds": 180,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "10min jog / 3min walk × 2"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1500,
+          "repMax": 1500,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "25 minute continuous jog"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1500,
+          "repMax": 1500,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "25 minute continuous jog"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1500,
+          "repMax": 1500,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "25 minute continuous jog"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1680,
+          "repMax": 1680,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "28 minute continuous jog"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1680,
+          "repMax": 1680,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "28 minute continuous jog"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1680,
+          "repMax": 1680,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "28 minute continuous jog"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "day": 1,
+      "title": "Run 1",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1800,
+          "repMax": 1800,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "30 minute continuous jog — graduation 5K"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "day": 2,
+      "title": "Run 2",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1800,
+          "repMax": 1800,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "30 minute continuous jog — graduation 5K"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "day": 3,
+      "title": "Run 3",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 1,
+          "repMin": 1800,
+          "repMax": 1800,
+          "restSeconds": 0,
+          "targetRpe": 7,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "30 minute continuous jog — graduation 5K"
+        }
+      ]
+    }
+  ]
+}

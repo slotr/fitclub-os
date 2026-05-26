@@ -1,0 +1,789 @@
+{
+  "slug": "bodyweight-hiit",
+  "name": "Bodyweight HIIT",
+  "description": "Equipment-free high-intensity interval program. Four short sessions per week, supersets and short rest intervals, focused on conditioning and muscular endurance.",
+  "authorCredit": null,
+  "weeks": 6,
+  "daysPerWeek": 4,
+  "level": "beginner",
+  "goal": "bodyweight",
+  "tags": [
+    "bodyweight",
+    "beginner",
+    "hiit",
+    "equipment-free"
+  ],
+  "equipmentNeeded": [
+    "pull-up-bar"
+  ],
+  "days": [
+    {
+      "week": 1,
+      "day": 1,
+      "title": "HIIT A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 45,
+          "restSeconds": 45,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "title": "HIIT B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 30,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 3,
+      "title": "HIIT C",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 5,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 30,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 20,
+          "repMax": 30,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 1,
+      "day": 4,
+      "title": "HIIT D",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 5,
+          "repMin": 3,
+          "repMax": 6,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 1,
+      "title": "HIIT A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 45,
+          "restSeconds": 45,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 2,
+      "title": "HIIT B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 30,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 3,
+      "title": "HIIT C",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 5,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 30,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 20,
+          "repMax": 30,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "day": 4,
+      "title": "HIIT D",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 5,
+          "repMin": 3,
+          "repMax": 6,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 1,
+      "title": "HIIT A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 45,
+          "restSeconds": 45,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 2,
+      "title": "HIIT B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 30,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 3,
+      "title": "HIIT C",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 5,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 30,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 20,
+          "repMax": 30,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "day": 4,
+      "title": "HIIT D",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 5,
+          "repMin": 3,
+          "repMax": 6,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 1,
+      "title": "HIIT A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 45,
+          "restSeconds": 45,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 2,
+      "title": "HIIT B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 30,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 3,
+      "title": "HIIT C",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 5,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 30,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 20,
+          "repMax": 30,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "day": 4,
+      "title": "HIIT D",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 5,
+          "repMin": 3,
+          "repMax": 6,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 1,
+      "title": "HIIT A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 45,
+          "restSeconds": 45,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 2,
+      "title": "HIIT B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 30,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 3,
+      "title": "HIIT C",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 5,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 30,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 20,
+          "repMax": 30,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "day": 4,
+      "title": "HIIT D",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 5,
+          "repMin": 3,
+          "repMax": 6,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 1,
+      "title": "HIIT A",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "plank",
+          "sets": 4,
+          "repMin": 30,
+          "repMax": 45,
+          "restSeconds": 45,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": 1,
+          "notes": "seconds"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 2,
+      "title": "HIIT B",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "push-up",
+          "sets": 4,
+          "repMin": 10,
+          "repMax": 20,
+          "restSeconds": 30,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 4,
+          "repMin": 3,
+          "repMax": 8,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 3,
+      "title": "HIIT C",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "plank",
+          "sets": 5,
+          "repMin": 30,
+          "repMax": 60,
+          "restSeconds": 30,
+          "targetRpe": null,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": "seconds"
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 20,
+          "repMax": 30,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "day": 4,
+      "title": "HIIT D",
+      "isRest": false,
+      "exercises": [
+        {
+          "exerciseSlug": "pull-up",
+          "sets": 5,
+          "repMin": 3,
+          "repMax": 6,
+          "restSeconds": 60,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        },
+        {
+          "exerciseSlug": "push-up",
+          "sets": 3,
+          "repMin": 15,
+          "repMax": 25,
+          "restSeconds": 45,
+          "targetRpe": 9,
+          "target1rmPct": null,
+          "tempo": null,
+          "supersetGroup": null,
+          "notes": null
+        }
+      ]
+    }
+  ]
+}
