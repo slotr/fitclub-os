@@ -10,6 +10,8 @@ import {
 import { createdAt, deletedAt, id, updatedAt } from "./_helpers";
 import { members } from "./members";
 import { tenants } from "./tenants";
+import { workoutTemplates } from "./workoutTemplates";
+import { programDays } from "./programDays";
 
 export const workouts = pgTable(
   "workouts",
@@ -27,6 +29,10 @@ export const workouts = pgTable(
     durationSec: integer("duration_sec").notNull().default(0),
     totalVolume: numeric("total_volume").notNull().default("0"),
     notes: text("notes"),
+    templateId: uuid("template_id")
+      .references((): any => workoutTemplates.id, { onDelete: "set null" }),
+    programDayId: uuid("program_day_id")
+      .references((): any => programDays.id, { onDelete: "set null" }),
     createdAt: createdAt(),
     updatedAt: updatedAt(),
     deletedAt: deletedAt(),

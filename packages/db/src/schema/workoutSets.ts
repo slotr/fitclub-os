@@ -28,6 +28,13 @@ export const workoutSets = pgTable(
     restSec: integer("rest_sec"),
     isWarmup: boolean("is_warmup").notNull().default(false),
     isPr: boolean("is_pr").notNull().default(false),
+    plannedRepMin: integer("planned_rep_min"),
+    plannedRepMax: integer("planned_rep_max"),
+    plannedRestSec: integer("planned_rest_sec"),
+    plannedRpe: numeric("planned_rpe", { precision: 3, scale: 1 }),
+    planned1rmPct: integer("planned_1rm_pct"),
+    supersetGroup: integer("superset_group"),
+    isComplete: boolean("is_complete").notNull().default(false),
     createdAt: createdAt(),
   },
   (t) => ({
