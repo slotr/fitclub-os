@@ -16,3 +16,5 @@ export * from "./workout/sync";
 export * from "./workout/progress";
 export * from "./workout/format";
 export * from "./workout/challenges";
+export * from "./programs/templates";
+export * from "./programs/programs";
