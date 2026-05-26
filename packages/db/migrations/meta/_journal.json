@@ -50,6 +50,13 @@
       "when": 1779732891227,
       "tag": "0006_exotic_zzzax",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1779814347354,
+      "tag": "0007_talented_junta",
+      "breakpoints": true
     }
   ]
 }

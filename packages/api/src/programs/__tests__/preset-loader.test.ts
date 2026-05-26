@@ -86,3 +86,29 @@ describe("preset-loader integration", () => {
     }
   });
 });
+
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
+describe("preset exercise slug allowlist", () => {
+  it("every preset exerciseSlug exists in seed allowlist", () => {
+    const allowlistPath = resolve(__dirname, "../../../../db/seed/exercise-slugs.txt");
+    const allow = new Set(
+      readFileSync(allowlistPath, "utf8")
+        .split("\n")
+        .map(s => s.trim())
+        .filter(Boolean)
+    );
+    const missing: string[] = [];
+    for (const p of PRESETS) {
+      for (const d of p.days) {
+        for (const ex of d.exercises) {
+          if (!allow.has(ex.exerciseSlug)) {
+            missing.push(`${p.slug} / ${d.title} / ${ex.exerciseSlug}`);
+          }
+        }
+      }
+    }
+    expect(missing).toEqual([]);
+  });
+});
