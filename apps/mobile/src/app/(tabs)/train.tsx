@@ -52,7 +52,7 @@ export default function TrainScreen() {
   };
 
   const onRepeat = () => {
-    if (last && !workout) startWorkout(last.id);
+    if (last && !workout) startWorkout({ sourceWorkoutId: last.id });
     router.push('/train/active');
   };
 

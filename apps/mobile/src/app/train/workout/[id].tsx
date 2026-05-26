@@ -197,7 +197,7 @@ export default function WorkoutDetailScreen() {
       );
       return;
     }
-    startWorkout(workout!.id);
+    startWorkout({ sourceWorkoutId: workout!.id });
     router.replace('/train/active' as Parameters<typeof router.replace>[0]);
   }
 

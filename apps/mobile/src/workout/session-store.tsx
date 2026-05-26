@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import * as Crypto from "expo-crypto";
+import { eq } from "drizzle-orm";
 import {
   detectPrSets,
   summariseWorkout,
@@ -27,7 +28,22 @@ import {
   upsertSet,
   deleteSet as repoDeleteSet,
 } from "../db/repo";
+import { db } from "../db/client";
 import type { LocalWorkout, LocalWorkoutSet } from "../db/schema";
+import {
+  workouts as workoutsTable,
+  workoutTemplates,
+  workoutTemplateExercises,
+  programs as programsTable,
+  programDays,
+  programDayCompletions,
+} from "../db/schema";
+
+export type StartOptions = {
+  sourceWorkoutId?: string;
+  templateId?: string;
+  programDayId?: string;
+};
 
 const uuid = (): string => Crypto.randomUUID();
 
@@ -53,7 +69,7 @@ function toRow(s: LocalWorkoutSet): WorkoutSetRow {
 type Ctx = {
   workout: LocalWorkout | null;
   sets: LocalWorkoutSet[];
-  startWorkout: (sourceWorkoutId?: string) => void;
+  startWorkout: (opts?: StartOptions) => void;
   addExercise: (exerciseId: string) => void;
   addSet: (exerciseId: string) => void;
   updateSet: (id: string, patch: Partial<LocalWorkoutSet>) => void;
@@ -86,10 +102,136 @@ export function WorkoutSessionProvider({
   }, []);
 
   const startWorkout = useCallback(
-    (sourceWorkoutId?: string) => {
+    (opts?: StartOptions) => {
       if (!member?.dbId || !TENANT_ID) return;
       if (getActiveWorkout()) return;
       const id = uuid();
+
+      if (opts?.sourceWorkoutId) {
+        // --- copy from past workout ---
+        const row: LocalWorkout = {
+          id,
+          tenantId: TENANT_ID,
+          memberId: member.dbId,
+          title: "Workout",
+          startedAt: now(),
+          finishedAt: null,
+          durationSec: 0,
+          totalVolume: 0,
+          notes: null,
+          createdAt: now(),
+          updatedAt: now(),
+          deletedAt: null,
+          syncStatus: "pending",
+          isActive: 1,
+          templateId: null,
+          programDayId: null,
+        };
+        insertWorkout(row);
+        for (const s of listSets(opts.sourceWorkoutId)) {
+          upsertSet({
+            ...s,
+            id: uuid(),
+            workoutId: id,
+            reps: s.reps,
+            weight: s.weight,
+            isPr: 0,
+            createdAt: now(),
+          });
+        }
+        setWorkout(row);
+        reload(id);
+        return;
+      }
+
+      if (opts?.templateId || opts?.programDayId) {
+        // --- prefill from template / program day ---
+        let resolvedTemplateId: string | null = opts.templateId ?? null;
+        let title = "Workout";
+
+        if (opts.programDayId) {
+          const programDay = db
+            .select()
+            .from(programDays)
+            .where(eq(programDays.id, opts.programDayId))
+            .all()[0] ?? null;
+          if (programDay) {
+            resolvedTemplateId = programDay.templateId ?? resolvedTemplateId;
+            title = programDay.title;
+          }
+        } else if (resolvedTemplateId) {
+          const tmpl = db
+            .select()
+            .from(workoutTemplates)
+            .where(eq(workoutTemplates.id, resolvedTemplateId))
+            .all()[0] ?? null;
+          if (tmpl) title = tmpl.name;
+        }
+
+        const row: LocalWorkout = {
+          id,
+          tenantId: TENANT_ID,
+          memberId: member.dbId,
+          title,
+          startedAt: now(),
+          finishedAt: null,
+          durationSec: 0,
+          totalVolume: 0,
+          notes: null,
+          createdAt: now(),
+          updatedAt: now(),
+          deletedAt: null,
+          syncStatus: "pending",
+          isActive: 1,
+          templateId: resolvedTemplateId,
+          programDayId: opts.programDayId ?? null,
+        };
+        insertWorkout(row);
+
+        if (resolvedTemplateId) {
+          const exercises = db
+            .select()
+            .from(workoutTemplateExercises)
+            .where(eq(workoutTemplateExercises.templateId, resolvedTemplateId))
+            .all()
+            .sort((a, b) => a.position - b.position);
+
+          for (const ex of exercises) {
+            const ex_ = ex;
+            const setCount = ex_.sets;
+            for (let i = 0; i < setCount; i++) {
+              const setRow: LocalWorkoutSet = {
+                id: uuid(),
+                workoutId: id,
+                exerciseId: ex_.exerciseId,
+                orderIndex: ex_.position,
+                setIndex: i,
+                weight: null,
+                reps: null,
+                durationSec: null,
+                restSec: ex_.restSeconds ?? 90,
+                isWarmup: 0,
+                isPr: 0,
+                createdAt: now(),
+                plannedRepMin: ex_.repMin ?? null,
+                plannedRepMax: ex_.repMax ?? null,
+                plannedRestSec: ex_.restSeconds ?? null,
+                plannedRpe: ex_.targetRpe ?? null,
+                planned1rmPct: ex_.target1rmPct ?? null,
+                supersetGroup: ex_.supersetGroup ?? null,
+                isComplete: 0,
+              };
+              upsertSet(setRow);
+            }
+          }
+        }
+
+        setWorkout(row);
+        reload(id);
+        return;
+      }
+
+      // --- default empty workout ---
       const row: LocalWorkout = {
         id,
         tenantId: TENANT_ID,
@@ -109,19 +251,6 @@ export function WorkoutSessionProvider({
         programDayId: null,
       };
       insertWorkout(row);
-      if (sourceWorkoutId) {
-        for (const s of listSets(sourceWorkoutId)) {
-          upsertSet({
-            ...s,
-            id: uuid(),
-            workoutId: id,
-            reps: s.reps,
-            weight: s.weight,
-            isPr: 0,
-            createdAt: now(),
-          });
-        }
-      }
       setWorkout(row);
       reload(id);
     },
@@ -216,10 +345,49 @@ export function WorkoutSessionProvider({
       isActive: 0,
       syncStatus: "pending",
     });
-    const id = workout.id;
+    const workoutId = workout.id;
     setWorkout(null);
     setSets([]);
-    return id;
+
+    // Train-B: program completion handling
+    const finishedRow = db.select().from(workoutsTable)
+      .where(eq(workoutsTable.id, workoutId)).all()[0] ?? null;
+    if (finishedRow?.programDayId && finishedRow?.memberId) {
+      const programDay = db.select()
+        .from(programDays)
+        .where(eq(programDays.id, finishedRow.programDayId))
+        .all()[0] ?? null;
+      if (programDay) {
+        const completedAt = new Date().toISOString();
+        db.insert(programDayCompletions).values({
+          id: uuid(),
+          programId: programDay.programId,
+          programDayId: programDay.id,
+          memberId: finishedRow.memberId,
+          workoutId,
+          completedAt,
+          syncStatus: "pending",
+        }).onConflictDoNothing().run();
+        const prog = db.select()
+          .from(programsTable)
+          .where(eq(programsTable.id, programDay.programId))
+          .all()[0] ?? null;
+        if (prog) {
+          const total = prog.weeksCount * prog.daysPerWeek;
+          const next = Math.min(prog.currentPosition + 1, total);
+          const newStatus: "active" | "completed" = next >= total ? "completed" : (prog.status as "active");
+          db.update(programsTable).set({
+            currentPosition: next,
+            status: newStatus,
+            completedAt: newStatus === "completed" ? completedAt : prog.completedAt,
+            updatedAt: completedAt,
+            syncStatus: "pending",
+          }).where(eq(programsTable.id, prog.id)).run();
+        }
+      }
+    }
+
+    return workoutId;
   }, [workout]);
 
   const discardWorkout = useCallback(() => {
