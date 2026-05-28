@@ -26,6 +26,7 @@ export const studioSettings = pgTable("studio_settings", {
   locale: varchar("locale", { length: 16 }).notNull().default("en"),
   currency: varchar("currency", { length: 3 }).notNull().default("TRY"),
   accentColor: varchar("accent_color", { length: 16 }),
+  logoUrl: text("logo_url"),
   hours: jsonb("hours").$type<StudioHours[]>().notNull().default([]),
   integrations: jsonb("integrations")
     .$type<Record<string, unknown>>()

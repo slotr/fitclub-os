@@ -45,6 +45,7 @@ export const members = pgTable(
       .notNull()
       .default(sql`now()`),
     status: memberStatusEnum("status").notNull().default("pending"),
+    userId: uuid("user_id"),
     deletedAt: deletedAt(),
     createdAt: createdAt(),
   },
@@ -54,6 +55,7 @@ export const members = pgTable(
       t.email,
     ),
     tenantStatusIdx: index("members_tenant_status_idx").on(t.tenantId, t.status),
+    userIdx: index("members_user_id_idx").on(t.userId),
   }),
 );
 
