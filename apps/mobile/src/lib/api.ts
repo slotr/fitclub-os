@@ -422,3 +422,32 @@ export const live = {
   configured: isSupabaseConfigured,
   tenantId: TENANT_ID,
 };
+
+// ---------- Multi-tenant memberships ----------
+
+import type { Membership } from "@fitness/api";
+
+export async function fetchMyMemberships(): Promise<Membership[]> {
+  const supabase = getSupabase();
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from("members")
+    .select(`
+      id,
+      tenant_id,
+      tenants!inner(name),
+      studio_settings(logo_url, accent_color)
+    `)
+    .is("deleted_at", null);
+  if (error) {
+    console.warn("fetchMyMemberships", error.message);
+    return [];
+  }
+  return (data ?? []).map((m: any) => ({
+    memberId: String(m.id),
+    tenantId: String(m.tenant_id),
+    gymName: m.tenants?.name ?? "Unknown gym",
+    logoUrl: m.studio_settings?.[0]?.logo_url ?? null,
+    accentColor: m.studio_settings?.[0]?.accent_color ?? null,
+  }));
+}
