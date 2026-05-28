@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { PrimaryButton } from '../../components/PrimaryButton';
 import { Pill } from '../../components/Pill';
+import { AppHeader } from '../../components/AppHeader';
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
 import { useWorkoutSession } from '../../workout/session-store';
@@ -82,7 +83,7 @@ export default function TrainScreen() {
     <ScreenContainer padding={20} contentStyle={{ paddingTop: 8 }}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.h1}>Train</Text>
+        <AppHeader title="Train" />
         {workout && (
           <Pill label="Session active" tone="good" />
         )}

@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { CardIcon } from '../../components/Icons';
+import { AppHeader } from '../../components/AppHeader';
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
 import { paymentHistory as mockPayments } from '../../mocks/activity';
@@ -93,7 +94,7 @@ export default function MembershipScreen() {
 
   return (
     <ScreenContainer padding={20}>
-      <Text style={styles.h1}>Membership & Payment</Text>
+      <AppHeader title="Membership" />
 
       <View style={styles.planCardWrap}>
         <LinearGradient

@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Pill } from '../../components/Pill';
+import { AppHeader } from '../../components/AppHeader';
 import { tokens } from '../../theme/tokens';
 import { classes as mockClasses, type GymClass, type ClassCategory } from '../../mocks/classes';
 import { fetchUpcomingSessions, live, type LiveSession } from '../../lib/api';
@@ -121,7 +122,7 @@ export default function ClassesScreen() {
 
   return (
     <ScreenContainer padding={20}>
-      <Text style={styles.h1}>Classes</Text>
+      <AppHeader title="Classes" />
 
       <ScrollView
         horizontal

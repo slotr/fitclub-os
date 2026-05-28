@@ -10,6 +10,7 @@ import {
   HelpIcon,
   LockIcon,
 } from '../../components/Icons';
+import { AppHeader } from '../../components/AppHeader';
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
 import { formatMoney } from '../../lib/money';
@@ -101,7 +102,7 @@ export default function ProfileTabScreen() {
 
   return (
     <ScreenContainer padding={20}>
-      <Text style={styles.h1}>Profile</Text>
+      <AppHeader title="Profile" />
 
       <Text style={styles.sectionLabel}>Profile</Text>
       <View style={styles.group}>
