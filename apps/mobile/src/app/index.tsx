@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { useRouter } from "expo-router";
 import { View, ActivityIndicator } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 import { useTenantStore } from "../lib/tenant-store";
 import { getCurrentSession } from "../lib/auth";
 import { fetchMyMemberships } from "../lib/api";
 import { tokens } from "../theme/tokens";
 
 const STORAGE_CURRENT = "fitclub.tenant.current";
-const STORAGE_MEMBERSHIPS = "fitclub.tenant.memberships";
 
 export default function IndexScreen() {
   const router = useRouter();
@@ -21,22 +20,8 @@ export default function IndexScreen() {
         return;
       }
 
-      const cachedStr = await AsyncStorage.getItem(STORAGE_MEMBERSHIPS);
-      const currentId = await AsyncStorage.getItem(STORAGE_CURRENT);
-
-      if (cachedStr && currentId) {
-        try {
-          const parsed = JSON.parse(cachedStr);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            useTenantStore.getState().hydrate(parsed, currentId);
-            router.replace("/(tabs)" as Parameters<typeof router.replace>[0]);
-            return;
-          }
-        } catch {
-          /* fall through to live fetch */
-        }
-      }
-
+      // Always re-fetch memberships on cold start — no local cache to avoid
+      // stale state when admin adds/removes members or branding changes.
       const memberships = await fetchMyMemberships();
       if (memberships.length === 0) {
         await useTenantStore.getState().signOut();
@@ -44,7 +29,19 @@ export default function IndexScreen() {
         return;
       }
       await useTenantStore.getState().setMemberships(memberships);
-      if (memberships.length === 1) {
+
+      // If a previous tenant id was selected, restore it; otherwise pick or prompt.
+      const previousId = await SecureStore.getItemAsync(STORAGE_CURRENT).catch(
+        () => null,
+      );
+      const restoreMatch = previousId
+        ? memberships.find((m) => m.tenantId === previousId)
+        : null;
+
+      if (restoreMatch) {
+        await useTenantStore.getState().setCurrent(restoreMatch);
+        router.replace("/(tabs)" as Parameters<typeof router.replace>[0]);
+      } else if (memberships.length === 1) {
         await useTenantStore.getState().setCurrent(memberships[0]!);
         router.replace("/(tabs)" as Parameters<typeof router.replace>[0]);
       } else {

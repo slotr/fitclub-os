@@ -1,11 +1,10 @@
 import { create } from "zustand";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 import type { Membership, TenantBranding } from "@fitness/api";
 import { getSupabase } from "./supabase";
 import { resetCursors, flushPending } from "../workout/sync-engine";
 
 const STORAGE_CURRENT = "fitclub.tenant.current";
-const STORAGE_MEMBERSHIPS = "fitclub.tenant.memberships";
 
 type State = {
   memberships: Membership[];
@@ -48,12 +47,11 @@ export const useTenantStore = create<State>((set, get) => ({
   },
 
   setMemberships: async (memberships) => {
-    await AsyncStorage.setItem(STORAGE_MEMBERSHIPS, JSON.stringify(memberships));
     set({ memberships, isAuthed: memberships.length > 0 });
   },
 
   setCurrent: async (m) => {
-    await AsyncStorage.setItem(STORAGE_CURRENT, m.tenantId);
+    await SecureStore.setItemAsync(STORAGE_CURRENT, m.tenantId).catch(() => undefined);
     set({
       currentTenantId: m.tenantId,
       currentMemberId: m.memberId,
@@ -70,7 +68,7 @@ export const useTenantStore = create<State>((set, get) => ({
       console.warn("flushPending during tenant switch:", e);
     }
     resetCursors();
-    await AsyncStorage.setItem(STORAGE_CURRENT, tenantId);
+    await SecureStore.setItemAsync(STORAGE_CURRENT, tenantId).catch(() => undefined);
     set({
       currentTenantId: tenantId,
       currentMemberId: m.memberId,
@@ -83,7 +81,7 @@ export const useTenantStore = create<State>((set, get) => ({
     if (supabase) {
       await supabase.auth.signOut();
     }
-    await AsyncStorage.removeMany([STORAGE_CURRENT, STORAGE_MEMBERSHIPS]);
+    await SecureStore.deleteItemAsync(STORAGE_CURRENT).catch(() => undefined);
     set({
       memberships: [],
       currentTenantId: null,
