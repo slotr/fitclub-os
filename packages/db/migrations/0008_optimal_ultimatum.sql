@@ -33,7 +33,7 @@ SET search_path = public
 AS $$
 BEGIN
   UPDATE public.members
-  SET user_id = NEW.id, updated_at = now()
+  SET user_id = NEW.id
   WHERE email = NEW.email AND user_id IS NULL;
   RETURN NEW;
 END;
@@ -66,6 +66,6 @@ FOR EACH ROW EXECUTE FUNCTION public.link_member_to_auth_user();
 
 -- One-time backfill
 UPDATE public.members m
-SET user_id = u.id, updated_at = now()
+SET user_id = u.id
 FROM auth.users u
 WHERE m.email = u.email AND m.user_id IS NULL;
