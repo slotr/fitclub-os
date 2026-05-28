@@ -20,3 +20,4 @@ export * from "./programs/templates";
 export * from "./programs/programs";
 export * from "./programs/preset-schema";
 export * from "./programs/preset-loader";
+export * from "./auth/types";
