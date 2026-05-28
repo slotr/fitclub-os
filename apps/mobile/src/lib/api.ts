@@ -435,24 +435,40 @@ import type { Membership } from "@fitness/api";
 export async function fetchMyMemberships(): Promise<Membership[]> {
   const supabase = getSupabase();
   if (!supabase) return [];
+  const { data: userData } = await supabase.auth.getUser();
+  const userId = userData?.user?.id;
+  if (!userId) return [];
+  // Fetch the auth user's own member rows. RLS lets the user read other
+  // members in the same tenant, so we filter explicitly to user_id.
+  // studio_settings shares no FK with members; nest it inside tenants
+  // (studio_settings.tenant_id -> tenants.id).
   const { data, error } = await supabase
     .from("members")
     .select(`
       id,
       tenant_id,
-      tenants!inner(name),
-      studio_settings(logo_url, accent_color)
+      tenants!inner(
+        name,
+        studio_settings(logo_url, accent_color)
+      )
     `)
+    .eq("user_id", userId)
     .is("deleted_at", null);
   if (error) {
     console.warn("fetchMyMemberships", error.message);
     return [];
   }
-  return (data ?? []).map((m: any) => ({
-    memberId: String(m.id),
-    tenantId: String(m.tenant_id),
-    gymName: m.tenants?.name ?? "Unknown gym",
-    logoUrl: m.studio_settings?.[0]?.logo_url ?? null,
-    accentColor: m.studio_settings?.[0]?.accent_color ?? null,
-  }));
+  return (data ?? []).map((m: any) => {
+    const tenant = Array.isArray(m.tenants) ? m.tenants[0] : m.tenants;
+    const studio = Array.isArray(tenant?.studio_settings)
+      ? tenant.studio_settings[0]
+      : tenant?.studio_settings;
+    return {
+      memberId: String(m.id),
+      tenantId: String(m.tenant_id),
+      gymName: tenant?.name ?? "Unknown gym",
+      logoUrl: studio?.logo_url ?? null,
+      accentColor: studio?.accent_color ?? null,
+    };
+  });
 }
