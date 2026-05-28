@@ -1,4 +1,5 @@
 import {
+  boolean,
   index,
   integer,
   numeric,
@@ -36,6 +37,9 @@ export const workouts = pgTable(
     createdAt: createdAt(),
     updatedAt: updatedAt(),
     deletedAt: deletedAt(),
+    healthSynced: boolean("health_synced").notNull().default(false),
+    healthUuid: text("health_uuid"),
+    healthAttempts: integer("health_attempts").notNull().default(0),
   },
   (t) => ({
     memberTimeIdx: index("workouts_member_time_idx").on(
