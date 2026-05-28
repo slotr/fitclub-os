@@ -1,4 +1,18 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
+
+// Mock dependencies of tenant-store (which is imported by theme-provider)
+vi.mock("@react-native-async-storage/async-storage", () => ({
+  default: {
+    getItem: vi.fn(async () => null),
+    setItem: vi.fn(async () => undefined),
+    removeMany: vi.fn(async () => undefined),
+  },
+}));
+
+vi.mock("../supabase", () => ({
+  getSupabase: () => null,
+}));
+
 import { hexAlpha, sanitizeHex } from "../theme-provider";
 
 describe("sanitizeHex", () => {

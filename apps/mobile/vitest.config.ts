@@ -7,15 +7,6 @@ export default defineConfig({
       "expo-sqlite": fileURLToPath(
         new URL("./__mocks__/expo-sqlite.ts", import.meta.url),
       ),
-      "@react-native-async-storage/async-storage": fileURLToPath(
-        new URL("./__mocks__/async-storage-mock.ts", import.meta.url),
-      ),
-      "zustand": fileURLToPath(
-        new URL("./__mocks__/zustand.ts", import.meta.url),
-      ),
-      "./supabase": fileURLToPath(
-        new URL("./__mocks__/supabase-mock.ts", import.meta.url),
-      ),
     },
   },
   test: {
