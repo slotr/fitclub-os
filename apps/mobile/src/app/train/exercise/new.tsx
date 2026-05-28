@@ -9,6 +9,7 @@ import { PrimaryButton } from '../../../components/PrimaryButton';
 import { tokens } from '../../../theme/tokens';
 import { upsertExercise } from '../../../db/repo';
 import { useAuth } from '../../../lib/store';
+import { useTenantStore } from '../../../lib/tenant-store';
 import { REST_STEP } from '../../../workout/use-rest-timer';
 import type { LocalExercise } from '../../../db/schema';
 
@@ -70,7 +71,6 @@ const METRICS: { id: Metric; label: string }[] = [
 
 const MIN_REST = 5;
 const MAX_REST = 900;
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? '';
 
 // ---------------------------------------------------------------------------
 // Screen
@@ -79,6 +79,7 @@ const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? '';
 export default function NewExerciseScreen() {
   const router = useRouter();
   const { member } = useAuth();
+  const tenantId = useTenantStore((s) => s.currentTenantId) ?? null;
 
   const [name, setName] = useState('');
   const [muscle, setMuscle] = useState<Muscle | null>(null);
@@ -111,7 +112,7 @@ export default function NewExerciseScreen() {
     const now = new Date().toISOString();
     const row: LocalExercise = {
       id: Crypto.randomUUID(),
-      tenantId: TENANT_ID || null,
+      tenantId,
       memberId: member?.dbId ?? null,
       slug: null,
       name: parsed.data.name,

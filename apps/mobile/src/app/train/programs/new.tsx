@@ -6,15 +6,15 @@ import { tokens } from "../../../theme/tokens";
 import { createProgram, type ProgramDayInput } from "../../../db/api/programs";
 import { listTemplates } from "../../../db/api/templates";
 import { useAuth } from "../../../lib/store";
+import { useTenantStore } from "../../../lib/tenant-store";
 import type { LocalWorkoutTemplate } from "../../../db/schema";
-
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? "";
 
 type DaySpec = { templateId: string | null; isRest: boolean };
 
 export default function NewProgramScreen() {
   const router = useRouter();
   const { member } = useAuth();
+  const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
   const memberId = member?.dbId ?? "";
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -63,7 +63,7 @@ export default function NewProgramScreen() {
       }
     }
     const id = await createProgram({
-      tenantId: TENANT_ID,
+      tenantId,
       memberId,
       name: name.trim(),
       description: null,

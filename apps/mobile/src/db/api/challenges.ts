@@ -1,8 +1,7 @@
 // apps/mobile/src/db/api/challenges.ts
 import { getSupabase } from '../../lib/supabase';
 import type { LeaderboardRow } from '@fitness/api';
-
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? '';
+import { useTenantStore } from '../../lib/tenant-store';
 
 export type ChallengeRow = {
   id: string;
@@ -42,12 +41,14 @@ function shape(r: Raw): ChallengeRow {
 export async function fetchChallenges(): Promise<ChallengeRow[]> {
   const supabase = getSupabase();
   if (!supabase) return [];
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return [];
   const { data, error } = await supabase
     .from('challenges')
     .select(
       'id,name,description,metric_type,exercise_id,starts_at,ends_at,status',
     )
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', tenantId)
     .neq('status', 'draft')
     .is('deleted_at', null)
     .order('starts_at', { ascending: false });

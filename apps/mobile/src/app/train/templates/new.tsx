@@ -6,9 +6,8 @@ import { TemplateExerciseEditor } from "../../../components/TemplateExerciseEdit
 import { tokens } from "../../../theme/tokens";
 import { createTemplate, type TemplateExerciseInput } from "../../../db/api/templates";
 import { useAuth } from "../../../lib/store";
+import { useTenantStore } from "../../../lib/tenant-store";
 import type { LocalExercise } from "../../../db/schema";
-
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? "";
 
 function blankExercise(position: number): TemplateExerciseInput {
   return {
@@ -29,6 +28,7 @@ function blankExercise(position: number): TemplateExerciseInput {
 export default function NewTemplateScreen() {
   const router = useRouter();
   const { member } = useAuth();
+  const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
   const memberId = member?.dbId ?? "";
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -44,7 +44,7 @@ export default function NewTemplateScreen() {
     setSubmitting(true);
     try {
       const id = await createTemplate({
-        tenantId: TENANT_ID,
+        tenantId,
         memberId,
         name: name.trim(),
         description: description.trim() || null,

@@ -5,14 +5,14 @@ import { BackButton } from "../../../../components/BackButton";
 import { tokens } from "../../../../theme/tokens";
 import { getPreset } from "@fitness/api";
 import { useAuth } from "../../../../lib/store";
+import { useTenantStore } from "../../../../lib/tenant-store";
 import { copyPresetToProgram, PresetExercisesMissingError } from "../../../../db/api/presets";
-
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? "";
 
 export default function PresetDetailScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const router = useRouter();
   const { member } = useAuth();
+  const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
   const memberId = member?.dbId ?? "";
   const [copying, setCopying] = useState(false);
 
@@ -32,7 +32,7 @@ export default function PresetDetailScreen() {
     if (!memberId) { Alert.alert("Member context missing"); return; }
     setCopying(true);
     try {
-      const programId = await copyPresetToProgram(preset, TENANT_ID, memberId);
+      const programId = await copyPresetToProgram(preset, tenantId, memberId);
       router.replace(`/train/programs/${programId}` as Parameters<typeof router.replace>[0]);
     } catch (e) {
       if (e instanceof PresetExercisesMissingError) {

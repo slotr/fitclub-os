@@ -10,8 +10,7 @@ import { getSupabase, isSupabaseConfigured } from './supabase';
 import { classes as mockClasses } from '../mocks/classes';
 import { paymentHistory as mockPayments } from '../mocks/activity';
 import type { Member } from '../mocks/member';
-
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? '';
+import { useTenantStore } from './tenant-store';
 
 // ---------- Members ----------
 
@@ -27,10 +26,12 @@ export async function fetchMemberByEmail(
 ): Promise<LiveMember | null> {
   const supabase = getSupabase();
   if (!supabase) return null;
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return null;
   const { data, error } = await supabase
     .from('members')
     .select('*')
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', tenantId)
     .ilike('email', email.trim())
     .limit(1)
     .maybeSingle();
@@ -47,6 +48,8 @@ export async function fetchMemberByUsername(
 ): Promise<LiveMember | null> {
   const supabase = getSupabase();
   if (!supabase) return null;
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return null;
   // PostgREST `or` filter is comma/paren-delimited; strip anything that
   // could escape the value into operator land. Keeps the query well-formed
   // even with adversarial input.
@@ -55,7 +58,7 @@ export async function fetchMemberByUsername(
   const { data, error } = await supabase
     .from('members')
     .select('*')
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', tenantId)
     .or(`full_name.ilike.%${u}%,email.ilike.${u}@%`)
     .limit(1)
     .maybeSingle();
@@ -72,11 +75,13 @@ export async function fetchMemberByPhone(
 ): Promise<LiveMember | null> {
   const supabase = getSupabase();
   if (!supabase) return null;
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return null;
   const normalized = lookupSql(phone);
   const { data, error } = await supabase
     .from('members')
     .select('*')
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', tenantId)
     .or(`phone.eq.${normalized},phone.eq.${normalized.replace('+', '')}`)
     .limit(1)
     .maybeSingle();
@@ -183,7 +188,7 @@ export async function fetchUpcomingSessions(
       bookings ( id, status )
     `,
     )
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', useTenantStore.getState().currentTenantId ?? '')
     .gte('starts_at', now)
     .order('starts_at')
     .limit(limit);
@@ -219,7 +224,7 @@ export async function bookSession(
   const supabase = getSupabase();
   if (!supabase) return { ok: true };
   const { error } = await supabase.from('bookings').insert({
-    tenant_id: TENANT_ID,
+    tenant_id: useTenantStore.getState().currentTenantId ?? '',
     session_id: sessionId,
     member_id: memberDbId,
     status: 'booked',
@@ -248,7 +253,7 @@ export async function fetchStudioCurrency(): Promise<string> {
   const { data } = await supabase
     .from('studio_settings')
     .select('currency')
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', useTenantStore.getState().currentTenantId ?? '')
     .limit(1)
     .maybeSingle();
   return (data?.currency as string | undefined) ?? 'TRY';
@@ -280,7 +285,7 @@ export async function fetchPlans(): Promise<LivePlan[]> {
   const { data, error } = await supabase
     .from('plans')
     .select('id, name, price_minor, currency, duration_days, features, active')
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', useTenantStore.getState().currentTenantId ?? '')
     .eq('active', true)
     .order('price_minor');
   if (error) {
@@ -322,7 +327,7 @@ export async function activateMembership(
   const { data: plan } = await supabase
     .from('plans')
     .select('id, duration_days')
-    .eq('tenant_id', TENANT_ID)
+    .eq('tenant_id', useTenantStore.getState().currentTenantId ?? '')
     .ilike('name', `${planName}%`)
     .limit(1)
     .maybeSingle();
@@ -420,7 +425,7 @@ export async function recordCryptoIntent(
 
 export const live = {
   configured: isSupabaseConfigured,
-  tenantId: TENANT_ID,
+  get tenantId() { return useTenantStore.getState().currentTenantId ?? ''; },
 };
 
 // ---------- Multi-tenant memberships ----------

@@ -15,6 +15,7 @@ import {
   type WorkoutSetRow,
 } from "@fitness/api";
 import { useAuth } from "../lib/store";
+import { useTenantStore } from "../lib/tenant-store";
 import {
   deleteWorkout,
   getActiveWorkout,
@@ -46,8 +47,6 @@ export type StartOptions = {
 };
 
 const uuid = (): string => Crypto.randomUUID();
-
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? "";
 
 function toRow(s: LocalWorkoutSet): WorkoutSetRow {
   return {
@@ -86,6 +85,7 @@ export function WorkoutSessionProvider({
   children: ReactNode;
 }) {
   const { member } = useAuth();
+  const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
   const [workout, setWorkout] = useState<LocalWorkout | null>(null);
   const [sets, setSets] = useState<LocalWorkoutSet[]>([]);
 
@@ -103,7 +103,7 @@ export function WorkoutSessionProvider({
 
   const startWorkout = useCallback(
     (opts?: StartOptions) => {
-      if (!member?.dbId || !TENANT_ID) return;
+      if (!member?.dbId || !tenantId) return;
       if (getActiveWorkout()) return;
       const id = uuid();
 
@@ -111,7 +111,7 @@ export function WorkoutSessionProvider({
         // --- copy from past workout ---
         const row: LocalWorkout = {
           id,
-          tenantId: TENANT_ID,
+          tenantId,
           memberId: member.dbId,
           title: "Workout",
           startedAt: now(),
@@ -170,7 +170,7 @@ export function WorkoutSessionProvider({
 
         const row: LocalWorkout = {
           id,
-          tenantId: TENANT_ID,
+          tenantId,
           memberId: member.dbId,
           title,
           startedAt: now(),
@@ -234,7 +234,7 @@ export function WorkoutSessionProvider({
       // --- default empty workout ---
       const row: LocalWorkout = {
         id,
-        tenantId: TENANT_ID,
+        tenantId,
         memberId: member.dbId,
         title: "Workout",
         startedAt: now(),
@@ -254,7 +254,7 @@ export function WorkoutSessionProvider({
       setWorkout(row);
       reload(id);
     },
-    [member, reload],
+    [member, tenantId, reload],
   );
 
   const addSet = useCallback(

@@ -84,26 +84,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setPhoneState(next);
     await SecureStore.setItemAsync(PHONE_KEY, next).catch(() => undefined);
     let live: LiveMember | null = await fetchMemberByPhone(next);
-    if (!live) {
-      const supabase = getSupabase();
-      if (supabase && process.env.EXPO_PUBLIC_TENANT_ID) {
-        // First-time member: create a row so the admin sees them.
-        const { data, error } = await supabase
-          .from('members')
-          .insert({
-            tenant_id: process.env.EXPO_PUBLIC_TENANT_ID,
-            phone: next.replace(/[^\d+]/g, ''),
-            email: `${next.replace(/[^\d]/g, '')}@phone.fitclub.local`,
-            full_name: 'New Member',
-            status: 'pending',
-          })
-          .select('*')
-          .maybeSingle();
-        if (!error && data) {
-          live = await fetchMemberByPhone(next);
-        }
-      }
-    }
     if (live) {
       setAuthedMember(live);
       await SecureStore.setItemAsync(DBID_KEY, live.dbId ?? '').catch(

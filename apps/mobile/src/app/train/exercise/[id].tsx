@@ -9,6 +9,7 @@ import { tokens } from '../../../theme/tokens';
 import { getExercise, getPref, setPref, listAllSetsForMember } from '../../../db/repo';
 import { REST_STEP } from '../../../workout/use-rest-timer';
 import { useAuth } from '../../../lib/store';
+import { useTenantStore } from '../../../lib/tenant-store';
 import {
   computeOneRepMaxSeries,
   filterByRange,
@@ -35,7 +36,6 @@ function fmtRest(sec: number): string {
 
 const MIN_REST = 5;
 const MAX_REST = 900;
-const TENANT_ID = process.env.EXPO_PUBLIC_TENANT_ID ?? '';
 
 // ---------------------------------------------------------------------------
 // Muscle placeholder colours
@@ -73,6 +73,7 @@ export default function ExerciseDetailScreen() {
   useRouter(); // keep router available if needed
   const { id } = useLocalSearchParams<{ id: string }>();
   const { member } = useAuth();
+  const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
 
   const exercise = id ? getExercise(id) : undefined;
 
@@ -127,7 +128,7 @@ export default function ExerciseDetailScreen() {
     setRestSec(next);
     if (memberId && exercise) {
       const prefId = `${memberId}:${exercise.id}`;
-      setPref(prefId, TENANT_ID, memberId, exercise.id, next);
+      setPref(prefId, tenantId, memberId, exercise.id, next);
     }
   }
 
