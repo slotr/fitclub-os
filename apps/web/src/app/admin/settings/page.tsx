@@ -1,4 +1,5 @@
 import { and, asc, eq, isNull } from "drizzle-orm";
+import Link from "next/link";
 import { instructors, studioSettings } from "@fitness/db";
 import { withTenantScope } from "@/lib/db";
 import { getCurrentTenantId } from "@/lib/tenant";
@@ -118,6 +119,14 @@ export default async function SettingsPage() {
               >
                 Upload SVG / PNG
               </button>
+            </div>
+            <div className="col-span-2">
+              <Link
+                href={"/admin/settings/branding" as Parameters<typeof Link>[0]["href"]}
+                className="inline-flex h-9 items-center rounded-sm border border-[var(--border-color)] bg-surface px-4 text-[13px] font-semibold hover:bg-[#faf9f7]"
+              >
+                Manage branding →
+              </Link>
             </div>
           </Section>
 
