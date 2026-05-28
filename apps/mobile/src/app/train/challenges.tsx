@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { BackButtonRow } from '../../components/BackButton';
 import { tokens } from '../../theme/tokens';
+import { useTheme } from '../../lib/theme-provider';
 import { useAuth } from '../../lib/store';
 import {
   fetchChallenges, fetchMyChallengeIds, type ChallengeRow,
@@ -178,12 +179,13 @@ function Card({
   muted?: boolean;
   onPress: () => void;
 }) {
+  const theme = useTheme();
   return (
     <Pressable
       onPress={onPress}
       style={[
         styles.card,
-        joined && styles.cardJoined,
+        joined && { backgroundColor: theme.accentSoft, borderColor: theme.accent },
         muted && styles.cardMuted,
       ]}
     >
@@ -202,7 +204,7 @@ function Card({
           : ''}
       </Text>
       {!joined && row.status === 'active' && !muted ? (
-        <Text style={styles.joinCta}>+ Tap to view & join</Text>
+        <Text style={[styles.joinCta, { color: theme.accent }]}>+ Tap to view & join</Text>
       ) : null}
     </Pressable>
   );
@@ -238,10 +240,6 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 8,
   },
-  cardJoined: {
-    backgroundColor: tokens.color.accentSoft ?? '#fff4d6',
-    borderColor: tokens.color.accent,
-  },
   cardMuted: { opacity: 0.7 },
   cardHead: {
     flexDirection: 'row',
@@ -274,7 +272,6 @@ const styles = StyleSheet.create({
   joinCta: {
     fontFamily: tokens.font.sansBold,
     fontSize: 11,
-    color: tokens.color.accent,
     marginTop: 6,
   },
   emptyInline: {

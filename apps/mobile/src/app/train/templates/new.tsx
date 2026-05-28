@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { BackButtonRow } from "../../../components/BackButton";
 import { TemplateExerciseEditor } from "../../../components/TemplateExerciseEditor";
 import { tokens } from "../../../theme/tokens";
+import { useTheme } from "../../../lib/theme-provider";
 import { createTemplate, type TemplateExerciseInput } from "../../../db/api/templates";
 import { useAuth } from "../../../lib/store";
 import { useTenantStore } from "../../../lib/tenant-store";
@@ -27,6 +28,7 @@ function blankExercise(position: number): TemplateExerciseInput {
 
 export default function NewTemplateScreen() {
   const router = useRouter();
+  const theme = useTheme();
   const { member } = useAuth();
   const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
   const memberId = member?.dbId ?? "";
@@ -114,7 +116,7 @@ export default function NewTemplateScreen() {
       <Pressable
         onPress={onSave}
         disabled={submitting}
-        style={[styles.saveBtn, submitting && { opacity: 0.5 }]}
+        style={[styles.saveBtn, { backgroundColor: theme.accent }, submitting && { opacity: 0.5 }]}
       >
         <Text style={styles.saveBtnText}>{submitting ? "Saving…" : "Save template"}</Text>
       </Pressable>
@@ -149,7 +151,6 @@ const styles = StyleSheet.create({
   saveBtn: {
     marginTop: 16, marginBottom: 32,
     padding: 14, borderRadius: 10, alignItems: "center",
-    backgroundColor: tokens.color.accent,
   },
   saveBtnText: { color: "white", fontFamily: tokens.font.sansExtrabold, fontSize: 15 },
 });

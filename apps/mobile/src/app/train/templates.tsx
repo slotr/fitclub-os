@@ -4,6 +4,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { eq } from "drizzle-orm";
 import { BackButtonRow } from "../../components/BackButton";
 import { tokens } from "../../theme/tokens";
+import { useTheme } from "../../lib/theme-provider";
 import { listTemplates } from "../../db/api/templates";
 import { workoutTemplateExercises, type LocalWorkoutTemplate } from "../../db/schema";
 import { db } from "../../db/client";
@@ -11,6 +12,7 @@ import { useAuth } from "../../lib/store";
 
 export default function TemplatesScreen() {
   const router = useRouter();
+  const theme = useTheme();
   const { member } = useAuth();
   const memberId = member?.dbId ?? "";
   const [templates, setTemplates] = useState<LocalWorkoutTemplate[]>([]);
@@ -36,7 +38,7 @@ export default function TemplatesScreen() {
       <Text style={styles.pageTitle}>Templates</Text>
       <Pressable
         onPress={() => router.push("/train/templates/new" as Parameters<typeof router.push>[0])}
-        style={styles.fab}
+        style={[styles.fab, { backgroundColor: theme.accent }]}
       >
         <Text style={styles.fabText}>+ Create template</Text>
       </Pressable>
@@ -70,7 +72,6 @@ const styles = StyleSheet.create({
   },
   fab: {
     marginBottom: 12,
-    backgroundColor: tokens.color.accent,
     padding: 12, borderRadius: 10, alignItems: "center",
   },
   fabText: { color: "white", fontFamily: tokens.font.sansExtrabold, fontSize: 14 },

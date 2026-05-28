@@ -5,6 +5,7 @@ import { inArray } from "drizzle-orm";
 import { BackButtonRow } from "../../../components/BackButton";
 import { SupersetGroupBadge } from "../../../components/SupersetGroupBadge";
 import { tokens } from "../../../theme/tokens";
+import { useTheme } from "../../../lib/theme-provider";
 import { getTemplate, softDeleteTemplate } from "../../../db/api/templates";
 import { useWorkoutSession } from "../../../workout/session-store";
 import { exercises as exercisesTable } from "../../../db/schema";
@@ -14,6 +15,7 @@ import { db } from "../../../db/client";
 export default function TemplateDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const theme = useTheme();
   const { startWorkout } = useWorkoutSession();
   const [template, setTemplate] = useState<LocalWorkoutTemplate | null>(null);
   const [items, setItems] = useState<LocalWorkoutTemplateExercise[]>([]);
@@ -89,7 +91,7 @@ export default function TemplateDetailScreen() {
           </View>
         ))}
 
-        <Pressable onPress={onStart} style={styles.startBtn}>
+        <Pressable onPress={onStart} style={[styles.startBtn, { backgroundColor: theme.accent }]}>
           <Text style={styles.startBtnText}>▶ Start workout</Text>
         </Pressable>
 
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
   targetLine: { fontFamily: tokens.font.sansRegular, fontSize: 12, color: tokens.color.fgMuted, marginTop: 6 },
   startBtn: {
     marginTop: 20, padding: 16, borderRadius: 12, alignItems: "center",
-    backgroundColor: tokens.color.accent,
   },
   startBtnText: { color: "white", fontFamily: tokens.font.sansExtrabold, fontSize: 16 },
   deleteBtn: { marginTop: 12, padding: 12, alignItems: "center" },

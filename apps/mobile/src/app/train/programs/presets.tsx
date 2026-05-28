@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { BackButton } from "../../../components/BackButton";
 import { PresetCard } from "../../../components/PresetCard";
 import { tokens } from "../../../theme/tokens";
+import { useTheme } from "../../../lib/theme-provider";
 import { PRESETS, type PresetProgram } from "@fitness/api";
 
 type FilterValue = "all" | "strength" | "hypertrophy" | "cardio" | "bodyweight" | "beginner";
@@ -19,6 +20,7 @@ const FILTERS: { value: FilterValue; label: string }[] = [
 
 export default function PresetLibraryScreen() {
   const router = useRouter();
+  const theme = useTheme();
   const [filter, setFilter] = useState<FilterValue>("all");
 
   const filtered = useMemo(() => {
@@ -39,7 +41,7 @@ export default function PresetLibraryScreen() {
         renderItem={({ item }) => (
           <Pressable
             onPress={() => setFilter(item.value)}
-            style={[styles.chip, filter === item.value && styles.chipActive]}
+            style={[styles.chip, filter === item.value && { backgroundColor: theme.accent, borderColor: theme.accent }]}
           >
             <Text style={[styles.chipText, filter === item.value && styles.chipTextActive]}>
               {item.label}
@@ -71,7 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: tokens.color.surface,
     borderWidth: 1, borderColor: tokens.color.border,
   },
-  chipActive: { backgroundColor: tokens.color.accent, borderColor: tokens.color.accent },
   chipText: { fontFamily: tokens.font.sansMedium, fontSize: 12 },
   chipTextActive: { color: "white" },
 });

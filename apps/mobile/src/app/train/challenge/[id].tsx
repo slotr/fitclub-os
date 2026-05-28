@@ -10,6 +10,7 @@ import { LeaderboardRow as LeaderRow } from '../../../components/LeaderboardRow'
 import { PrimaryButton } from '../../../components/PrimaryButton';
 import { ScreenContainer } from '../../../components/ScreenContainer';
 import { tokens } from '../../../theme/tokens';
+import { useTheme } from '../../../lib/theme-provider';
 import { useAuth } from '../../../lib/store';
 import {
   fetchChallenges, fetchLeaderboard, fetchMyChallengeIds,
@@ -20,6 +21,7 @@ const TOP_N = 20;
 
 export default function ChallengeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const theme = useTheme();
   const { member } = useAuth();
   const memberId = member?.dbId ?? null;
 
@@ -125,7 +127,7 @@ export default function ChallengeDetailScreen() {
         </View>
         <View style={[styles.headerCol, { alignItems: 'flex-end' }]}>
           <Text style={styles.headerLabel}>Your rank</Text>
-          <Text style={styles.headerRank}>
+          <Text style={[styles.headerRank, { color: theme.accent }]}>
             {joined && myRow ? `#${myRow.rank}` : '—'}
           </Text>
         </View>
@@ -229,7 +231,6 @@ const styles = StyleSheet.create({
   headerRank: {
     fontFamily: tokens.font.sansExtrabold,
     fontSize: 22,
-    color: tokens.color.accent,
     marginTop: 2,
   },
   boardTitle: {

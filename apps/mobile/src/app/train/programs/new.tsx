@@ -3,6 +3,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View
 import { useRouter } from "expo-router";
 import { BackButton } from "../../../components/BackButton";
 import { tokens } from "../../../theme/tokens";
+import { useTheme } from "../../../lib/theme-provider";
 import { createProgram, type ProgramDayInput } from "../../../db/api/programs";
 import { listTemplates } from "../../../db/api/templates";
 import { useAuth } from "../../../lib/store";
@@ -13,6 +14,7 @@ type DaySpec = { templateId: string | null; isRest: boolean };
 
 export default function NewProgramScreen() {
   const router = useRouter();
+  const theme = useTheme();
   const { member } = useAuth();
   const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
   const memberId = member?.dbId ?? "";
@@ -106,7 +108,7 @@ export default function NewProgramScreen() {
               <Text style={styles.stepBtnText}>+</Text>
             </Pressable>
           </View>
-          <Pressable style={styles.nextBtn} onPress={() => setStep(2)}>
+          <Pressable style={[styles.nextBtn, { backgroundColor: theme.accent }]} onPress={() => setStep(2)}>
             <Text style={styles.nextBtnText}>Next →</Text>
           </Pressable>
         </View>
@@ -145,7 +147,7 @@ export default function NewProgramScreen() {
                       }}
                       style={[
                         styles.tplChip,
-                        spec.templateId === t.id && styles.tplChipActive,
+                        spec.templateId === t.id && { backgroundColor: theme.accentSoft, borderColor: theme.accent },
                       ]}
                     >
                       <Text style={styles.tplChipText}>{t.name}</Text>
@@ -159,7 +161,7 @@ export default function NewProgramScreen() {
             <Pressable style={styles.backBtn} onPress={() => setStep(1)}>
               <Text style={styles.backBtnText}>← Back</Text>
             </Pressable>
-            <Pressable style={styles.nextBtn} onPress={() => setStep(3)}>
+            <Pressable style={[styles.nextBtn, { backgroundColor: theme.accent }]} onPress={() => setStep(3)}>
               <Text style={styles.nextBtnText}>Next →</Text>
             </Pressable>
           </View>
@@ -174,7 +176,7 @@ export default function NewProgramScreen() {
             <Pressable style={styles.backBtn} onPress={() => setStep(2)}>
               <Text style={styles.backBtnText}>← Back</Text>
             </Pressable>
-            <Pressable style={styles.nextBtn} onPress={onSave}>
+            <Pressable style={[styles.nextBtn, { backgroundColor: theme.accent }]} onPress={onSave}>
               <Text style={styles.nextBtnText}>Save as draft</Text>
             </Pressable>
           </View>
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
   stepperValue: { fontFamily: tokens.font.sansBold, fontSize: 20, minWidth: 32, textAlign: "center" },
   nextBtn: {
     marginTop: 16, padding: 14, borderRadius: 10, alignItems: "center",
-    backgroundColor: tokens.color.accent, flex: 1,
+    flex: 1,
   },
   nextBtnText: { color: "white", fontFamily: tokens.font.sansExtrabold, fontSize: 14 },
   backBtn: { padding: 14, borderRadius: 10, alignItems: "center", flex: 1 },
@@ -219,6 +221,5 @@ const styles = StyleSheet.create({
     backgroundColor: tokens.color.surface,
     borderWidth: 1, borderColor: tokens.color.border,
   },
-  tplChipActive: { backgroundColor: tokens.color.accentSoft, borderColor: tokens.color.accent },
   tplChipText: { fontFamily: tokens.font.sansMedium, fontSize: 12 },
 });

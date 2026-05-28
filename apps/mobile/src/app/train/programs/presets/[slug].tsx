@@ -3,6 +3,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { BackButton } from "../../../../components/BackButton";
 import { tokens } from "../../../../theme/tokens";
+import { useTheme } from "../../../../lib/theme-provider";
 import { getPreset } from "@fitness/api";
 import { useAuth } from "../../../../lib/store";
 import { useTenantStore } from "../../../../lib/tenant-store";
@@ -11,6 +12,7 @@ import { copyPresetToProgram, PresetExercisesMissingError } from "../../../../db
 export default function PresetDetailScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const router = useRouter();
+  const theme = useTheme();
   const { member } = useAuth();
   const tenantId = useTenantStore((s) => s.currentTenantId) ?? "";
   const memberId = member?.dbId ?? "";
@@ -80,7 +82,7 @@ export default function PresetDetailScreen() {
         <Pressable
           onPress={onUse}
           disabled={copying}
-          style={[styles.useBtn, copying && { opacity: 0.5 }]}
+          style={[styles.useBtn, { backgroundColor: theme.accent }, copying && { opacity: 0.5 }]}
         >
           <Text style={styles.useBtnText}>
             {copying ? "Copying…" : "+ Use this program"}
@@ -107,7 +109,6 @@ const styles = StyleSheet.create({
   exerciseLine: { fontFamily: tokens.font.sansRegular, fontSize: 12, color: tokens.color.fgMuted, marginTop: 4 },
   useBtn: {
     marginTop: 24, marginBottom: 32, padding: 14, borderRadius: 12, alignItems: "center",
-    backgroundColor: tokens.color.accent,
   },
   useBtnText: { color: "white", fontFamily: tokens.font.sansExtrabold, fontSize: 16 },
 });
