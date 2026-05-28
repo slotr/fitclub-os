@@ -1,18 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { BackButtonRow } from '../../components/BackButton';
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
 import { getSupabase } from '../../lib/supabase';
+import { useTenantStore } from '../../lib/tenant-store';
+import { fetchMyMemberships } from '../../lib/api';
+import { verifyLoginCode } from '../../lib/auth';
 
 const LENGTH = 6;
 const STUB_CODE = '123456';
 
 export default function OtpVerifyScreen() {
   const router = useRouter();
-  const { phone, hydrateFromPhone } = useAuth();
+  const params = useLocalSearchParams<{ email?: string; phone?: string }>();
+  const { phone: storePhone, hydrateFromPhone } = useAuth();
+
+  // email param takes priority (MT-9 login flow); fall back to legacy phone store
+  const emailParam = params.email?.toLowerCase();
+  const phoneParam = params.phone ?? storePhone ?? undefined;
+
   const inputs = useRef<(TextInput | null)[]>([]);
   const [digits, setDigits] = useState<string[]>(Array<string>(LENGTH).fill(''));
   const [active, setActive] = useState(0);
@@ -37,8 +46,47 @@ export default function OtpVerifyScreen() {
     (async () => {
       setVerifying(true);
       setError(null);
+
+      // Email OTP path (MT-9 multi-tenant login)
+      if (emailParam) {
+        try {
+          await verifyLoginCode(emailParam, code);
+        } catch (e: unknown) {
+          if (cancelled) return;
+          const msg = e instanceof Error ? e.message : 'Invalid code';
+          setError(msg);
+          setVerifying(false);
+          return;
+        }
+
+        if (cancelled) return;
+
+        const memberships = await fetchMyMemberships();
+        if (cancelled) return;
+
+        if (memberships.length === 0) {
+          setError('No gym membership found for this email. Ask your gym to add you.');
+          setVerifying(false);
+          return;
+        }
+
+        await useTenantStore.getState().setMemberships(memberships);
+
+        if (cancelled) return;
+        setVerifying(false);
+
+        if (memberships.length === 1) {
+          await useTenantStore.getState().setCurrent(memberships[0]!);
+          router.replace('/(tabs)' as Parameters<typeof router.replace>[0]);
+        } else {
+          router.replace('/(auth)/gym-picker' as Parameters<typeof router.replace>[0]);
+        }
+        return;
+      }
+
+      // Phone OTP path (legacy flow)
+      const targetPhone = phoneParam ?? '';
       const supabase = getSupabase();
-      const targetPhone = phone ?? '';
       if (supabase && targetPhone) {
         const { error: authError } = await supabase.auth.verifyOtp({
           phone: targetPhone,
@@ -47,11 +95,11 @@ export default function OtpVerifyScreen() {
         });
         if (cancelled) return;
         if (authError && code !== STUB_CODE) {
-          setError('That code didn’t match. Try again.');
+          setError("That code didn't match. Try again.");
           setVerifying(false);
           return;
         }
-        // OTP verified (or stub bypass for demo) — load member from DB
+        // OTP verified (or stub bypass for demo) - load member from DB
         // so the rest of the app sees the same row admins do.
         await hydrateFromPhone(targetPhone);
         if (cancelled) return;
@@ -65,20 +113,20 @@ export default function OtpVerifyScreen() {
         router.push('/profile');
       } else {
         setVerifying(false);
-        setError('That code didn’t match. Try again.');
+        setError("That code didn't match. Try again.");
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [digits, phone, router, hydrateFromPhone]);
+  }, [digits, emailParam, phoneParam, router, hydrateFromPhone]);
 
   const onResend = async () => {
     setSecondsLeft(60);
     setError(null);
     const supabase = getSupabase();
-    if (supabase && phone) {
-      await supabase.auth.signInWithOtp({ phone });
+    if (supabase && phoneParam) {
+      await supabase.auth.signInWithOtp({ phone: phoneParam });
     }
   };
 
@@ -105,7 +153,7 @@ export default function OtpVerifyScreen() {
       <BackButtonRow />
 
       <Text style={styles.h1} numberOfLines={2}>
-        Code sent to {phone ?? '+90 555 ••• 11 22'}.
+        Code sent to {emailParam ?? phoneParam ?? '+90 555 ... 11 22'}.
       </Text>
       <Text style={styles.sub}>Enter the 6-digit code below.</Text>
 
@@ -143,7 +191,7 @@ export default function OtpVerifyScreen() {
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
       <Text style={styles.resend}>
-        Didn’t get it?{' '}
+        {"Didn't get it?"}{' '}
         {secondsLeft > 0 ? (
           <Text style={styles.resendMuted}>Resend in {secondsLeft}s</Text>
         ) : (
@@ -159,10 +207,14 @@ export default function OtpVerifyScreen() {
         Wrong number?
       </Text>
       {verifying ? (
-        <Text style={styles.hint}>Verifying…</Text>
+        <Text style={styles.hint}>Verifying...</Text>
       ) : (
         <Text style={styles.hint}>
-          {phone ? 'Code sent over SMS.' : 'Tip: enter 123456 to continue (demo mode).'}
+          {emailParam
+            ? 'Code sent by email.'
+            : phoneParam
+              ? 'Code sent over SMS.'
+              : 'Tip: enter 123456 to continue (demo mode).'}
         </Text>
       )}
     </ScreenContainer>
