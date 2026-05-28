@@ -78,9 +78,16 @@ export async function createProgram(
 }
 
 export function listPrograms(memberId: string): LocalProgram[] {
+  const { useTenantStore } = require("../../lib/tenant-store");
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return [];
   return db.select()
     .from(programs)
-    .where(and(eq(programs.memberId, memberId), isNull(programs.deletedAt)))
+    .where(and(
+      eq(programs.memberId, memberId),
+      eq(programs.tenantId, tenantId),
+      isNull(programs.deletedAt),
+    ))
     .all();
 }
 
@@ -165,9 +172,13 @@ export function softDeleteProgram(id: string): void {
 }
 
 export function getActiveProgram(memberId: string): LocalProgram | null {
+  const { useTenantStore } = require("../../lib/tenant-store");
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return null;
   const rows = db.select().from(programs)
     .where(and(
       eq(programs.memberId, memberId),
+      eq(programs.tenantId, tenantId),
       eq(programs.status, "active"),
       isNull(programs.deletedAt),
     ))

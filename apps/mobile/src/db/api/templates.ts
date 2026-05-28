@@ -86,12 +86,16 @@ export async function createTemplate(input: TemplateInput): Promise<string> {
 }
 
 export function listTemplates(memberId: string): LocalWorkoutTemplate[] {
+  const { useTenantStore } = require("../../lib/tenant-store");
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return [];
   return db
     .select()
     .from(workoutTemplates)
     .where(
       and(
         eq(workoutTemplates.memberId, memberId),
+        eq(workoutTemplates.tenantId, tenantId),
         isNull(workoutTemplates.deletedAt),
       ),
     )

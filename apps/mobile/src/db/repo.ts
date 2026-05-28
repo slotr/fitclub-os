@@ -52,12 +52,16 @@ export function listWorkouts(
   memberId: string,
   limit = 30,
 ): LocalWorkout[] {
+  const { useTenantStore } = require("../lib/tenant-store");
+  const tenantId = useTenantStore.getState().currentTenantId;
+  if (!tenantId) return [];
   return db
     .select()
     .from(workouts)
     .where(
       and(
         eq(workouts.memberId, memberId),
+        eq(workouts.tenantId, tenantId),
         eq(workouts.isActive, 0),
         isNull(workouts.deletedAt),
       ),
