@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, ViewStyle } from 'react-native';
 import { tokens } from '../theme/tokens';
+import { useTheme } from '../lib/theme-provider';
 
 type Variant = 'primary' | 'secondary' | 'accent' | 'ghost';
 
@@ -18,12 +19,14 @@ export function PrimaryButton({
   full?: boolean;
   style?: ViewStyle;
 }) {
+  const theme = useTheme();
   return (
     <Pressable
       onPress={disabled ? undefined : onPress}
       style={({ pressed }) => [
         styles.base,
         variantStyles[variant].btn,
+        variant === 'accent' && { backgroundColor: theme.accent },
         full && { width: '100%' },
         disabled && { opacity: 0.5 },
         pressed && !disabled && { transform: [{ translateY: -1 }] },
@@ -66,7 +69,7 @@ const variantStyles: Record<Variant, { btn: ViewStyle; label: { color: string } 
     label: { color: tokens.color.fg },
   },
   accent: {
-    btn: { backgroundColor: tokens.color.accent },
+    btn: {},
     label: { color: tokens.color.accentFg },
   },
   ghost: {

@@ -1,6 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { tokens } from "../theme/tokens";
+import { useTheme } from "../lib/theme-provider";
 import type { LocalProgramDay } from "../db/schema";
 
 type Props = {
@@ -12,10 +13,11 @@ type Props = {
 };
 
 export function ProgramDayRow({ day, completedAt, isToday, isFuture, onPress }: Props) {
+  const theme = useTheme();
   const iconAndColor = completedAt
     ? { icon: "✓", color: "#2e7d32" }
     : isToday
-      ? { icon: "▶", color: tokens.color.accent }
+      ? { icon: "▶", color: theme.accent }
       : day.isRest === 1
         ? { icon: "💤", color: tokens.color.fgMuted }
         : { icon: "◯", color: tokens.color.fgMuted };
@@ -28,7 +30,7 @@ export function ProgramDayRow({ day, completedAt, isToday, isFuture, onPress }: 
       onPress={onPress}
       style={[
         styles.row,
-        isToday && styles.rowToday,
+        isToday && { backgroundColor: theme.accentSoft },
         disabled && styles.rowDisabled,
       ]}
     >
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10, paddingHorizontal: 12,
     borderRadius: 8,
   },
-  rowToday: { backgroundColor: tokens.color.accentSoft },
   rowDisabled: { opacity: 0.45 },
   icon: { width: 28, fontSize: 16, textAlign: "center" },
   body: { flex: 1 },

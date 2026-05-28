@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { tokens } from "../theme/tokens";
+import { useTheme } from "../lib/theme-provider";
 import type { TemplateExerciseInput } from "../db/api/templates";
 import { ExercisePicker } from "./ExercisePicker";
 import type { LocalExercise } from "../db/schema";
@@ -22,6 +23,7 @@ export function TemplateExerciseEditor({
 }: Props) {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [advancedOpen, setAdvancedOpen] = useState(false);
+  const theme = useTheme();
 
   return (
     <View style={styles.card}>
@@ -151,7 +153,7 @@ export function TemplateExerciseEditor({
                   onPress={() => onChange({ ...value, supersetGroup: g })}
                   style={[
                     styles.chip,
-                    value.supersetGroup === g && styles.chipActive,
+                    value.supersetGroup === g && { backgroundColor: theme.accentSoft, borderColor: theme.accent },
                   ]}
                 >
                   <Text
@@ -341,10 +343,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: tokens.color.border,
     backgroundColor: tokens.color.bg,
-  },
-  chipActive: {
-    backgroundColor: tokens.color.accentSoft,
-    borderColor: tokens.color.accent,
   },
   chipText: {
     fontFamily: tokens.font.sansMedium,
