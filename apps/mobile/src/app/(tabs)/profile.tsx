@@ -13,6 +13,9 @@ import {
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
 import { formatMoney } from '../../lib/money';
+import { useTenantStore } from '../../lib/tenant-store';
+import { GymRow } from '../../components/GymRow';
+import { useWorkoutSession } from '../../workout/session-store';
 
 type Toggles = {
   push: boolean;
@@ -35,6 +38,34 @@ export default function ProfileTabScreen() {
   });
   const [telegramConnected, setTelegramConnected] = useState(false);
   const flip = (k: keyof Toggles) => setT((p) => ({ ...p, [k]: !p[k] }));
+
+  const memberships = useTenantStore((s) => s.memberships);
+  const currentTenantId = useTenantStore((s) => s.currentTenantId);
+  const switchTo = useTenantStore((s) => s.switchTo);
+  const signOutAll = useTenantStore((s) => s.signOut);
+  const { workout: activeWorkout } = useWorkoutSession();
+
+  const onSwitchGym = async (tenantId: string) => {
+    if (activeWorkout) {
+      Alert.alert(
+        'Finish active workout first',
+        'Finish or discard your active workout before switching gyms.',
+      );
+      return;
+    }
+    await switchTo(tenantId);
+  };
+
+  const onSignOut = () => {
+    Alert.alert(
+      'Sign out?',
+      "You'll need your email to sign back in.",
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Sign out', style: 'destructive', onPress: () => signOutAll() },
+      ],
+    );
+  };
 
   const onTelegramConnect = async () => {
     if (telegramConnected) {
@@ -93,6 +124,20 @@ export default function ProfileTabScreen() {
           <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
         </Pressable>
       </View>
+
+      {memberships.length > 1 && (
+        <View style={styles.gymsSection}>
+          <Text style={styles.gymsSectionLabel}>My gyms</Text>
+          {memberships.map((m) => (
+            <GymRow
+              key={m.tenantId}
+              membership={m}
+              isCurrent={m.tenantId === currentTenantId}
+              onPress={() => onSwitchGym(m.tenantId)}
+            />
+          ))}
+        </View>
+      )}
 
       <Text style={styles.sectionLabel}>Notifications</Text>
       <View style={styles.group}>
@@ -173,28 +218,8 @@ export default function ProfileTabScreen() {
 
       <Text style={styles.sectionLabel}>Account</Text>
       <View style={[styles.group, { marginBottom: 18 }]}>
-        <Pressable
-          style={styles.row}
-          onPress={() => {
-            Alert.alert(
-              'Sign out?',
-              'You will need to verify your phone again to come back.',
-              [
-                { text: 'Cancel', style: 'cancel' },
-                {
-                  text: 'Sign out',
-                  style: 'destructive',
-                  onPress: () => {
-                    signOut();
-                    router.replace('/(auth)/otp-request');
-                  },
-                },
-              ],
-            );
-          }}
-        >
-          <Text style={[styles.rowLabel, { flex: 1 }]}>Sign out</Text>
-          <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
+        <Pressable style={styles.signOutBtn} onPress={onSignOut}>
+          <Text style={styles.signOutText}>Sign out</Text>
         </Pressable>
         <Pressable
           style={[styles.row, styles.rowLast]}
@@ -388,6 +413,26 @@ const styles = StyleSheet.create({
   },
   connectBtnLabelConnected: {
     color: tokens.color.fgMuted,
+  },
+
+  gymsSection: { marginTop: 16, marginBottom: 16 },
+  gymsSectionLabel: {
+    fontFamily: tokens.font.sansExtrabold,
+    fontSize: 13,
+    color: tokens.color.fgMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 8,
+  },
+  signOutBtn: {
+    marginTop: 16,
+    padding: 14,
+    alignItems: 'center',
+  },
+  signOutText: {
+    fontFamily: tokens.font.sansBold,
+    fontSize: 14,
+    color: '#c0392b',
   },
 
   kvkk: {
