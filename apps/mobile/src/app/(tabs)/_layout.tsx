@@ -1,9 +1,11 @@
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CalendarIcon, CardIcon, DumbbellIcon, HomeIcon, PersonIcon } from '../../components/Icons';
 import { tokens } from '../../theme/tokens';
+import { useTenantStore } from '../../lib/tenant-store';
+import { useTheme } from '../../lib/theme-provider';
 
 const ROUTES = [
   { name: 'index', label: 'Home', Icon: HomeIcon },
@@ -16,10 +18,18 @@ const ROUTES = [
 type TabRoute = (typeof ROUTES)[number];
 
 export default function TabsLayout() {
+  const isAuthed = useTenantStore((s) => s.isAuthed);
+  const currentTenantId = useTenantStore((s) => s.currentTenantId);
+  const theme = useTheme();
+
+  if (!isAuthed) return <Redirect href={"/(auth)/login" as Parameters<typeof Redirect>[0]["href"]} />;
+  if (!currentTenantId) return <Redirect href={"/(auth)/gym-picker" as Parameters<typeof Redirect>[0]["href"]} />;
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: theme.accent,
       }}
       tabBar={(props) => <CustomTabBar {...(props as unknown as TabBarProps)} />}
     >
@@ -45,6 +55,7 @@ type TabBarProps = {
 
 function CustomTabBar({ state, navigation }: TabBarProps) {
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
   return (
     <BlurView
       intensity={32}
@@ -61,6 +72,7 @@ function CustomTabBar({ state, navigation }: TabBarProps) {
               key={r.name}
               item={r}
               focused={focused}
+              theme={theme}
               onPress={() => {
                 const event = navigation.emit({
                   type: 'tabPress',
@@ -79,8 +91,8 @@ function CustomTabBar({ state, navigation }: TabBarProps) {
   );
 }
 
-function TabItem({ item, focused, onPress }: { item: TabRoute; focused: boolean; onPress: () => void }) {
-  const color = focused ? tokens.color.fg : tokens.color.fgMuted;
+function TabItem({ item, focused, theme, onPress }: { item: TabRoute; focused: boolean; theme: ReturnType<typeof useTheme>; onPress: () => void }) {
+  const color = focused ? theme.accent : tokens.color.fgMuted;
   const Icon = item.Icon;
   return (
     <Pressable onPress={onPress} style={styles.tab} accessibilityRole="button">
