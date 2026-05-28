@@ -501,3 +501,20 @@ export async function runSync(memberId: string): Promise<void> {
     // Local-first: a failed sync never surfaces an error to the UI.
   }
 }
+
+export function resetCursors(): void {
+  lastPullAt = "1970-01-01T00:00:00Z";
+  lastPullTemplatesAt = "1970-01-01T00:00:00Z";
+  lastPullProgramsAt = "1970-01-01T00:00:00Z";
+  lastPullCompletionsAt = "1970-01-01T00:00:00Z";
+}
+
+export async function flushPending(): Promise<void> {
+  await pushCustom();
+  await pushTemplates();
+  await pushTemplateExercises();
+  await pushPrograms();
+  await pushProgramDays();
+  await pushWorkouts();
+  await pushCompletions();
+}

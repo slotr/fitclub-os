@@ -14,6 +14,11 @@ vi.mock("../supabase", () => ({
   }),
 }));
 
+vi.mock("../../workout/sync-engine", () => ({
+  resetCursors: vi.fn(),
+  flushPending: vi.fn(async () => undefined),
+}));
+
 import { useTenantStore } from "../tenant-store";
 
 const A = {

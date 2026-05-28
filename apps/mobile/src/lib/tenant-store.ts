@@ -2,6 +2,7 @@ import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { Membership, TenantBranding } from "@fitness/api";
 import { getSupabase } from "./supabase";
+import { resetCursors, flushPending } from "../workout/sync-engine";
 
 const STORAGE_CURRENT = "fitclub.tenant.current";
 const STORAGE_MEMBERSHIPS = "fitclub.tenant.memberships";
@@ -63,6 +64,12 @@ export const useTenantStore = create<State>((set, get) => ({
   switchTo: async (tenantId) => {
     const m = get().memberships.find((x) => x.tenantId === tenantId);
     if (!m) throw new Error(`Membership not found for tenant ${tenantId}`);
+    try {
+      await flushPending();
+    } catch (e) {
+      console.warn("flushPending during tenant switch:", e);
+    }
+    resetCursors();
     await AsyncStorage.setItem(STORAGE_CURRENT, tenantId);
     set({
       currentTenantId: tenantId,

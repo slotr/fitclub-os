@@ -13,6 +13,11 @@ vi.mock("../supabase", () => ({
   getSupabase: () => null,
 }));
 
+vi.mock("../../workout/sync-engine", () => ({
+  resetCursors: vi.fn(),
+  flushPending: vi.fn(async () => undefined),
+}));
+
 import { hexAlpha, sanitizeHex } from "../theme-provider";
 
 describe("sanitizeHex", () => {
