@@ -8,32 +8,27 @@ import { PrimaryButton } from '../../components/PrimaryButton';
 import { tokens } from '../../theme/tokens';
 import { useAuth } from '../../lib/store';
 import { getSupabase } from '../../lib/supabase';
+import { sendLoginCode } from '../../lib/auth';
 
-type Mode = 'phone' | 'email' | 'username';
+type Mode = 'phone' | 'email';
 
 const MODE_LABEL: Record<Mode, string> = {
   phone: 'Phone',
   email: 'Email',
-  username: 'Username',
 };
 
 export default function OtpRequestScreen() {
   const router = useRouter();
-  const { setPhone, hydrateFromEmail, hydrateFromUsername } = useAuth();
+  const { setPhone } = useAuth();
   const [mode, setMode] = useState<Mode>('phone');
   const [value, setValue] = useState('');
-  const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const valid = useMemo(() => {
     if (mode === 'phone') return value.replace(/\D/g, '').length >= 10;
-    const idOk =
-      mode === 'email'
-        ? /^\S+@\S+\.\S+$/.test(value.trim())
-        : value.trim().length >= 3;
-    return idOk && password.length >= 6;
-  }, [mode, value, password]);
+    return /^\S+@\S+\.\S+$/.test(value.trim());
+  }, [mode, value]);
 
   const onContinue = async () => {
     if (submitting || !valid) return;
@@ -61,57 +56,27 @@ export default function OtpRequestScreen() {
         }
       }
       setSubmitting(false);
-      router.push('/otp-verify');
+      router.push({
+        pathname: '/(auth)/otp-verify',
+        params: { phone },
+      } as Parameters<typeof router.push>[0]);
       return;
     }
 
-    if (mode === 'email') {
-      const email = value.trim();
-      if (supabase) {
-        const { error: signErr } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (signErr) {
-          const msg = signErr.message.toLowerCase();
-          // Allow demo bypass when no auth user is provisioned yet — the
-          // member row in DB is the source of truth.
-          const demoBypass =
-            msg.includes('invalid login') ||
-            msg.includes('invalid credentials') ||
-            msg.includes('email not confirmed') ||
-            msg.includes('user not found');
-          if (!demoBypass) {
-            setError(signErr.message);
-            setSubmitting(false);
-            return;
-          }
-        }
-      }
-      const found = await hydrateFromEmail(email);
-      if (!found) {
-        setError(
-          `No member with email ${email}. Front desk needs to add you first.`,
-        );
-        setSubmitting(false);
-        return;
-      }
-      setSubmitting(false);
-      router.replace('/(tabs)');
-      return;
-    }
-
-    // username — resolve to email, then password sign-in
-    const found = await hydrateFromUsername(value.trim());
-    if (!found) {
-      setError(`No member matches "${value.trim()}".`);
+    // email — send OTP via Supabase auth + route to verify screen with email param
+    const email = value.trim().toLowerCase();
+    try {
+      await sendLoginCode(email);
+    } catch (e: any) {
+      setError(e?.message ?? 'Could not send code');
       setSubmitting(false);
       return;
     }
-    // Optional Supabase auth — silently best-effort. Member row already
-    // hydrated above so we can proceed even when no auth user exists.
     setSubmitting(false);
-    router.replace('/(tabs)');
+    router.push({
+      pathname: '/(auth)/otp-verify',
+      params: { email },
+    } as Parameters<typeof router.push>[0]);
   };
 
   return (
@@ -120,7 +85,7 @@ export default function OtpRequestScreen() {
 
       <Text style={styles.h1}>Welcome back.</Text>
       <Text style={styles.sub}>
-        Sign in with phone, email, or username.
+        Sign in with your phone or email. We&apos;ll send a one-time code.
       </Text>
 
       <View style={styles.modeRow}>
@@ -168,40 +133,19 @@ export default function OtpRequestScreen() {
           />
         </View>
       ) : (
-        <>
-          <View style={styles.singleRow}>
-            <TextInput
-              value={value}
-              onChangeText={setValue}
-              placeholder={
-                mode === 'email' ? 'you@example.com' : 'hakan.karaca'
-              }
-              placeholderTextColor={tokens.color.fgFaint}
-              keyboardType={mode === 'email' ? 'email-address' : 'default'}
-              autoCapitalize="none"
-              autoComplete={mode === 'email' ? 'email' : 'username'}
-              autoCorrect={false}
-              style={[styles.input, { fontFamily: tokens.font.sansRegular }]}
-            />
-          </View>
-          <Text style={styles.label}>Password</Text>
-          <View style={styles.singleRow}>
-            <TextInput
-              value={password}
-              onChangeText={setPassword}
-              placeholder="At least 6 characters"
-              placeholderTextColor={tokens.color.fgFaint}
-              secureTextEntry
-              autoCapitalize="none"
-              autoComplete="current-password"
-              autoCorrect={false}
-              style={[styles.input, { fontFamily: tokens.font.sansRegular }]}
-            />
-          </View>
-          <Pressable hitSlop={6} style={{ marginTop: -10, marginBottom: 14 }}>
-            <Text style={styles.forgot}>Forgot password?</Text>
-          </Pressable>
-        </>
+        <View style={styles.singleRow}>
+          <TextInput
+            value={value}
+            onChangeText={setValue}
+            placeholder="you@example.com"
+            placeholderTextColor={tokens.color.fgFaint}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoComplete="email"
+            autoCorrect={false}
+            style={[styles.input, { fontFamily: tokens.font.sansRegular }]}
+          />
+        </View>
       )}
 
       <PrimaryButton
