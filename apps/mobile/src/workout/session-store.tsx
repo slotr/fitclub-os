@@ -16,6 +16,7 @@ import {
 } from "@fitness/api";
 import { useAuth } from "../lib/store";
 import { useTenantStore } from "../lib/tenant-store";
+import { attemptHealthWriteAsync } from "../lib/health/sync";
 import {
   deleteWorkout,
   getActiveWorkout,
@@ -395,6 +396,9 @@ export function WorkoutSessionProvider({
         }
       }
     }
+
+    // Push to Apple Health / Health Connect if user opted in (fire-and-forget)
+    void attemptHealthWriteAsync(workoutId);
 
     return workoutId;
   }, [workout]);
