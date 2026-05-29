@@ -12,7 +12,11 @@
       "supportsTablet": false
     },
     "android": {
-      "package": "com.fitclub.app"
+      "package": "com.fitclub.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -41,6 +45,13 @@
     ],
     "experiments": {
       "typedRoutes": false
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ac372abb-a26a-4d87-9253-b7e7b5ce4897"
+      }
+    },
+    "owner": "hhhkaraca"
   }
 }
