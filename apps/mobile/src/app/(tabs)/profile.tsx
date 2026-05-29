@@ -219,6 +219,13 @@ export default function ProfileTabScreen() {
 
       <Text style={styles.sectionLabel}>Account</Text>
       <View style={[styles.group, { marginBottom: 18 }]}>
+        <Pressable
+          style={[styles.row]}
+          onPress={() => router.push('/health-integrations' as Parameters<typeof router.push>[0])}
+        >
+          <Text style={[styles.rowLabel, { flex: 1 }]}>Health Integrations</Text>
+          <ChevronRightIcon size={16} color={tokens.color.fgFaint} />
+        </Pressable>
         <Pressable style={styles.signOutBtn} onPress={onSignOut}>
           <Text style={styles.signOutText}>Sign out</Text>
         </Pressable>
