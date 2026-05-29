@@ -116,6 +116,12 @@ const MIGRATIONS: string[][] = [
     `ALTER TABLE workout_sets ADD COLUMN superset_group INTEGER;`,
     `ALTER TABLE workout_sets ADD COLUMN is_complete INTEGER NOT NULL DEFAULT 0;`,
   ],
+  // v3 -> v4 — Health Integration: workout sync tracking
+  [
+    `ALTER TABLE workouts ADD COLUMN health_synced INTEGER NOT NULL DEFAULT 0;`,
+    `ALTER TABLE workouts ADD COLUMN health_uuid TEXT;`,
+    `ALTER TABLE workouts ADD COLUMN health_attempts INTEGER NOT NULL DEFAULT 0;`,
+  ],
 ];
 
 const sqlite = SQLite.openDatabaseSync(DB_NAME);

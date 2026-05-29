@@ -126,6 +126,9 @@ export function WorkoutSessionProvider({
           isActive: 1,
           templateId: null,
           programDayId: null,
+          healthSynced: 0,
+          healthUuid: null,
+          healthAttempts: 0,
         };
         insertWorkout(row);
         for (const s of listSets(opts.sourceWorkoutId)) {
@@ -185,6 +188,9 @@ export function WorkoutSessionProvider({
           isActive: 1,
           templateId: resolvedTemplateId,
           programDayId: opts.programDayId ?? null,
+          healthSynced: 0,
+          healthUuid: null,
+          healthAttempts: 0,
         };
         insertWorkout(row);
 
@@ -249,6 +255,9 @@ export function WorkoutSessionProvider({
         isActive: 1,
         templateId: null,
         programDayId: null,
+        healthSynced: 0,
+        healthUuid: null,
+        healthAttempts: 0,
       };
       insertWorkout(row);
       setWorkout(row);

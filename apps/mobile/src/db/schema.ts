@@ -49,6 +49,9 @@ export const workouts = sqliteTable("workouts", {
   isActive: integer("is_active").notNull().default(0),
   templateId: text("template_id"),
   programDayId: text("program_day_id"),
+  healthSynced: integer("health_synced").notNull().default(0),
+  healthUuid: text("health_uuid"),
+  healthAttempts: integer("health_attempts").notNull().default(0),
 });
 
 export const workoutSets = sqliteTable("workout_sets", {
