@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { AppState } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -26,6 +27,7 @@ import { WorkoutSessionProvider } from '../workout/session-store';
 import { SyncProvider } from '../workout/use-sync';
 import { ThemeProvider } from '../lib/theme-provider';
 import { VersionGate } from '../lib/version-gate';
+import { syncPendingHealthWorkouts } from '../lib/health/sync';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +57,15 @@ export default function RootLayout() {
 
   useEffect(() => {
     runMigrations();
+  }, []);
+
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        void syncPendingHealthWorkouts();
+      }
+    });
+    return () => sub.remove();
   }, []);
 
   if (!fontsLoaded) {
@@ -116,6 +127,7 @@ export default function RootLayout() {
                       <Stack.Screen name="train/programs/presets" />
                       <Stack.Screen name="train/programs/presets/[slug]" />
                       <Stack.Screen name="profile/backup" />
+                      <Stack.Screen name="health-integrations" options={{ headerShown: false }} />
                     </Stack>
                   </ThemeProvider>
                 </SyncProvider>
