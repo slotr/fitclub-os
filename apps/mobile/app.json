@@ -20,7 +20,24 @@
       "expo-notifications",
       "expo-camera",
       "expo-secure-store",
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "react-native-health",
+        {
+          "isClinicalDataEnabled": false,
+          "healthSharePermission": "Read your workout and biometric history.",
+          "healthUpdatePermission": "Save your gym workouts to Apple Health."
+        }
+      ],
+      [
+        "react-native-health-connect",
+        {
+          "permissions": [
+            "android.permission.health.WRITE_EXERCISE",
+            "android.permission.health.READ_EXERCISE"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": false
